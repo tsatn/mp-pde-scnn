@@ -4,6 +4,6 @@ __pycache__/
 *.pt
 *.h5
 .enmp_pde_env/
-third_party/
+third_party/*
 **/log/
 
