@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 *.pt
 *.h5
-*.log
 .enmp_pde_env/
+third_party/
+**/log/
+

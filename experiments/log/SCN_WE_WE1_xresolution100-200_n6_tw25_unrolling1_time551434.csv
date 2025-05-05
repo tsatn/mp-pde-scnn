@@ -1,0 +1,6 @@
+Training on dataset data/WE_train_WE1.h5
+cpu
+models/GNN_WE_WE1_xresolution100-200_n6_tw25_unrolling1_time551434.pt
+Number of parameters: 150373.0
+Epoch 0
+Starting epoch 0...

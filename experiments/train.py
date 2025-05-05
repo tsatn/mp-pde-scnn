@@ -21,6 +21,7 @@ from experiments.train_helper import *
 from equations.PDEs import *
 from torch_geometric.data import Data
 
+
 def check_directory() -> None:
     """
     Check if log directory exists within experiments
@@ -29,6 +30,7 @@ def check_directory() -> None:
         os.mkdir(f'experiments/log')
     if not os.path.exists(f'models'):
         os.mkdir(f'models')
+
 
 def train(args: argparse,
           pde: PDE,

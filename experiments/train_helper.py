@@ -1,9 +1,8 @@
 # experiments/train_helper.py
-# ---------------------------------------------------------------
 import torch, random
 from torch.utils.data import DataLoader
 from torch import nn, optim
-from common.utils import HDF5Dataset, GraphCreator
+from common.utils import GraphCreator
 from equations.PDEs import *
 
 # ---------------------------------------------------------------
