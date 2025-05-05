@@ -4,4 +4,4 @@ __pycache__/
 *.pt
 *.h5
 *.log
-.env
+.enmp_pde_env/
