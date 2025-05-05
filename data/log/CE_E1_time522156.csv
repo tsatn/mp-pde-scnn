@@ -1,0 +1,11 @@
+File data/CE_valid_E1.h5 is deleted.
+File data/CE_train_E1.h5 is deleted.
+File data/CE_test_E1.h5 is deleted.
+Device: cpu
+Equation: E1
+Mode: valid
+Number of samples: 128
+Batch size: 4
+Number of batches: 32
+pde_250-200: 2.5468s
+pde_250-100: 2.0881s

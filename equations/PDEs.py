@@ -7,7 +7,6 @@ from torch import nn
 from common.derivatives import WENO, FDM
 from temporal.solvers import *
 
-
 class PDE(nn.Module):
     """Generic PDE template"""
     def __init__(self):

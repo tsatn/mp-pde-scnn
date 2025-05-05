@@ -116,7 +116,6 @@ class MP_PDE_Solver(torch.nn.Module):
         self.hidden_layer = hidden_layer
         self.time_window = time_window
         self.eq_variables = eq_variables
-
         self.gnn_layers = torch.nn.ModuleList(modules=(GNN_Layer(
             in_features=self.hidden_features,
             hidden_features=self.hidden_features,

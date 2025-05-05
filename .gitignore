@@ -1,0 +1,7 @@
+# .gitignore
+__pycache__/
+*.pyc
+*.pt
+*.h5
+*.log
+.env

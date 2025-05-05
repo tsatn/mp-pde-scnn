@@ -1,0 +1,9 @@
+File data/CE_valid_E1.h5 is deleted.
+No file data/CE_train_E1.h5 exists yet.
+No file data/CE_test_E1.h5 exists yet.
+Device: cpu
+Equation: E1
+Mode: valid
+Number of samples: 128
+Batch size: 4
+Number of batches: 32

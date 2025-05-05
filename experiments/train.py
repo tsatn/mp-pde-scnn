@@ -11,11 +11,15 @@ from matplotlib import pyplot as plt
 from torch import nn, optim
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
+from torch_geometric.nn import MessagePassing
+from common.simplicial_utils import enrich_pyg_data_with_simplicial
 from common.utils import HDF5Dataset, GraphCreator
 from experiments.models_gnn import MP_PDE_Solver
+from experiments.models_gnn_snn import SCNPDEModel, build_scn_maps
 from experiments.models_cnn import BaseCNN
 from experiments.train_helper import *
 from equations.PDEs import *
+from torch_geometric.data import Data
 
 def check_directory() -> None:
     """
@@ -126,6 +130,12 @@ def main(args: argparse):
     super_resolution = args.super_resolution
 
     # Check for experiments and if resolution is available
+    
+    #     “irregular” here simply means “radius / k‑NN graphs instead of the
+    # implicit Chebyshev lattice used for spectral derivatives”.
+    # We are now deliberately creating such irregular graphs (with knn_graph
+    # or radius_graph) so that the simplicial complex makes sense.
+    # Therefore that check is obsolete for the new SCN model.
     if args.experiment == 'E1' or args.experiment == 'E2' or args.experiment == 'E3':
         pde = CE(device=device)
         assert(base_resolution[0] == 250)
@@ -134,35 +144,70 @@ def main(args: argparse):
         pde = WE(device=device)
         assert (base_resolution[0] == 250)
         assert (base_resolution[1] == 100 or base_resolution[1] == 50 or base_resolution[1] == 40 or base_resolution[1] == 20)
-        if args.model != 'GNN':
-            raise Exception("Only MP-PDE Solver is implemented for irregular grids so far.")
+        graph_creator = GraphCreator(pde=pde,
+                                  neighbors=args.neighbors,
+                                  time_window=args.time_window,
+                                  t_resolution=args.base_resolution[0],
+                                  x_resolution=args.base_resolution[1]).to(device)
+
     else:
         raise Exception("Wrong experiment")
 
-    # Load datasets
+    # ------------------------------------------------------------------------
+    #  LOAD/CREATE DATASETS
+    # ------------------------------------------------------------------------
     train_string = f'data/{pde}_train_{args.experiment}.h5'
     valid_string = f'data/{pde}_valid_{args.experiment}.h5'
-    test_string = f'data/{pde}_test_{args.experiment}.h5'
+    test_string  = f'data/{pde}_test_{args.experiment}.h5'
+    
     try:
         train_dataset = HDF5Dataset(train_string, pde=pde, mode='train', base_resolution=base_resolution, super_resolution=super_resolution)
         train_loader = DataLoader(train_dataset,
-                                  batch_size=args.batch_size,
-                                  shuffle=True,
-                                  num_workers=4)
+                                batch_size=args.batch_size,
+                                shuffle=True,
+                                num_workers=0)
 
         valid_dataset = HDF5Dataset(valid_string, pde=pde, mode='valid', base_resolution=base_resolution, super_resolution=super_resolution)
         valid_loader = DataLoader(valid_dataset,
-                                  batch_size=args.batch_size,
-                                  shuffle=False,
-                                  num_workers=4)
+                                batch_size=args.batch_size,
+                                shuffle=False,
+                                num_workers=0)
 
         test_dataset = HDF5Dataset(test_string, pde=pde, mode='test', base_resolution=base_resolution, super_resolution=super_resolution)
         test_loader = DataLoader(test_dataset,
-                                 batch_size=args.batch_size,
-                                 shuffle=False,
-                                 num_workers=4)
-    except:
-        raise Exception("Datasets could not be loaded properly")
+                                batch_size=args.batch_size,
+                                shuffle=False,
+                                num_workers=0)
+        
+    except FileNotFoundError as e:
+        # --------------------------------------------------------------------
+        # File(s) missing  →  generate them on‑the‑fly with the original script
+        # --------------------------------------------------------------------
+        print("Datasets not found – generating now")
+        if args.experiment.startswith('WE'):        # wave equation family
+            from generate.generate_data import wave_equation
+
+            bc_map = {'WE1': 'dirichlet', 'WE2': 'neumann', 'WE3': 'mixed'}
+            wave_equation(
+                experiment            = args.experiment,
+                boundary_condition    = bc_map.get(args.experiment, 'dirichlet'),
+                num_samples_train     = args.batch_size * 32,
+                num_samples_valid     = args.batch_size * 32,
+                num_samples_test      = args.batch_size * 32,
+                wave_speed            = args.wave_speed,
+                batch_size            = 1,            # generator restriction
+                device                = args.device
+            )
+        else:                                       # combined CE equation family
+            from generate.generate_data import combined_equation
+            combined_equation(
+                experiment            = args.experiment,
+                num_samples_train     = args.batch_size * 32,
+                num_samples_valid     = args.batch_size * 32,
+                num_samples_test      = args.batch_size * 32,
+                batch_size            = 4,
+                device                = args.device
+            )
 
     # Equation specific parameters
     pde.tmin = train_dataset.tmin
@@ -205,16 +250,63 @@ def main(args: argparse):
                                  t_resolution=args.base_resolution[0],
                                  x_resolution=args.base_resolution[1]).to(device)
 
+    # In the model selection block of main():
     if args.model == 'GNN':
         model = MP_PDE_Solver(pde=pde,
-                              time_window=graph_creator.tw,
-                              eq_variables=eq_variables).to(device)
+                            time_window=graph_creator.tw,
+                            eq_variables=eq_variables).to(device)
+    
+    elif args.model == 'SCN':
+        # --- build a static mesh ------------------------------------
+        mesh = Data(edge_index = graph_creator.edge_index,
+                    num_nodes  = graph_creator.num_nodes,
+                    pos        = graph_creator.get_grid().unsqueeze(-1))   # [N,1]
+
+        # enrich with A01 / A02 / A12 / triangles
+        enrich_pyg_data_with_simplicial(mesh, max_order=2)
+
+        # ----------------------------------------------------------------
+        # model = SCNPDEModel(
+        #     mesh       = mesh,
+        #     time_steps = graph_creator.tw,
+        #     feat_dims  = {
+        #         'node'     : graph_creator.tw,   # 25 features from u(t-τ … t-1)
+        #         'edge'     : 1,
+        #         'triangle' : 1
+        #     },
+        #     hidden = 128
+        # ).to(device)
+        
+        node_in_dim = graph_creator.x_res          # 100 for nx=100
+        model = SCNPDEModel(
+            mesh       = mesh,
+            time_steps = graph_creator.tw,
+            feat_dims  = {
+                'node'     : node_in_dim,          # <-- 100
+                'edge'     : 1,
+                'triangle' : 1
+            },
+            hidden = 128
+        ).to(device)
+        
+        # model = SCNPDEModel(
+        #     mesh       = mesh,
+        #     time_steps = graph_creator.tw,
+        #     feat_dims  = {
+        #         'node'     : graph_creator.tw + 2,   # u(t‑τ…t‑1) + (x,t)
+        #         'edge'     : 1,                      # you can start with zeros
+        #         'triangle' : 1                       # idem
+        #     },
+        #     hidden = 128
+        # ).to(device)
+
     elif args.model == 'BaseCNN':
         model = BaseCNN(pde=pde,
                         time_window=args.time_window).to(device)
+        
     else:
         raise Exception("Wrong model specified")
-
+    
     model_parameters = filter(lambda p: p.requires_grad, model.parameters())
     params = sum([np.prod(p.size()) for p in model_parameters])
     print(f'Number of parameters: {params}')
@@ -261,7 +353,7 @@ if __name__ == "__main__":
     # Model parameters
     parser.add_argument('--batch_size', type=int, default=16,
             help='Number of samples in each minibatch')
-    parser.add_argument('--num_epochs', type=int, default=20,
+    parser.add_argument('--num_epochs', type=int, default=1,
             help='Number of training epochs')
     parser.add_argument('--lr', type=float, default=1e-4,
             help='Learning rate')

@@ -1,0 +1,31 @@
+Uses Version 2's kernel-based approach with direct/indirect paths
+
+Incorporates Version 1's hierarchical feature processing
+
+Adds Swish activation for better gradient flow
+
+Enhanced Simplicial Processing:
+
+Proper boundary condition handling with normalized incidence matrices
+
+Learnable alpha parameter for direct/indirect path balancing
+
+Full 3-complex support for spatio-temporal modeling
+
+Dataset Generation:
+
+Supports E1-E3 (Euler equations) and WE1-WE3 (Wave equations)
+
+Modular architecture for adding new PDE types
+
+Includes common initial condition patterns
+
+Key Improvements:
+
+Fixed sparse matrix operations
+
+Proper feature dimension handling
+
+Added residual connections
+
+Batch-safe operations

@@ -14,7 +14,6 @@ from datetime import datetime
 from equations.PDEs import PDE, CE, WE
 from temporal.solvers import *
 
-
 def check_files(pde: dict, modes: dict, experiment: str) -> None:
     """
     Check if data files exist and replace them if wanted.
@@ -216,11 +215,17 @@ def generate_data_wave_equation(experiment: str,
             u0 = np.concatenate([u, v])
 
             # Solving for the full trajectories and runtime measurement using pseudospectral Radau method
-            torch.cuda.synchronize()
+            # torch.cuda.synchronize()
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
+
             t1 = time.time()
             # Spatial derivatives are calculated using chebdx method
             solved = solve_ivp(pde[key].chebdx, [t[key][0], t[key][-1]], u0, method='Radau', t_eval=t[key], args=(x[key], c), rtol=tol, atol=tol)
-            torch.cuda.synchronize()
+            # torch.cuda.synchronize()
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
+
             t2 = time.time()
             print(f'{key}: {t2 - t1:.4f}s')
 
@@ -345,11 +350,11 @@ def generate_data_combined_equation(experiment: str,
             spatial_method = pde[key].WENO_reconstruction
 
             # Solving full trajectories and runtime measurement
-            torch.cuda.synchronize()
+            # torch.cuda.synchronize()
             t1 = time.time()
             solver = Solver(RKSolver(Dopri45(), device=device), spatial_method)
             sol[key] = solver.solve(x0=u0[:, None].to(device), times=t[key][None, :].to(device))
-            torch.cuda.synchronize()
+            # torch.cuda.synchronize()
             t2 = time.time()
             print(f'{key}: {t2 - t1:.4f}s')
 

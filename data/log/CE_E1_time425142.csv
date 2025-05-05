@@ -1,0 +1,3489 @@
+No file data/CE_train_E1.h5 exists yet.
+No file data/CE_test_E1.h5 exists yet.
+File data/CE_valid_E1.h5 is deleted.
+Device: cpu
+Equation: E1
+Mode: train
+Number of samples: 2048
+Batch size: 4
+Number of batches: 512
+pde_250-200: 1.2831s
+pde_250-100: 1.1062s
+pde_250-50: 0.9346s
+pde_250-40: 1.1850s
+Solved indices: 0 : 3
+Solved batches: 1 of 512
+pde_250-200: 1.9094s
+pde_250-100: 1.0776s
+pde_250-50: 0.8857s
+pde_250-40: 0.9114s
+Solved indices: 4 : 7
+Solved batches: 2 of 512
+pde_250-200: 1.1428s
+pde_250-100: 1.1454s
+pde_250-50: 1.0481s
+pde_250-40: 0.9424s
+Solved indices: 8 : 11
+Solved batches: 3 of 512
+pde_250-200: 1.5151s
+pde_250-100: 1.4354s
+pde_250-50: 0.9543s
+pde_250-40: 0.9613s
+Solved indices: 12 : 15
+Solved batches: 4 of 512
+pde_250-200: 1.5568s
+pde_250-100: 0.9644s
+pde_250-50: 0.8993s
+pde_250-40: 0.8772s
+Solved indices: 16 : 19
+Solved batches: 5 of 512
+pde_250-200: 1.1189s
+pde_250-100: 1.4630s
+pde_250-50: 0.8993s
+pde_250-40: 0.9087s
+Solved indices: 20 : 23
+Solved batches: 6 of 512
+pde_250-200: 1.1755s
+pde_250-100: 1.1123s
+pde_250-50: 0.8949s
+pde_250-40: 1.0672s
+Solved indices: 24 : 27
+Solved batches: 7 of 512
+pde_250-200: 1.4359s
+pde_250-100: 1.0160s
+pde_250-50: 1.0810s
+pde_250-40: 1.1985s
+Solved indices: 28 : 31
+Solved batches: 8 of 512
+pde_250-200: 1.7740s
+pde_250-100: 0.9929s
+pde_250-50: 1.5165s
+pde_250-40: 0.8868s
+Solved indices: 32 : 35
+Solved batches: 9 of 512
+pde_250-200: 1.4831s
+pde_250-100: 1.0968s
+pde_250-50: 1.3567s
+pde_250-40: 0.9947s
+Solved indices: 36 : 39
+Solved batches: 10 of 512
+pde_250-200: 0.9671s
+pde_250-100: 0.9087s
+pde_250-50: 0.8507s
+pde_250-40: 0.9239s
+Solved indices: 40 : 43
+Solved batches: 11 of 512
+pde_250-200: 1.6781s
+pde_250-100: 0.8667s
+pde_250-50: 0.8770s
+pde_250-40: 0.7876s
+Solved indices: 44 : 47
+Solved batches: 12 of 512
+pde_250-200: 1.1916s
+pde_250-100: 0.9099s
+pde_250-50: 0.8482s
+pde_250-40: 0.8031s
+Solved indices: 48 : 51
+Solved batches: 13 of 512
+pde_250-200: 1.3860s
+pde_250-100: 0.8728s
+pde_250-50: 0.9074s
+pde_250-40: 0.8754s
+Solved indices: 52 : 55
+Solved batches: 14 of 512
+pde_250-200: 0.9687s
+pde_250-100: 1.2170s
+pde_250-50: 0.8270s
+pde_250-40: 0.8693s
+Solved indices: 56 : 59
+Solved batches: 15 of 512
+pde_250-200: 1.1695s
+pde_250-100: 1.0566s
+pde_250-50: 1.2029s
+pde_250-40: 1.1214s
+Solved indices: 60 : 63
+Solved batches: 16 of 512
+pde_250-200: 1.9267s
+pde_250-100: 1.2875s
+pde_250-50: 1.1193s
+pde_250-40: 1.2878s
+Solved indices: 64 : 67
+Solved batches: 17 of 512
+pde_250-200: 1.1896s
+pde_250-100: 1.1778s
+pde_250-50: 1.1143s
+pde_250-40: 1.3277s
+Solved indices: 68 : 71
+Solved batches: 18 of 512
+pde_250-200: 1.3726s
+pde_250-100: 1.1986s
+pde_250-50: 1.0058s
+pde_250-40: 1.1030s
+Solved indices: 72 : 75
+Solved batches: 19 of 512
+pde_250-200: 1.5073s
+pde_250-100: 1.1390s
+pde_250-50: 1.4340s
+pde_250-40: 1.1041s
+Solved indices: 76 : 79
+Solved batches: 20 of 512
+pde_250-200: 1.2819s
+pde_250-100: 1.0392s
+pde_250-50: 0.9244s
+pde_250-40: 1.1079s
+Solved indices: 80 : 83
+Solved batches: 21 of 512
+pde_250-200: 1.3629s
+pde_250-100: 1.1433s
+pde_250-50: 1.0080s
+pde_250-40: 1.1876s
+Solved indices: 84 : 87
+Solved batches: 22 of 512
+pde_250-200: 1.4637s
+pde_250-100: 1.3811s
+pde_250-50: 1.3796s
+pde_250-40: 1.3006s
+Solved indices: 88 : 91
+Solved batches: 23 of 512
+pde_250-200: 1.4828s
+pde_250-100: 1.3194s
+pde_250-50: 1.4148s
+pde_250-40: 1.0313s
+Solved indices: 92 : 95
+Solved batches: 24 of 512
+pde_250-200: 1.3528s
+pde_250-100: 1.5487s
+pde_250-50: 0.9915s
+pde_250-40: 1.0729s
+Solved indices: 96 : 99
+Solved batches: 25 of 512
+pde_250-200: 1.6150s
+pde_250-100: 1.2854s
+pde_250-50: 1.1670s
+pde_250-40: 1.3951s
+Solved indices: 100 : 103
+Solved batches: 26 of 512
+pde_250-200: 1.6270s
+pde_250-100: 1.3961s
+pde_250-50: 1.2175s
+pde_250-40: 1.1557s
+Solved indices: 104 : 107
+Solved batches: 27 of 512
+pde_250-200: 1.3560s
+pde_250-100: 0.9085s
+pde_250-50: 0.9105s
+pde_250-40: 1.0340s
+Solved indices: 108 : 111
+Solved batches: 28 of 512
+pde_250-200: 1.4857s
+pde_250-100: 1.3118s
+pde_250-50: 1.2960s
+pde_250-40: 1.0446s
+Solved indices: 112 : 115
+Solved batches: 29 of 512
+pde_250-200: 1.2558s
+pde_250-100: 1.0641s
+pde_250-50: 1.0849s
+pde_250-40: 1.0399s
+Solved indices: 116 : 119
+Solved batches: 30 of 512
+pde_250-200: 1.0541s
+pde_250-100: 0.9068s
+pde_250-50: 1.1905s
+pde_250-40: 1.0319s
+Solved indices: 120 : 123
+Solved batches: 31 of 512
+pde_250-200: 1.3047s
+pde_250-100: 0.9726s
+pde_250-50: 0.8211s
+pde_250-40: 0.9982s
+Solved indices: 124 : 127
+Solved batches: 32 of 512
+pde_250-200: 1.2066s
+pde_250-100: 0.8910s
+pde_250-50: 0.9827s
+pde_250-40: 0.9056s
+Solved indices: 128 : 131
+Solved batches: 33 of 512
+pde_250-200: 1.0761s
+pde_250-100: 0.8713s
+pde_250-50: 0.9007s
+pde_250-40: 1.2436s
+Solved indices: 132 : 135
+Solved batches: 34 of 512
+pde_250-200: 1.7778s
+pde_250-100: 0.9084s
+pde_250-50: 1.0424s
+pde_250-40: 0.8367s
+Solved indices: 136 : 139
+Solved batches: 35 of 512
+pde_250-200: 1.3505s
+pde_250-100: 0.9511s
+pde_250-50: 0.8587s
+pde_250-40: 0.8069s
+Solved indices: 140 : 143
+Solved batches: 36 of 512
+pde_250-200: 1.0065s
+pde_250-100: 0.8734s
+pde_250-50: 0.9633s
+pde_250-40: 1.1524s
+Solved indices: 144 : 147
+Solved batches: 37 of 512
+pde_250-200: 0.7320s
+pde_250-100: 0.6804s
+pde_250-50: 0.6531s
+pde_250-40: 0.6841s
+Solved indices: 148 : 151
+Solved batches: 38 of 512
+pde_250-200: 1.0891s
+pde_250-100: 1.0070s
+pde_250-50: 0.8779s
+pde_250-40: 0.6128s
+Solved indices: 152 : 155
+Solved batches: 39 of 512
+pde_250-200: 0.8263s
+pde_250-100: 0.9184s
+pde_250-50: 0.9286s
+pde_250-40: 0.7063s
+Solved indices: 156 : 159
+Solved batches: 40 of 512
+pde_250-200: 1.1976s
+pde_250-100: 0.9490s
+pde_250-50: 0.5676s
+pde_250-40: 0.5914s
+Solved indices: 160 : 163
+Solved batches: 41 of 512
+pde_250-200: 0.8602s
+pde_250-100: 0.7634s
+pde_250-50: 0.8353s
+pde_250-40: 0.5768s
+Solved indices: 164 : 167
+Solved batches: 42 of 512
+pde_250-200: 0.8062s
+pde_250-100: 0.6076s
+pde_250-50: 0.5561s
+pde_250-40: 0.5470s
+Solved indices: 168 : 171
+Solved batches: 43 of 512
+pde_250-200: 0.7006s
+pde_250-100: 0.5824s
+pde_250-50: 0.5660s
+pde_250-40: 0.5570s
+Solved indices: 172 : 175
+Solved batches: 44 of 512
+pde_250-200: 0.6926s
+pde_250-100: 0.6441s
+pde_250-50: 0.7191s
+pde_250-40: 0.7220s
+Solved indices: 176 : 179
+Solved batches: 45 of 512
+pde_250-200: 0.8640s
+pde_250-100: 0.9840s
+pde_250-50: 0.5733s
+pde_250-40: 0.5747s
+Solved indices: 180 : 183
+Solved batches: 46 of 512
+pde_250-200: 0.7141s
+pde_250-100: 0.6001s
+pde_250-50: 0.5668s
+pde_250-40: 0.5515s
+Solved indices: 184 : 187
+Solved batches: 47 of 512
+pde_250-200: 0.9171s
+pde_250-100: 0.7981s
+pde_250-50: 0.7175s
+pde_250-40: 0.6801s
+Solved indices: 188 : 191
+Solved batches: 48 of 512
+pde_250-200: 1.0172s
+pde_250-100: 1.2117s
+pde_250-50: 0.7391s
+pde_250-40: 0.6703s
+Solved indices: 192 : 195
+Solved batches: 49 of 512
+pde_250-200: 0.8128s
+pde_250-100: 0.7207s
+pde_250-50: 0.6700s
+pde_250-40: 0.6903s
+Solved indices: 196 : 199
+Solved batches: 50 of 512
+pde_250-200: 0.8491s
+pde_250-100: 0.9246s
+pde_250-50: 1.2375s
+pde_250-40: 1.1189s
+Solved indices: 200 : 203
+Solved batches: 51 of 512
+pde_250-200: 1.4066s
+pde_250-100: 0.9007s
+pde_250-50: 0.7939s
+pde_250-40: 0.8691s
+Solved indices: 204 : 207
+Solved batches: 52 of 512
+pde_250-200: 1.0269s
+pde_250-100: 0.8058s
+pde_250-50: 0.7521s
+pde_250-40: 0.8388s
+Solved indices: 208 : 211
+Solved batches: 53 of 512
+pde_250-200: 0.9780s
+pde_250-100: 0.8015s
+pde_250-50: 0.7075s
+pde_250-40: 0.7927s
+Solved indices: 212 : 215
+Solved batches: 54 of 512
+pde_250-200: 0.9209s
+pde_250-100: 0.9024s
+pde_250-50: 0.7760s
+pde_250-40: 0.8421s
+Solved indices: 216 : 219
+Solved batches: 55 of 512
+pde_250-200: 0.9338s
+pde_250-100: 0.7901s
+pde_250-50: 0.6880s
+pde_250-40: 0.8187s
+Solved indices: 220 : 223
+Solved batches: 56 of 512
+pde_250-200: 0.9280s
+pde_250-100: 0.8014s
+pde_250-50: 0.7381s
+pde_250-40: 1.0682s
+Solved indices: 224 : 227
+Solved batches: 57 of 512
+pde_250-200: 1.1019s
+pde_250-100: 0.9178s
+pde_250-50: 0.8197s
+pde_250-40: 0.7087s
+Solved indices: 228 : 231
+Solved batches: 58 of 512
+pde_250-200: 0.9184s
+pde_250-100: 0.8079s
+pde_250-50: 0.7722s
+pde_250-40: 1.0272s
+Solved indices: 232 : 235
+Solved batches: 59 of 512
+pde_250-200: 0.9792s
+pde_250-100: 1.1133s
+pde_250-50: 0.7217s
+pde_250-40: 0.7614s
+Solved indices: 236 : 239
+Solved batches: 60 of 512
+pde_250-200: 0.9902s
+pde_250-100: 1.3986s
+pde_250-50: 1.1350s
+pde_250-40: 1.0740s
+Solved indices: 240 : 243
+Solved batches: 61 of 512
+pde_250-200: 1.3646s
+pde_250-100: 1.2675s
+pde_250-50: 1.0345s
+pde_250-40: 0.8393s
+Solved indices: 244 : 247
+Solved batches: 62 of 512
+pde_250-200: 1.3168s
+pde_250-100: 1.1091s
+pde_250-50: 0.9029s
+pde_250-40: 0.9578s
+Solved indices: 248 : 251
+Solved batches: 63 of 512
+pde_250-200: 1.1517s
+pde_250-100: 1.0801s
+pde_250-50: 0.9863s
+pde_250-40: 0.9333s
+Solved indices: 252 : 255
+Solved batches: 64 of 512
+pde_250-200: 1.2169s
+pde_250-100: 0.9791s
+pde_250-50: 0.9069s
+pde_250-40: 0.8937s
+Solved indices: 256 : 259
+Solved batches: 65 of 512
+pde_250-200: 1.3022s
+pde_250-100: 1.4082s
+pde_250-50: 1.2432s
+pde_250-40: 0.9984s
+Solved indices: 260 : 263
+Solved batches: 66 of 512
+pde_250-200: 1.5285s
+pde_250-100: 1.1054s
+pde_250-50: 1.0376s
+pde_250-40: 0.9117s
+Solved indices: 264 : 267
+Solved batches: 67 of 512
+pde_250-200: 1.1597s
+pde_250-100: 1.1050s
+pde_250-50: 1.0600s
+pde_250-40: 1.2137s
+Solved indices: 268 : 271
+Solved batches: 68 of 512
+pde_250-200: 1.9022s
+pde_250-100: 1.2788s
+pde_250-50: 1.0341s
+pde_250-40: 1.0996s
+Solved indices: 272 : 275
+Solved batches: 69 of 512
+pde_250-200: 1.3081s
+pde_250-100: 1.0071s
+pde_250-50: 0.9674s
+pde_250-40: 1.2691s
+Solved indices: 276 : 279
+Solved batches: 70 of 512
+pde_250-200: 1.3166s
+pde_250-100: 0.9874s
+pde_250-50: 1.3941s
+pde_250-40: 0.9011s
+Solved indices: 280 : 283
+Solved batches: 71 of 512
+pde_250-200: 0.9217s
+pde_250-100: 0.9190s
+pde_250-50: 0.9664s
+pde_250-40: 0.8384s
+Solved indices: 284 : 287
+Solved batches: 72 of 512
+pde_250-200: 1.1971s
+pde_250-100: 0.7706s
+pde_250-50: 0.7136s
+pde_250-40: 0.7696s
+Solved indices: 288 : 291
+Solved batches: 73 of 512
+pde_250-200: 0.8683s
+pde_250-100: 0.7616s
+pde_250-50: 0.7154s
+pde_250-40: 0.7068s
+Solved indices: 292 : 295
+Solved batches: 74 of 512
+pde_250-200: 0.8797s
+pde_250-100: 0.7880s
+pde_250-50: 0.7200s
+pde_250-40: 0.9502s
+Solved indices: 296 : 299
+Solved batches: 75 of 512
+pde_250-200: 1.1442s
+pde_250-100: 1.1518s
+pde_250-50: 0.7876s
+pde_250-40: 0.7206s
+Solved indices: 300 : 303
+Solved batches: 76 of 512
+pde_250-200: 1.2469s
+pde_250-100: 0.8632s
+pde_250-50: 0.9639s
+pde_250-40: 0.9025s
+Solved indices: 304 : 307
+Solved batches: 77 of 512
+pde_250-200: 0.8057s
+pde_250-100: 0.7426s
+pde_250-50: 0.6784s
+pde_250-40: 0.7968s
+Solved indices: 308 : 311
+Solved batches: 78 of 512
+pde_250-200: 1.3013s
+pde_250-100: 0.7221s
+pde_250-50: 0.6581s
+pde_250-40: 0.7352s
+Solved indices: 312 : 315
+Solved batches: 79 of 512
+pde_250-200: 0.8463s
+pde_250-100: 0.7918s
+pde_250-50: 0.7075s
+pde_250-40: 0.6717s
+Solved indices: 316 : 319
+Solved batches: 80 of 512
+pde_250-200: 0.8210s
+pde_250-100: 0.6459s
+pde_250-50: 0.7209s
+pde_250-40: 0.6692s
+Solved indices: 320 : 323
+Solved batches: 81 of 512
+pde_250-200: 0.8567s
+pde_250-100: 0.9119s
+pde_250-50: 1.0000s
+pde_250-40: 0.6344s
+Solved indices: 324 : 327
+Solved batches: 82 of 512
+pde_250-200: 1.1024s
+pde_250-100: 0.9725s
+pde_250-50: 0.9606s
+pde_250-40: 0.8900s
+Solved indices: 328 : 331
+Solved batches: 83 of 512
+pde_250-200: 0.7995s
+pde_250-100: 0.7881s
+pde_250-50: 0.6750s
+pde_250-40: 0.7385s
+Solved indices: 332 : 335
+Solved batches: 84 of 512
+pde_250-200: 1.1323s
+pde_250-100: 0.9082s
+pde_250-50: 0.7154s
+pde_250-40: 0.9868s
+Solved indices: 336 : 339
+Solved batches: 85 of 512
+pde_250-200: 1.1836s
+pde_250-100: 0.7445s
+pde_250-50: 0.7128s
+pde_250-40: 0.6916s
+Solved indices: 340 : 343
+Solved batches: 86 of 512
+pde_250-200: 0.8662s
+pde_250-100: 0.6889s
+pde_250-50: 0.6795s
+pde_250-40: 0.6589s
+Solved indices: 344 : 347
+Solved batches: 87 of 512
+pde_250-200: 0.8137s
+pde_250-100: 0.7396s
+pde_250-50: 0.6691s
+pde_250-40: 0.6038s
+Solved indices: 348 : 351
+Solved batches: 88 of 512
+pde_250-200: 0.9223s
+pde_250-100: 0.7635s
+pde_250-50: 0.7364s
+pde_250-40: 0.6388s
+Solved indices: 352 : 355
+Solved batches: 89 of 512
+pde_250-200: 1.0729s
+pde_250-100: 0.7106s
+pde_250-50: 0.6332s
+pde_250-40: 0.6222s
+Solved indices: 356 : 359
+Solved batches: 90 of 512
+pde_250-200: 0.7836s
+pde_250-100: 0.6345s
+pde_250-50: 0.6875s
+pde_250-40: 0.6216s
+Solved indices: 360 : 363
+Solved batches: 91 of 512
+pde_250-200: 0.7840s
+pde_250-100: 0.6921s
+pde_250-50: 0.8148s
+pde_250-40: 0.9213s
+Solved indices: 364 : 367
+Solved batches: 92 of 512
+pde_250-200: 1.3207s
+pde_250-100: 0.6879s
+pde_250-50: 0.6453s
+pde_250-40: 0.6734s
+Solved indices: 368 : 371
+Solved batches: 93 of 512
+pde_250-200: 0.7935s
+pde_250-100: 0.6840s
+pde_250-50: 0.6482s
+pde_250-40: 0.5916s
+Solved indices: 372 : 375
+Solved batches: 94 of 512
+pde_250-200: 0.8861s
+pde_250-100: 0.7181s
+pde_250-50: 0.6896s
+pde_250-40: 0.6124s
+Solved indices: 376 : 379
+Solved batches: 95 of 512
+pde_250-200: 0.7827s
+pde_250-100: 0.6651s
+pde_250-50: 0.6651s
+pde_250-40: 0.6129s
+Solved indices: 380 : 383
+Solved batches: 96 of 512
+pde_250-200: 0.8312s
+pde_250-100: 0.8045s
+pde_250-50: 0.6675s
+pde_250-40: 0.6259s
+Solved indices: 384 : 387
+Solved batches: 97 of 512
+pde_250-200: 0.8357s
+pde_250-100: 0.6955s
+pde_250-50: 0.6826s
+pde_250-40: 0.6306s
+Solved indices: 388 : 391
+Solved batches: 98 of 512
+pde_250-200: 0.8234s
+pde_250-100: 0.6984s
+pde_250-50: 0.9771s
+pde_250-40: 1.0370s
+Solved indices: 392 : 395
+Solved batches: 99 of 512
+pde_250-200: 0.8944s
+pde_250-100: 0.7236s
+pde_250-50: 0.6516s
+pde_250-40: 0.6501s
+Solved indices: 396 : 399
+Solved batches: 100 of 512
+pde_250-200: 0.7728s
+pde_250-100: 0.7107s
+pde_250-50: 0.7337s
+pde_250-40: 1.0119s
+Solved indices: 400 : 403
+Solved batches: 101 of 512
+pde_250-200: 0.7433s
+pde_250-100: 0.7276s
+pde_250-50: 0.6323s
+pde_250-40: 0.6418s
+Solved indices: 404 : 407
+Solved batches: 102 of 512
+pde_250-200: 0.8082s
+pde_250-100: 0.7157s
+pde_250-50: 0.5980s
+pde_250-40: 0.6376s
+Solved indices: 408 : 411
+Solved batches: 103 of 512
+pde_250-200: 1.2277s
+pde_250-100: 0.7109s
+pde_250-50: 0.8617s
+pde_250-40: 0.8960s
+Solved indices: 412 : 415
+Solved batches: 104 of 512
+pde_250-200: 1.0550s
+pde_250-100: 0.6666s
+pde_250-50: 0.6294s
+pde_250-40: 0.6066s
+Solved indices: 416 : 419
+Solved batches: 105 of 512
+pde_250-200: 0.8753s
+pde_250-100: 0.7633s
+pde_250-50: 0.6991s
+pde_250-40: 0.6698s
+Solved indices: 420 : 423
+Solved batches: 106 of 512
+pde_250-200: 1.4216s
+pde_250-100: 0.8462s
+pde_250-50: 1.0723s
+pde_250-40: 0.7203s
+Solved indices: 424 : 427
+Solved batches: 107 of 512
+pde_250-200: 0.8656s
+pde_250-100: 1.0230s
+pde_250-50: 0.9259s
+pde_250-40: 0.6667s
+Solved indices: 428 : 431
+Solved batches: 108 of 512
+pde_250-200: 0.9699s
+pde_250-100: 1.0714s
+pde_250-50: 0.6846s
+pde_250-40: 0.6271s
+Solved indices: 432 : 435
+Solved batches: 109 of 512
+pde_250-200: 0.7616s
+pde_250-100: 0.7606s
+pde_250-50: 0.7782s
+pde_250-40: 1.0123s
+Solved indices: 436 : 439
+Solved batches: 110 of 512
+pde_250-200: 1.1068s
+pde_250-100: 0.8533s
+pde_250-50: 0.8768s
+pde_250-40: 0.6686s
+Solved indices: 440 : 443
+Solved batches: 111 of 512
+pde_250-200: 0.9292s
+pde_250-100: 0.7549s
+pde_250-50: 0.9880s
+pde_250-40: 0.9093s
+Solved indices: 444 : 447
+Solved batches: 112 of 512
+pde_250-200: 1.0751s
+pde_250-100: 0.6837s
+pde_250-50: 0.6346s
+pde_250-40: 0.6776s
+Solved indices: 448 : 451
+Solved batches: 113 of 512
+pde_250-200: 0.8392s
+pde_250-100: 0.6750s
+pde_250-50: 0.7170s
+pde_250-40: 0.6476s
+Solved indices: 452 : 455
+Solved batches: 114 of 512
+pde_250-200: 0.7692s
+pde_250-100: 0.6730s
+pde_250-50: 0.6219s
+pde_250-40: 0.6009s
+Solved indices: 456 : 459
+Solved batches: 115 of 512
+pde_250-200: 0.8524s
+pde_250-100: 0.6632s
+pde_250-50: 0.6419s
+pde_250-40: 0.6380s
+Solved indices: 460 : 463
+Solved batches: 116 of 512
+pde_250-200: 0.8946s
+pde_250-100: 0.7214s
+pde_250-50: 0.7070s
+pde_250-40: 0.8216s
+Solved indices: 464 : 467
+Solved batches: 117 of 512
+pde_250-200: 1.1539s
+pde_250-100: 0.9600s
+pde_250-50: 0.8870s
+pde_250-40: 0.8596s
+Solved indices: 468 : 471
+Solved batches: 118 of 512
+pde_250-200: 1.0616s
+pde_250-100: 0.9587s
+pde_250-50: 0.9876s
+pde_250-40: 0.9276s
+Solved indices: 472 : 475
+Solved batches: 119 of 512
+pde_250-200: 1.0785s
+pde_250-100: 0.9083s
+pde_250-50: 0.8915s
+pde_250-40: 0.9094s
+Solved indices: 476 : 479
+Solved batches: 120 of 512
+pde_250-200: 1.1118s
+pde_250-100: 0.9413s
+pde_250-50: 0.9164s
+pde_250-40: 0.9748s
+Solved indices: 480 : 483
+Solved batches: 121 of 512
+pde_250-200: 1.3295s
+pde_250-100: 0.8945s
+pde_250-50: 0.8909s
+pde_250-40: 0.6851s
+Solved indices: 484 : 487
+Solved batches: 122 of 512
+pde_250-200: 0.9572s
+pde_250-100: 1.0238s
+pde_250-50: 0.6582s
+pde_250-40: 0.6605s
+Solved indices: 488 : 491
+Solved batches: 123 of 512
+pde_250-200: 0.7477s
+pde_250-100: 0.6740s
+pde_250-50: 0.6770s
+pde_250-40: 0.6011s
+Solved indices: 492 : 495
+Solved batches: 124 of 512
+pde_250-200: 0.7470s
+pde_250-100: 0.6710s
+pde_250-50: 0.6207s
+pde_250-40: 0.6097s
+Solved indices: 496 : 499
+Solved batches: 125 of 512
+pde_250-200: 1.1311s
+pde_250-100: 0.7276s
+pde_250-50: 0.8982s
+pde_250-40: 1.0627s
+Solved indices: 500 : 503
+Solved batches: 126 of 512
+pde_250-200: 1.1362s
+pde_250-100: 0.6650s
+pde_250-50: 0.8864s
+pde_250-40: 0.8666s
+Solved indices: 504 : 507
+Solved batches: 127 of 512
+pde_250-200: 0.7253s
+pde_250-100: 0.6993s
+pde_250-50: 0.6311s
+pde_250-40: 0.9395s
+Solved indices: 508 : 511
+Solved batches: 128 of 512
+pde_250-200: 0.8455s
+pde_250-100: 0.6306s
+pde_250-50: 0.6591s
+pde_250-40: 0.6601s
+Solved indices: 512 : 515
+Solved batches: 129 of 512
+pde_250-200: 0.8326s
+pde_250-100: 0.7094s
+pde_250-50: 0.6361s
+pde_250-40: 0.6081s
+Solved indices: 516 : 519
+Solved batches: 130 of 512
+pde_250-200: 1.0100s
+pde_250-100: 0.9929s
+pde_250-50: 0.6136s
+pde_250-40: 0.6365s
+Solved indices: 520 : 523
+Solved batches: 131 of 512
+pde_250-200: 0.8916s
+pde_250-100: 1.0424s
+pde_250-50: 0.8824s
+pde_250-40: 0.8554s
+Solved indices: 524 : 527
+Solved batches: 132 of 512
+pde_250-200: 0.7579s
+pde_250-100: 0.7435s
+pde_250-50: 0.6183s
+pde_250-40: 0.6354s
+Solved indices: 528 : 531
+Solved batches: 133 of 512
+pde_250-200: 1.0787s
+pde_250-100: 0.7925s
+pde_250-50: 0.6707s
+pde_250-40: 0.6692s
+Solved indices: 532 : 535
+Solved batches: 134 of 512
+pde_250-200: 0.7489s
+pde_250-100: 0.7317s
+pde_250-50: 0.5945s
+pde_250-40: 0.7766s
+Solved indices: 536 : 539
+Solved batches: 135 of 512
+pde_250-200: 1.2084s
+pde_250-100: 0.7393s
+pde_250-50: 0.8729s
+pde_250-40: 0.7494s
+Solved indices: 540 : 543
+Solved batches: 136 of 512
+pde_250-200: 0.6896s
+pde_250-100: 0.6994s
+pde_250-50: 0.6154s
+pde_250-40: 0.6300s
+Solved indices: 544 : 547
+Solved batches: 137 of 512
+pde_250-200: 0.8194s
+pde_250-100: 0.7646s
+pde_250-50: 0.6254s
+pde_250-40: 0.6692s
+Solved indices: 548 : 551
+Solved batches: 138 of 512
+pde_250-200: 0.8104s
+pde_250-100: 0.9509s
+pde_250-50: 0.8503s
+pde_250-40: 0.7117s
+Solved indices: 552 : 555
+Solved batches: 139 of 512
+pde_250-200: 1.1878s
+pde_250-100: 0.6957s
+pde_250-50: 1.0901s
+pde_250-40: 0.8477s
+Solved indices: 556 : 559
+Solved batches: 140 of 512
+pde_250-200: 0.8947s
+pde_250-100: 0.9893s
+pde_250-50: 0.7665s
+pde_250-40: 0.7564s
+Solved indices: 560 : 563
+Solved batches: 141 of 512
+pde_250-200: 1.2701s
+pde_250-100: 0.7642s
+pde_250-50: 0.7066s
+pde_250-40: 0.6505s
+Solved indices: 564 : 567
+Solved batches: 142 of 512
+pde_250-200: 0.8327s
+pde_250-100: 0.7487s
+pde_250-50: 0.6173s
+pde_250-40: 0.6488s
+Solved indices: 568 : 571
+Solved batches: 143 of 512
+pde_250-200: 0.9298s
+pde_250-100: 1.0329s
+pde_250-50: 0.6916s
+pde_250-40: 0.9158s
+Solved indices: 572 : 575
+Solved batches: 144 of 512
+pde_250-200: 1.2121s
+pde_250-100: 1.0378s
+pde_250-50: 0.8070s
+pde_250-40: 0.6899s
+Solved indices: 576 : 579
+Solved batches: 145 of 512
+pde_250-200: 0.8735s
+pde_250-100: 0.7347s
+pde_250-50: 0.9435s
+pde_250-40: 0.7710s
+Solved indices: 580 : 583
+Solved batches: 146 of 512
+pde_250-200: 0.7953s
+pde_250-100: 0.8435s
+pde_250-50: 1.1032s
+pde_250-40: 0.9762s
+Solved indices: 584 : 587
+Solved batches: 147 of 512
+pde_250-200: 1.5067s
+pde_250-100: 1.1620s
+pde_250-50: 0.7605s
+pde_250-40: 0.6836s
+Solved indices: 588 : 591
+Solved batches: 148 of 512
+pde_250-200: 1.2425s
+pde_250-100: 1.0610s
+pde_250-50: 0.7477s
+pde_250-40: 1.0103s
+Solved indices: 592 : 595
+Solved batches: 149 of 512
+pde_250-200: 1.0768s
+pde_250-100: 0.8298s
+pde_250-50: 0.9699s
+pde_250-40: 1.0719s
+Solved indices: 596 : 599
+Solved batches: 150 of 512
+pde_250-200: 1.3519s
+pde_250-100: 0.7563s
+pde_250-50: 0.6939s
+pde_250-40: 0.6596s
+Solved indices: 600 : 603
+Solved batches: 151 of 512
+pde_250-200: 0.9361s
+pde_250-100: 0.7140s
+pde_250-50: 0.9660s
+pde_250-40: 0.9457s
+Solved indices: 604 : 607
+Solved batches: 152 of 512
+pde_250-200: 0.9534s
+pde_250-100: 0.9386s
+pde_250-50: 0.8898s
+pde_250-40: 0.6275s
+Solved indices: 608 : 611
+Solved batches: 153 of 512
+pde_250-200: 0.8301s
+pde_250-100: 0.9656s
+pde_250-50: 1.1857s
+pde_250-40: 1.0300s
+Solved indices: 612 : 615
+Solved batches: 154 of 512
+pde_250-200: 1.3834s
+pde_250-100: 1.1297s
+pde_250-50: 0.9674s
+pde_250-40: 0.7446s
+Solved indices: 616 : 619
+Solved batches: 155 of 512
+pde_250-200: 1.4206s
+pde_250-100: 0.9738s
+pde_250-50: 0.8390s
+pde_250-40: 0.7561s
+Solved indices: 620 : 623
+Solved batches: 156 of 512
+pde_250-200: 1.2980s
+pde_250-100: 1.0719s
+pde_250-50: 0.8742s
+pde_250-40: 0.9741s
+Solved indices: 624 : 627
+Solved batches: 157 of 512
+pde_250-200: 1.0754s
+pde_250-100: 0.8845s
+pde_250-50: 0.7519s
+pde_250-40: 0.7047s
+Solved indices: 628 : 631
+Solved batches: 158 of 512
+pde_250-200: 0.8757s
+pde_250-100: 0.8733s
+pde_250-50: 0.7520s
+pde_250-40: 0.7429s
+Solved indices: 632 : 635
+Solved batches: 159 of 512
+pde_250-200: 1.2030s
+pde_250-100: 0.8752s
+pde_250-50: 1.0311s
+pde_250-40: 0.8761s
+Solved indices: 636 : 639
+Solved batches: 160 of 512
+pde_250-200: 0.8689s
+pde_250-100: 0.8204s
+pde_250-50: 1.0494s
+pde_250-40: 1.1778s
+Solved indices: 640 : 643
+Solved batches: 161 of 512
+pde_250-200: 1.1176s
+pde_250-100: 0.8257s
+pde_250-50: 0.7762s
+pde_250-40: 0.9230s
+Solved indices: 644 : 647
+Solved batches: 162 of 512
+pde_250-200: 1.2376s
+pde_250-100: 1.0272s
+pde_250-50: 0.9925s
+pde_250-40: 0.7802s
+Solved indices: 648 : 651
+Solved batches: 163 of 512
+pde_250-200: 1.1586s
+pde_250-100: 0.8708s
+pde_250-50: 0.8032s
+pde_250-40: 0.9393s
+Solved indices: 652 : 655
+Solved batches: 164 of 512
+pde_250-200: 1.4717s
+pde_250-100: 0.9581s
+pde_250-50: 0.8768s
+pde_250-40: 0.9829s
+Solved indices: 656 : 659
+Solved batches: 165 of 512
+pde_250-200: 1.2364s
+pde_250-100: 1.2439s
+pde_250-50: 1.0449s
+pde_250-40: 1.1272s
+Solved indices: 660 : 663
+Solved batches: 166 of 512
+pde_250-200: 1.3702s
+pde_250-100: 1.0656s
+pde_250-50: 1.1120s
+pde_250-40: 1.0478s
+Solved indices: 664 : 667
+Solved batches: 167 of 512
+pde_250-200: 1.0481s
+pde_250-100: 1.0315s
+pde_250-50: 0.8615s
+pde_250-40: 0.8994s
+Solved indices: 668 : 671
+Solved batches: 168 of 512
+pde_250-200: 1.2891s
+pde_250-100: 0.7851s
+pde_250-50: 0.8063s
+pde_250-40: 0.8343s
+Solved indices: 672 : 675
+Solved batches: 169 of 512
+pde_250-200: 1.7292s
+pde_250-100: 0.9214s
+pde_250-50: 0.9085s
+pde_250-40: 0.7961s
+Solved indices: 676 : 679
+Solved batches: 170 of 512
+pde_250-200: 1.3317s
+pde_250-100: 1.2165s
+pde_250-50: 1.1642s
+pde_250-40: 0.7720s
+Solved indices: 680 : 683
+Solved batches: 171 of 512
+pde_250-200: 1.0077s
+pde_250-100: 0.8453s
+pde_250-50: 1.0181s
+pde_250-40: 1.0559s
+Solved indices: 684 : 687
+Solved batches: 172 of 512
+pde_250-200: 1.0473s
+pde_250-100: 1.2597s
+pde_250-50: 0.7673s
+pde_250-40: 0.8194s
+Solved indices: 688 : 691
+Solved batches: 173 of 512
+pde_250-200: 0.9915s
+pde_250-100: 1.1619s
+pde_250-50: 0.8623s
+pde_250-40: 0.8752s
+Solved indices: 692 : 695
+Solved batches: 174 of 512
+pde_250-200: 1.1997s
+pde_250-100: 0.9304s
+pde_250-50: 0.8632s
+pde_250-40: 0.9982s
+Solved indices: 696 : 699
+Solved batches: 175 of 512
+pde_250-200: 1.2699s
+pde_250-100: 0.9773s
+pde_250-50: 1.0220s
+pde_250-40: 0.9424s
+Solved indices: 700 : 703
+Solved batches: 176 of 512
+pde_250-200: 0.9776s
+pde_250-100: 0.9388s
+pde_250-50: 0.8698s
+pde_250-40: 0.6669s
+Solved indices: 704 : 707
+Solved batches: 177 of 512
+pde_250-200: 0.9081s
+pde_250-100: 1.1572s
+pde_250-50: 1.0541s
+pde_250-40: 0.9251s
+Solved indices: 708 : 711
+Solved batches: 178 of 512
+pde_250-200: 1.2169s
+pde_250-100: 1.2755s
+pde_250-50: 1.0545s
+pde_250-40: 0.8081s
+Solved indices: 712 : 715
+Solved batches: 179 of 512
+pde_250-200: 1.0263s
+pde_250-100: 0.7721s
+pde_250-50: 0.6262s
+pde_250-40: 0.7724s
+Solved indices: 716 : 719
+Solved batches: 180 of 512
+pde_250-200: 1.2650s
+pde_250-100: 0.9931s
+pde_250-50: 0.7626s
+pde_250-40: 0.7583s
+Solved indices: 720 : 723
+Solved batches: 181 of 512
+pde_250-200: 1.1673s
+pde_250-100: 0.8407s
+pde_250-50: 1.0830s
+pde_250-40: 0.9905s
+Solved indices: 724 : 727
+Solved batches: 182 of 512
+pde_250-200: 1.0082s
+pde_250-100: 1.1390s
+pde_250-50: 1.0746s
+pde_250-40: 1.0872s
+Solved indices: 728 : 731
+Solved batches: 183 of 512
+pde_250-200: 1.4409s
+pde_250-100: 1.0180s
+pde_250-50: 1.2161s
+pde_250-40: 0.7138s
+Solved indices: 732 : 735
+Solved batches: 184 of 512
+pde_250-200: 1.0497s
+pde_250-100: 0.9040s
+pde_250-50: 0.7804s
+pde_250-40: 0.8996s
+Solved indices: 736 : 739
+Solved batches: 185 of 512
+pde_250-200: 0.8866s
+pde_250-100: 0.6947s
+pde_250-50: 0.8326s
+pde_250-40: 0.8522s
+Solved indices: 740 : 743
+Solved batches: 186 of 512
+pde_250-200: 0.9166s
+pde_250-100: 0.7865s
+pde_250-50: 0.6928s
+pde_250-40: 0.5952s
+Solved indices: 744 : 747
+Solved batches: 187 of 512
+pde_250-200: 0.6953s
+pde_250-100: 0.6598s
+pde_250-50: 0.8272s
+pde_250-40: 1.0863s
+Solved indices: 748 : 751
+Solved batches: 188 of 512
+pde_250-200: 1.6260s
+pde_250-100: 0.8866s
+pde_250-50: 0.9922s
+pde_250-40: 0.8928s
+Solved indices: 752 : 755
+Solved batches: 189 of 512
+pde_250-200: 0.7938s
+pde_250-100: 0.7097s
+pde_250-50: 0.6208s
+pde_250-40: 0.6062s
+Solved indices: 756 : 759
+Solved batches: 190 of 512
+pde_250-200: 0.8638s
+pde_250-100: 0.7641s
+pde_250-50: 0.6677s
+pde_250-40: 0.6062s
+Solved indices: 760 : 763
+Solved batches: 191 of 512
+pde_250-200: 0.9764s
+pde_250-100: 0.6624s
+pde_250-50: 0.6039s
+pde_250-40: 0.7325s
+Solved indices: 764 : 767
+Solved batches: 192 of 512
+pde_250-200: 0.9983s
+pde_250-100: 0.7208s
+pde_250-50: 0.6909s
+pde_250-40: 0.5818s
+Solved indices: 768 : 771
+Solved batches: 193 of 512
+pde_250-200: 0.7793s
+pde_250-100: 0.7206s
+pde_250-50: 0.6688s
+pde_250-40: 0.6127s
+Solved indices: 772 : 775
+Solved batches: 194 of 512
+pde_250-200: 1.4405s
+pde_250-100: 0.7700s
+pde_250-50: 0.9394s
+pde_250-40: 0.8807s
+Solved indices: 776 : 779
+Solved batches: 195 of 512
+pde_250-200: 1.5801s
+pde_250-100: 1.1372s
+pde_250-50: 0.9349s
+pde_250-40: 0.7098s
+Solved indices: 780 : 783
+Solved batches: 196 of 512
+pde_250-200: 1.1667s
+pde_250-100: 1.1945s
+pde_250-50: 0.9244s
+pde_250-40: 0.6211s
+Solved indices: 784 : 787
+Solved batches: 197 of 512
+pde_250-200: 0.7487s
+pde_250-100: 0.7463s
+pde_250-50: 0.7219s
+pde_250-40: 0.9638s
+Solved indices: 788 : 791
+Solved batches: 198 of 512
+pde_250-200: 0.8969s
+pde_250-100: 0.6692s
+pde_250-50: 0.6606s
+pde_250-40: 0.6675s
+Solved indices: 792 : 795
+Solved batches: 199 of 512
+pde_250-200: 0.8013s
+pde_250-100: 1.0427s
+pde_250-50: 1.1762s
+pde_250-40: 0.9127s
+Solved indices: 796 : 799
+Solved batches: 200 of 512
+pde_250-200: 1.0078s
+pde_250-100: 0.8261s
+pde_250-50: 0.6823s
+pde_250-40: 0.7840s
+Solved indices: 800 : 803
+Solved batches: 201 of 512
+pde_250-200: 0.8996s
+pde_250-100: 0.8595s
+pde_250-50: 1.1969s
+pde_250-40: 0.6989s
+Solved indices: 804 : 807
+Solved batches: 202 of 512
+pde_250-200: 0.9553s
+pde_250-100: 0.8154s
+pde_250-50: 0.9228s
+pde_250-40: 0.9136s
+Solved indices: 808 : 811
+Solved batches: 203 of 512
+pde_250-200: 0.8073s
+pde_250-100: 0.7580s
+pde_250-50: 0.8189s
+pde_250-40: 0.7732s
+Solved indices: 812 : 815
+Solved batches: 204 of 512
+pde_250-200: 0.8268s
+pde_250-100: 0.7199s
+pde_250-50: 0.5855s
+pde_250-40: 0.7615s
+Solved indices: 816 : 819
+Solved batches: 205 of 512
+pde_250-200: 0.7470s
+pde_250-100: 0.6193s
+pde_250-50: 0.6152s
+pde_250-40: 0.6627s
+Solved indices: 820 : 823
+Solved batches: 206 of 512
+pde_250-200: 0.7832s
+pde_250-100: 0.6487s
+pde_250-50: 0.7762s
+pde_250-40: 0.7072s
+Solved indices: 824 : 827
+Solved batches: 207 of 512
+pde_250-200: 0.9807s
+pde_250-100: 0.7589s
+pde_250-50: 0.6370s
+pde_250-40: 0.9398s
+Solved indices: 828 : 831
+Solved batches: 208 of 512
+pde_250-200: 1.0617s
+pde_250-100: 1.1957s
+pde_250-50: 1.0559s
+pde_250-40: 0.9619s
+Solved indices: 832 : 835
+Solved batches: 209 of 512
+pde_250-200: 0.9492s
+pde_250-100: 0.9591s
+pde_250-50: 0.5626s
+pde_250-40: 0.6854s
+Solved indices: 836 : 839
+Solved batches: 210 of 512
+pde_250-200: 1.1985s
+pde_250-100: 0.6165s
+pde_250-50: 0.5134s
+pde_250-40: 0.6319s
+Solved indices: 840 : 843
+Solved batches: 211 of 512
+pde_250-200: 0.8642s
+pde_250-100: 0.9313s
+pde_250-50: 0.7524s
+pde_250-40: 0.5162s
+Solved indices: 844 : 847
+Solved batches: 212 of 512
+pde_250-200: 0.9150s
+pde_250-100: 0.6240s
+pde_250-50: 0.5135s
+pde_250-40: 0.6104s
+Solved indices: 848 : 851
+Solved batches: 213 of 512
+pde_250-200: 0.8048s
+pde_250-100: 0.5502s
+pde_250-50: 0.8532s
+pde_250-40: 0.7003s
+Solved indices: 852 : 855
+Solved batches: 214 of 512
+pde_250-200: 0.8818s
+pde_250-100: 0.7244s
+pde_250-50: 0.5567s
+pde_250-40: 0.7582s
+Solved indices: 856 : 859
+Solved batches: 215 of 512
+pde_250-200: 1.1643s
+pde_250-100: 0.7957s
+pde_250-50: 0.7010s
+pde_250-40: 0.9705s
+Solved indices: 860 : 863
+Solved batches: 216 of 512
+pde_250-200: 0.8946s
+pde_250-100: 0.6135s
+pde_250-50: 0.5202s
+pde_250-40: 0.6884s
+Solved indices: 864 : 867
+Solved batches: 217 of 512
+pde_250-200: 0.8967s
+pde_250-100: 0.7103s
+pde_250-50: 0.5762s
+pde_250-40: 0.5415s
+Solved indices: 868 : 871
+Solved batches: 218 of 512
+pde_250-200: 0.6804s
+pde_250-100: 0.6819s
+pde_250-50: 0.5505s
+pde_250-40: 0.6122s
+Solved indices: 872 : 875
+Solved batches: 219 of 512
+pde_250-200: 0.8239s
+pde_250-100: 0.6315s
+pde_250-50: 0.5223s
+pde_250-40: 0.4905s
+Solved indices: 876 : 879
+Solved batches: 220 of 512
+pde_250-200: 0.7481s
+pde_250-100: 0.7368s
+pde_250-50: 0.5913s
+pde_250-40: 0.5303s
+Solved indices: 880 : 883
+Solved batches: 221 of 512
+pde_250-200: 0.6607s
+pde_250-100: 0.5580s
+pde_250-50: 0.5161s
+pde_250-40: 0.5584s
+Solved indices: 884 : 887
+Solved batches: 222 of 512
+pde_250-200: 0.6470s
+pde_250-100: 0.7923s
+pde_250-50: 0.7001s
+pde_250-40: 0.6276s
+Solved indices: 888 : 891
+Solved batches: 223 of 512
+pde_250-200: 1.0562s
+pde_250-100: 0.7347s
+pde_250-50: 0.9198s
+pde_250-40: 0.6592s
+Solved indices: 892 : 895
+Solved batches: 224 of 512
+pde_250-200: 1.0278s
+pde_250-100: 0.5600s
+pde_250-50: 0.5200s
+pde_250-40: 0.6408s
+Solved indices: 896 : 899
+Solved batches: 225 of 512
+pde_250-200: 0.7900s
+pde_250-100: 0.7217s
+pde_250-50: 0.8796s
+pde_250-40: 0.4897s
+Solved indices: 900 : 903
+Solved batches: 226 of 512
+pde_250-200: 0.6745s
+pde_250-100: 0.5371s
+pde_250-50: 0.6321s
+pde_250-40: 0.6184s
+Solved indices: 904 : 907
+Solved batches: 227 of 512
+pde_250-200: 1.1096s
+pde_250-100: 0.8947s
+pde_250-50: 1.0083s
+pde_250-40: 1.1581s
+Solved indices: 908 : 911
+Solved batches: 228 of 512
+pde_250-200: 1.4939s
+pde_250-100: 0.9810s
+pde_250-50: 0.9879s
+pde_250-40: 0.7139s
+Solved indices: 912 : 915
+Solved batches: 229 of 512
+pde_250-200: 0.8149s
+pde_250-100: 0.7780s
+pde_250-50: 0.8072s
+pde_250-40: 0.8681s
+Solved indices: 916 : 919
+Solved batches: 230 of 512
+pde_250-200: 0.8926s
+pde_250-100: 0.9551s
+pde_250-50: 0.6999s
+pde_250-40: 0.8989s
+Solved indices: 920 : 923
+Solved batches: 231 of 512
+pde_250-200: 0.6452s
+pde_250-100: 0.7095s
+pde_250-50: 0.7390s
+pde_250-40: 0.6340s
+Solved indices: 924 : 927
+Solved batches: 232 of 512
+pde_250-200: 0.7811s
+pde_250-100: 0.6455s
+pde_250-50: 0.5053s
+pde_250-40: 0.5186s
+Solved indices: 928 : 931
+Solved batches: 233 of 512
+pde_250-200: 0.7216s
+pde_250-100: 0.5546s
+pde_250-50: 0.5736s
+pde_250-40: 0.5143s
+Solved indices: 932 : 935
+Solved batches: 234 of 512
+pde_250-200: 0.6135s
+pde_250-100: 0.6056s
+pde_250-50: 0.7543s
+pde_250-40: 0.7299s
+Solved indices: 936 : 939
+Solved batches: 235 of 512
+pde_250-200: 0.8929s
+pde_250-100: 0.9459s
+pde_250-50: 0.7476s
+pde_250-40: 0.5852s
+Solved indices: 940 : 943
+Solved batches: 236 of 512
+pde_250-200: 0.8008s
+pde_250-100: 0.8663s
+pde_250-50: 0.7920s
+pde_250-40: 0.7614s
+Solved indices: 944 : 947
+Solved batches: 237 of 512
+pde_250-200: 0.7842s
+pde_250-100: 0.8460s
+pde_250-50: 0.8545s
+pde_250-40: 0.9096s
+Solved indices: 948 : 951
+Solved batches: 238 of 512
+pde_250-200: 1.0931s
+pde_250-100: 0.8519s
+pde_250-50: 0.6742s
+pde_250-40: 0.6226s
+Solved indices: 952 : 955
+Solved batches: 239 of 512
+pde_250-200: 0.8473s
+pde_250-100: 0.6272s
+pde_250-50: 0.6705s
+pde_250-40: 0.7324s
+Solved indices: 956 : 959
+Solved batches: 240 of 512
+pde_250-200: 0.8166s
+pde_250-100: 0.6709s
+pde_250-50: 0.5886s
+pde_250-40: 0.5318s
+Solved indices: 960 : 963
+Solved batches: 241 of 512
+pde_250-200: 0.6882s
+pde_250-100: 0.5952s
+pde_250-50: 0.5634s
+pde_250-40: 0.5184s
+Solved indices: 964 : 967
+Solved batches: 242 of 512
+pde_250-200: 1.0549s
+pde_250-100: 0.9517s
+pde_250-50: 0.9126s
+pde_250-40: 0.7404s
+Solved indices: 968 : 971
+Solved batches: 243 of 512
+pde_250-200: 0.7129s
+pde_250-100: 0.5879s
+pde_250-50: 0.6295s
+pde_250-40: 0.6994s
+Solved indices: 972 : 975
+Solved batches: 244 of 512
+pde_250-200: 1.0499s
+pde_250-100: 0.8047s
+pde_250-50: 0.6552s
+pde_250-40: 0.8610s
+Solved indices: 976 : 979
+Solved batches: 245 of 512
+pde_250-200: 0.8704s
+pde_250-100: 0.6864s
+pde_250-50: 0.6756s
+pde_250-40: 1.0787s
+Solved indices: 980 : 983
+Solved batches: 246 of 512
+pde_250-200: 0.8315s
+pde_250-100: 0.7085s
+pde_250-50: 0.5492s
+pde_250-40: 0.6042s
+Solved indices: 984 : 987
+Solved batches: 247 of 512
+pde_250-200: 0.7506s
+pde_250-100: 0.6439s
+pde_250-50: 0.6250s
+pde_250-40: 0.6175s
+Solved indices: 988 : 991
+Solved batches: 248 of 512
+pde_250-200: 0.8864s
+pde_250-100: 0.6846s
+pde_250-50: 0.7322s
+pde_250-40: 0.6888s
+Solved indices: 992 : 995
+Solved batches: 249 of 512
+pde_250-200: 0.9083s
+pde_250-100: 0.9922s
+pde_250-50: 0.7371s
+pde_250-40: 0.7609s
+Solved indices: 996 : 999
+Solved batches: 250 of 512
+pde_250-200: 1.2045s
+pde_250-100: 0.7844s
+pde_250-50: 0.7932s
+pde_250-40: 0.5682s
+Solved indices: 1000 : 1003
+Solved batches: 251 of 512
+pde_250-200: 0.7187s
+pde_250-100: 0.6222s
+pde_250-50: 0.5728s
+pde_250-40: 0.5721s
+Solved indices: 1004 : 1007
+Solved batches: 252 of 512
+pde_250-200: 0.8548s
+pde_250-100: 0.7214s
+pde_250-50: 0.8021s
+pde_250-40: 0.5505s
+Solved indices: 1008 : 1011
+Solved batches: 253 of 512
+pde_250-200: 0.6633s
+pde_250-100: 0.6046s
+pde_250-50: 0.5695s
+pde_250-40: 0.5228s
+Solved indices: 1012 : 1015
+Solved batches: 254 of 512
+pde_250-200: 0.8070s
+pde_250-100: 1.0980s
+pde_250-50: 1.0659s
+pde_250-40: 0.7247s
+Solved indices: 1016 : 1019
+Solved batches: 255 of 512
+pde_250-200: 0.7806s
+pde_250-100: 0.6512s
+pde_250-50: 0.5628s
+pde_250-40: 0.5199s
+Solved indices: 1020 : 1023
+Solved batches: 256 of 512
+pde_250-200: 0.8964s
+pde_250-100: 0.5759s
+pde_250-50: 0.5536s
+pde_250-40: 0.5742s
+Solved indices: 1024 : 1027
+Solved batches: 257 of 512
+pde_250-200: 0.6587s
+pde_250-100: 0.6053s
+pde_250-50: 0.5630s
+pde_250-40: 0.5711s
+Solved indices: 1028 : 1031
+Solved batches: 258 of 512
+pde_250-200: 0.7716s
+pde_250-100: 0.7663s
+pde_250-50: 0.5857s
+pde_250-40: 0.6118s
+Solved indices: 1032 : 1035
+Solved batches: 259 of 512
+pde_250-200: 1.0275s
+pde_250-100: 0.7068s
+pde_250-50: 0.7919s
+pde_250-40: 0.6523s
+Solved indices: 1036 : 1039
+Solved batches: 260 of 512
+pde_250-200: 1.0924s
+pde_250-100: 0.9091s
+pde_250-50: 0.6172s
+pde_250-40: 0.7860s
+Solved indices: 1040 : 1043
+Solved batches: 261 of 512
+pde_250-200: 0.9783s
+pde_250-100: 0.5918s
+pde_250-50: 0.7361s
+pde_250-40: 0.6129s
+Solved indices: 1044 : 1047
+Solved batches: 262 of 512
+pde_250-200: 0.6543s
+pde_250-100: 0.5858s
+pde_250-50: 0.5562s
+pde_250-40: 0.6466s
+Solved indices: 1048 : 1051
+Solved batches: 263 of 512
+pde_250-200: 1.2561s
+pde_250-100: 0.7195s
+pde_250-50: 0.6061s
+pde_250-40: 0.6126s
+Solved indices: 1052 : 1055
+Solved batches: 264 of 512
+pde_250-200: 0.6563s
+pde_250-100: 0.5291s
+pde_250-50: 0.5228s
+pde_250-40: 0.6197s
+Solved indices: 1056 : 1059
+Solved batches: 265 of 512
+pde_250-200: 0.7129s
+pde_250-100: 0.7337s
+pde_250-50: 0.6314s
+pde_250-40: 0.5640s
+Solved indices: 1060 : 1063
+Solved batches: 266 of 512
+pde_250-200: 0.7372s
+pde_250-100: 0.8123s
+pde_250-50: 0.7795s
+pde_250-40: 0.6583s
+Solved indices: 1064 : 1067
+Solved batches: 267 of 512
+pde_250-200: 0.9124s
+pde_250-100: 0.9054s
+pde_250-50: 0.7934s
+pde_250-40: 0.7149s
+Solved indices: 1068 : 1071
+Solved batches: 268 of 512
+pde_250-200: 1.1166s
+pde_250-100: 0.8712s
+pde_250-50: 0.7557s
+pde_250-40: 0.7104s
+Solved indices: 1072 : 1075
+Solved batches: 269 of 512
+pde_250-200: 0.6517s
+pde_250-100: 0.7752s
+pde_250-50: 0.8015s
+pde_250-40: 0.6546s
+Solved indices: 1076 : 1079
+Solved batches: 270 of 512
+pde_250-200: 0.7926s
+pde_250-100: 0.6043s
+pde_250-50: 0.6132s
+pde_250-40: 0.6569s
+Solved indices: 1080 : 1083
+Solved batches: 271 of 512
+pde_250-200: 1.2495s
+pde_250-100: 0.5761s
+pde_250-50: 0.5415s
+pde_250-40: 0.4963s
+Solved indices: 1084 : 1087
+Solved batches: 272 of 512
+pde_250-200: 0.6869s
+pde_250-100: 0.7280s
+pde_250-50: 0.7631s
+pde_250-40: 0.5533s
+Solved indices: 1088 : 1091
+Solved batches: 273 of 512
+pde_250-200: 0.7407s
+pde_250-100: 0.8680s
+pde_250-50: 0.9092s
+pde_250-40: 0.6200s
+Solved indices: 1092 : 1095
+Solved batches: 274 of 512
+pde_250-200: 0.7944s
+pde_250-100: 0.6667s
+pde_250-50: 0.6880s
+pde_250-40: 0.7993s
+Solved indices: 1096 : 1099
+Solved batches: 275 of 512
+pde_250-200: 1.2836s
+pde_250-100: 0.9719s
+pde_250-50: 0.7622s
+pde_250-40: 0.6975s
+Solved indices: 1100 : 1103
+Solved batches: 276 of 512
+pde_250-200: 0.7649s
+pde_250-100: 0.7025s
+pde_250-50: 0.6392s
+pde_250-40: 0.5142s
+Solved indices: 1104 : 1107
+Solved batches: 277 of 512
+pde_250-200: 0.8892s
+pde_250-100: 0.8315s
+pde_250-50: 0.7104s
+pde_250-40: 0.6295s
+Solved indices: 1108 : 1111
+Solved batches: 278 of 512
+pde_250-200: 0.9871s
+pde_250-100: 0.8966s
+pde_250-50: 0.8175s
+pde_250-40: 0.6541s
+Solved indices: 1112 : 1115
+Solved batches: 279 of 512
+pde_250-200: 0.7354s
+pde_250-100: 0.6510s
+pde_250-50: 0.8009s
+pde_250-40: 0.7184s
+Solved indices: 1116 : 1119
+Solved batches: 280 of 512
+pde_250-200: 0.7446s
+pde_250-100: 0.8427s
+pde_250-50: 0.6499s
+pde_250-40: 0.5488s
+Solved indices: 1120 : 1123
+Solved batches: 281 of 512
+pde_250-200: 0.6634s
+pde_250-100: 0.7180s
+pde_250-50: 0.7977s
+pde_250-40: 0.6873s
+Solved indices: 1124 : 1127
+Solved batches: 282 of 512
+pde_250-200: 0.6597s
+pde_250-100: 0.5580s
+pde_250-50: 0.5860s
+pde_250-40: 0.9061s
+Solved indices: 1128 : 1131
+Solved batches: 283 of 512
+pde_250-200: 0.8526s
+pde_250-100: 0.7746s
+pde_250-50: 0.7708s
+pde_250-40: 0.7870s
+Solved indices: 1132 : 1135
+Solved batches: 284 of 512
+pde_250-200: 0.7595s
+pde_250-100: 0.7034s
+pde_250-50: 0.6533s
+pde_250-40: 0.5637s
+Solved indices: 1136 : 1139
+Solved batches: 285 of 512
+pde_250-200: 0.6366s
+pde_250-100: 0.5521s
+pde_250-50: 0.5663s
+pde_250-40: 0.6869s
+Solved indices: 1140 : 1143
+Solved batches: 286 of 512
+pde_250-200: 0.9588s
+pde_250-100: 0.6924s
+pde_250-50: 0.6113s
+pde_250-40: 0.5372s
+Solved indices: 1144 : 1147
+Solved batches: 287 of 512
+pde_250-200: 0.6740s
+pde_250-100: 0.5874s
+pde_250-50: 0.5216s
+pde_250-40: 0.5142s
+Solved indices: 1148 : 1151
+Solved batches: 288 of 512
+pde_250-200: 0.6530s
+pde_250-100: 0.5622s
+pde_250-50: 0.5078s
+pde_250-40: 0.5037s
+Solved indices: 1152 : 1155
+Solved batches: 289 of 512
+pde_250-200: 0.6583s
+pde_250-100: 0.5669s
+pde_250-50: 0.5361s
+pde_250-40: 0.5304s
+Solved indices: 1156 : 1159
+Solved batches: 290 of 512
+pde_250-200: 0.6733s
+pde_250-100: 0.7177s
+pde_250-50: 0.5879s
+pde_250-40: 0.5070s
+Solved indices: 1160 : 1163
+Solved batches: 291 of 512
+pde_250-200: 0.7267s
+pde_250-100: 0.5538s
+pde_250-50: 0.5551s
+pde_250-40: 0.7042s
+Solved indices: 1164 : 1167
+Solved batches: 292 of 512
+pde_250-200: 0.9045s
+pde_250-100: 0.5983s
+pde_250-50: 0.7125s
+pde_250-40: 0.6850s
+Solved indices: 1168 : 1171
+Solved batches: 293 of 512
+pde_250-200: 1.0070s
+pde_250-100: 0.5784s
+pde_250-50: 0.6535s
+pde_250-40: 0.6851s
+Solved indices: 1172 : 1175
+Solved batches: 294 of 512
+pde_250-200: 0.8555s
+pde_250-100: 0.6195s
+pde_250-50: 0.5475s
+pde_250-40: 0.5676s
+Solved indices: 1176 : 1179
+Solved batches: 295 of 512
+pde_250-200: 0.7197s
+pde_250-100: 0.7225s
+pde_250-50: 0.8389s
+pde_250-40: 0.7963s
+Solved indices: 1180 : 1183
+Solved batches: 296 of 512
+pde_250-200: 0.8643s
+pde_250-100: 0.6728s
+pde_250-50: 0.5251s
+pde_250-40: 0.5109s
+Solved indices: 1184 : 1187
+Solved batches: 297 of 512
+pde_250-200: 0.6898s
+pde_250-100: 0.7460s
+pde_250-50: 0.5403s
+pde_250-40: 0.5386s
+Solved indices: 1188 : 1191
+Solved batches: 298 of 512
+pde_250-200: 0.7691s
+pde_250-100: 0.5396s
+pde_250-50: 0.5413s
+pde_250-40: 0.5017s
+Solved indices: 1192 : 1195
+Solved batches: 299 of 512
+pde_250-200: 0.6980s
+pde_250-100: 0.5406s
+pde_250-50: 0.6466s
+pde_250-40: 0.8566s
+Solved indices: 1196 : 1199
+Solved batches: 300 of 512
+pde_250-200: 0.8210s
+pde_250-100: 1.0862s
+pde_250-50: 0.7719s
+pde_250-40: 0.8227s
+Solved indices: 1200 : 1203
+Solved batches: 301 of 512
+pde_250-200: 0.8111s
+pde_250-100: 0.7297s
+pde_250-50: 0.6735s
+pde_250-40: 0.6755s
+Solved indices: 1204 : 1207
+Solved batches: 302 of 512
+pde_250-200: 0.9271s
+pde_250-100: 0.7599s
+pde_250-50: 0.5070s
+pde_250-40: 0.5140s
+Solved indices: 1208 : 1211
+Solved batches: 303 of 512
+pde_250-200: 0.8196s
+pde_250-100: 0.5712s
+pde_250-50: 0.5415s
+pde_250-40: 0.5254s
+Solved indices: 1212 : 1215
+Solved batches: 304 of 512
+pde_250-200: 0.6195s
+pde_250-100: 0.5767s
+pde_250-50: 0.5218s
+pde_250-40: 0.5569s
+Solved indices: 1216 : 1219
+Solved batches: 305 of 512
+pde_250-200: 0.6424s
+pde_250-100: 0.6837s
+pde_250-50: 0.6068s
+pde_250-40: 0.5307s
+Solved indices: 1220 : 1223
+Solved batches: 306 of 512
+pde_250-200: 1.0710s
+pde_250-100: 0.6281s
+pde_250-50: 0.5510s
+pde_250-40: 0.8840s
+Solved indices: 1224 : 1227
+Solved batches: 307 of 512
+pde_250-200: 0.9817s
+pde_250-100: 0.8743s
+pde_250-50: 0.9166s
+pde_250-40: 0.8912s
+Solved indices: 1228 : 1231
+Solved batches: 308 of 512
+pde_250-200: 0.9172s
+pde_250-100: 0.7869s
+pde_250-50: 0.8944s
+pde_250-40: 0.6400s
+Solved indices: 1232 : 1235
+Solved batches: 309 of 512
+pde_250-200: 0.7876s
+pde_250-100: 0.6711s
+pde_250-50: 0.5921s
+pde_250-40: 0.6265s
+Solved indices: 1236 : 1239
+Solved batches: 310 of 512
+pde_250-200: 0.7328s
+pde_250-100: 0.8521s
+pde_250-50: 1.2375s
+pde_250-40: 0.7375s
+Solved indices: 1240 : 1243
+Solved batches: 311 of 512
+pde_250-200: 1.0959s
+pde_250-100: 0.7216s
+pde_250-50: 0.5905s
+pde_250-40: 0.5828s
+Solved indices: 1244 : 1247
+Solved batches: 312 of 512
+pde_250-200: 0.9221s
+pde_250-100: 0.6841s
+pde_250-50: 0.5358s
+pde_250-40: 0.5123s
+Solved indices: 1248 : 1251
+Solved batches: 313 of 512
+pde_250-200: 0.7704s
+pde_250-100: 0.5752s
+pde_250-50: 0.5162s
+pde_250-40: 0.5003s
+Solved indices: 1252 : 1255
+Solved batches: 314 of 512
+pde_250-200: 0.9588s
+pde_250-100: 0.5437s
+pde_250-50: 0.5024s
+pde_250-40: 0.5221s
+Solved indices: 1256 : 1259
+Solved batches: 315 of 512
+pde_250-200: 0.7419s
+pde_250-100: 0.6716s
+pde_250-50: 0.7013s
+pde_250-40: 0.6246s
+Solved indices: 1260 : 1263
+Solved batches: 316 of 512
+pde_250-200: 1.0118s
+pde_250-100: 1.0025s
+pde_250-50: 1.1868s
+pde_250-40: 0.8747s
+Solved indices: 1264 : 1267
+Solved batches: 317 of 512
+pde_250-200: 0.7535s
+pde_250-100: 0.5788s
+pde_250-50: 0.6479s
+pde_250-40: 0.6285s
+Solved indices: 1268 : 1271
+Solved batches: 318 of 512
+pde_250-200: 1.1725s
+pde_250-100: 1.1059s
+pde_250-50: 0.7765s
+pde_250-40: 1.0109s
+Solved indices: 1272 : 1275
+Solved batches: 319 of 512
+pde_250-200: 0.9050s
+pde_250-100: 0.7304s
+pde_250-50: 0.7955s
+pde_250-40: 0.8562s
+Solved indices: 1276 : 1279
+Solved batches: 320 of 512
+pde_250-200: 1.0220s
+pde_250-100: 0.7598s
+pde_250-50: 0.5865s
+pde_250-40: 0.4915s
+Solved indices: 1280 : 1283
+Solved batches: 321 of 512
+pde_250-200: 0.6607s
+pde_250-100: 0.5484s
+pde_250-50: 0.5270s
+pde_250-40: 0.6325s
+Solved indices: 1284 : 1287
+Solved batches: 322 of 512
+pde_250-200: 0.8066s
+pde_250-100: 0.5647s
+pde_250-50: 0.6096s
+pde_250-40: 0.6480s
+Solved indices: 1288 : 1291
+Solved batches: 323 of 512
+pde_250-200: 1.0153s
+pde_250-100: 0.7637s
+pde_250-50: 0.6410s
+pde_250-40: 0.6135s
+Solved indices: 1292 : 1295
+Solved batches: 324 of 512
+pde_250-200: 0.9138s
+pde_250-100: 0.8198s
+pde_250-50: 0.9353s
+pde_250-40: 0.9672s
+Solved indices: 1296 : 1299
+Solved batches: 325 of 512
+pde_250-200: 0.9794s
+pde_250-100: 0.7814s
+pde_250-50: 0.7553s
+pde_250-40: 0.4982s
+Solved indices: 1300 : 1303
+Solved batches: 326 of 512
+pde_250-200: 0.6989s
+pde_250-100: 0.6594s
+pde_250-50: 0.5054s
+pde_250-40: 0.4771s
+Solved indices: 1304 : 1307
+Solved batches: 327 of 512
+pde_250-200: 0.6021s
+pde_250-100: 0.6252s
+pde_250-50: 0.6738s
+pde_250-40: 0.5622s
+Solved indices: 1308 : 1311
+Solved batches: 328 of 512
+pde_250-200: 0.8686s
+pde_250-100: 0.7223s
+pde_250-50: 0.5422s
+pde_250-40: 0.4872s
+Solved indices: 1312 : 1315
+Solved batches: 329 of 512
+pde_250-200: 0.6742s
+pde_250-100: 0.5403s
+pde_250-50: 0.4975s
+pde_250-40: 0.4994s
+Solved indices: 1316 : 1319
+Solved batches: 330 of 512
+pde_250-200: 0.6212s
+pde_250-100: 0.5377s
+pde_250-50: 0.5023s
+pde_250-40: 0.4954s
+Solved indices: 1320 : 1323
+Solved batches: 331 of 512
+pde_250-200: 0.8611s
+pde_250-100: 0.5596s
+pde_250-50: 0.4975s
+pde_250-40: 0.5328s
+Solved indices: 1324 : 1327
+Solved batches: 332 of 512
+pde_250-200: 0.9167s
+pde_250-100: 0.7437s
+pde_250-50: 0.5491s
+pde_250-40: 0.5030s
+Solved indices: 1328 : 1331
+Solved batches: 333 of 512
+pde_250-200: 0.9137s
+pde_250-100: 0.7055s
+pde_250-50: 0.6908s
+pde_250-40: 0.8457s
+Solved indices: 1332 : 1335
+Solved batches: 334 of 512
+pde_250-200: 1.0846s
+pde_250-100: 1.0406s
+pde_250-50: 0.8393s
+pde_250-40: 0.6711s
+Solved indices: 1336 : 1339
+Solved batches: 335 of 512
+pde_250-200: 1.0701s
+pde_250-100: 0.7590s
+pde_250-50: 0.8089s
+pde_250-40: 0.6612s
+Solved indices: 1340 : 1343
+Solved batches: 336 of 512
+pde_250-200: 0.7220s
+pde_250-100: 0.6543s
+pde_250-50: 0.6953s
+pde_250-40: 0.6449s
+Solved indices: 1344 : 1347
+Solved batches: 337 of 512
+pde_250-200: 0.8645s
+pde_250-100: 0.9502s
+pde_250-50: 0.5046s
+pde_250-40: 0.5118s
+Solved indices: 1348 : 1351
+Solved batches: 338 of 512
+pde_250-200: 0.6056s
+pde_250-100: 0.5448s
+pde_250-50: 0.5792s
+pde_250-40: 0.7413s
+Solved indices: 1352 : 1355
+Solved batches: 339 of 512
+pde_250-200: 0.7731s
+pde_250-100: 0.7370s
+pde_250-50: 0.7912s
+pde_250-40: 0.5860s
+Solved indices: 1356 : 1359
+Solved batches: 340 of 512
+pde_250-200: 1.2765s
+pde_250-100: 0.8517s
+pde_250-50: 0.7805s
+pde_250-40: 0.7427s
+Solved indices: 1360 : 1363
+Solved batches: 341 of 512
+pde_250-200: 1.1438s
+pde_250-100: 0.7152s
+pde_250-50: 0.5144s
+pde_250-40: 0.5033s
+Solved indices: 1364 : 1367
+Solved batches: 342 of 512
+pde_250-200: 0.6971s
+pde_250-100: 0.6488s
+pde_250-50: 0.5393s
+pde_250-40: 0.4903s
+Solved indices: 1368 : 1371
+Solved batches: 343 of 512
+pde_250-200: 0.6544s
+pde_250-100: 0.5228s
+pde_250-50: 0.4943s
+pde_250-40: 0.4973s
+Solved indices: 1372 : 1375
+Solved batches: 344 of 512
+pde_250-200: 0.6424s
+pde_250-100: 0.7885s
+pde_250-50: 0.6849s
+pde_250-40: 0.4935s
+Solved indices: 1376 : 1379
+Solved batches: 345 of 512
+pde_250-200: 0.7212s
+pde_250-100: 0.5478s
+pde_250-50: 0.7395s
+pde_250-40: 0.8306s
+Solved indices: 1380 : 1383
+Solved batches: 346 of 512
+pde_250-200: 0.7721s
+pde_250-100: 0.5539s
+pde_250-50: 0.4935s
+pde_250-40: 0.4838s
+Solved indices: 1384 : 1387
+Solved batches: 347 of 512
+pde_250-200: 0.8660s
+pde_250-100: 0.6730s
+pde_250-50: 0.4856s
+pde_250-40: 0.6578s
+Solved indices: 1388 : 1391
+Solved batches: 348 of 512
+pde_250-200: 0.9905s
+pde_250-100: 0.7489s
+pde_250-50: 0.9892s
+pde_250-40: 0.7919s
+Solved indices: 1392 : 1395
+Solved batches: 349 of 512
+pde_250-200: 0.7901s
+pde_250-100: 0.5375s
+pde_250-50: 0.4938s
+pde_250-40: 0.4979s
+Solved indices: 1396 : 1399
+Solved batches: 350 of 512
+pde_250-200: 0.6392s
+pde_250-100: 0.6374s
+pde_250-50: 0.7247s
+pde_250-40: 0.9554s
+Solved indices: 1400 : 1403
+Solved batches: 351 of 512
+pde_250-200: 0.7752s
+pde_250-100: 0.6658s
+pde_250-50: 0.6539s
+pde_250-40: 0.5539s
+Solved indices: 1404 : 1407
+Solved batches: 352 of 512
+pde_250-200: 0.7863s
+pde_250-100: 0.5757s
+pde_250-50: 0.5067s
+pde_250-40: 0.4835s
+Solved indices: 1408 : 1411
+Solved batches: 353 of 512
+pde_250-200: 0.6278s
+pde_250-100: 0.5366s
+pde_250-50: 0.5229s
+pde_250-40: 0.6493s
+Solved indices: 1412 : 1415
+Solved batches: 354 of 512
+pde_250-200: 0.8190s
+pde_250-100: 0.6946s
+pde_250-50: 0.9975s
+pde_250-40: 0.6380s
+Solved indices: 1416 : 1419
+Solved batches: 355 of 512
+pde_250-200: 0.6165s
+pde_250-100: 0.5391s
+pde_250-50: 0.5144s
+pde_250-40: 0.7156s
+Solved indices: 1420 : 1423
+Solved batches: 356 of 512
+pde_250-200: 0.9713s
+pde_250-100: 0.7641s
+pde_250-50: 0.8352s
+pde_250-40: 0.7156s
+Solved indices: 1424 : 1427
+Solved batches: 357 of 512
+pde_250-200: 0.9801s
+pde_250-100: 0.8098s
+pde_250-50: 0.7068s
+pde_250-40: 1.1820s
+Solved indices: 1428 : 1431
+Solved batches: 358 of 512
+pde_250-200: 1.2726s
+pde_250-100: 0.9483s
+pde_250-50: 0.8528s
+pde_250-40: 0.6108s
+Solved indices: 1432 : 1435
+Solved batches: 359 of 512
+pde_250-200: 0.8887s
+pde_250-100: 0.6942s
+pde_250-50: 0.8227s
+pde_250-40: 0.6800s
+Solved indices: 1436 : 1439
+Solved batches: 360 of 512
+pde_250-200: 1.1328s
+pde_250-100: 0.9834s
+pde_250-50: 0.7628s
+pde_250-40: 0.8273s
+Solved indices: 1440 : 1443
+Solved batches: 361 of 512
+pde_250-200: 0.8821s
+pde_250-100: 0.7848s
+pde_250-50: 0.9161s
+pde_250-40: 0.5795s
+Solved indices: 1444 : 1447
+Solved batches: 362 of 512
+pde_250-200: 0.8031s
+pde_250-100: 0.6041s
+pde_250-50: 0.5372s
+pde_250-40: 0.5220s
+Solved indices: 1448 : 1451
+Solved batches: 363 of 512
+pde_250-200: 0.9638s
+pde_250-100: 0.5540s
+pde_250-50: 0.6220s
+pde_250-40: 0.6992s
+Solved indices: 1452 : 1455
+Solved batches: 364 of 512
+pde_250-200: 0.8797s
+pde_250-100: 0.6445s
+pde_250-50: 0.6910s
+pde_250-40: 0.7479s
+Solved indices: 1456 : 1459
+Solved batches: 365 of 512
+pde_250-200: 0.8092s
+pde_250-100: 0.6042s
+pde_250-50: 0.8043s
+pde_250-40: 0.9700s
+Solved indices: 1460 : 1463
+Solved batches: 366 of 512
+pde_250-200: 1.0380s
+pde_250-100: 0.7278s
+pde_250-50: 0.6576s
+pde_250-40: 0.7074s
+Solved indices: 1464 : 1467
+Solved batches: 367 of 512
+pde_250-200: 0.8049s
+pde_250-100: 0.7984s
+pde_250-50: 0.7232s
+pde_250-40: 0.7014s
+Solved indices: 1468 : 1471
+Solved batches: 368 of 512
+pde_250-200: 0.9923s
+pde_250-100: 0.7465s
+pde_250-50: 0.6805s
+pde_250-40: 0.8076s
+Solved indices: 1472 : 1475
+Solved batches: 369 of 512
+pde_250-200: 0.8538s
+pde_250-100: 0.9792s
+pde_250-50: 0.8972s
+pde_250-40: 1.0896s
+Solved indices: 1476 : 1479
+Solved batches: 370 of 512
+pde_250-200: 0.9651s
+pde_250-100: 0.9359s
+pde_250-50: 0.6900s
+pde_250-40: 0.5880s
+Solved indices: 1480 : 1483
+Solved batches: 371 of 512
+pde_250-200: 0.7817s
+pde_250-100: 0.7554s
+pde_250-50: 0.8216s
+pde_250-40: 0.6654s
+Solved indices: 1484 : 1487
+Solved batches: 372 of 512
+pde_250-200: 0.8532s
+pde_250-100: 0.9674s
+pde_250-50: 0.6868s
+pde_250-40: 0.6345s
+Solved indices: 1488 : 1491
+Solved batches: 373 of 512
+pde_250-200: 1.1486s
+pde_250-100: 0.8597s
+pde_250-50: 0.8282s
+pde_250-40: 0.7977s
+Solved indices: 1492 : 1495
+Solved batches: 374 of 512
+pde_250-200: 0.8921s
+pde_250-100: 0.6022s
+pde_250-50: 0.9374s
+pde_250-40: 0.8314s
+Solved indices: 1496 : 1499
+Solved batches: 375 of 512
+pde_250-200: 1.1735s
+pde_250-100: 1.1356s
+pde_250-50: 0.7585s
+pde_250-40: 0.7460s
+Solved indices: 1500 : 1503
+Solved batches: 376 of 512
+pde_250-200: 1.1662s
+pde_250-100: 0.9089s
+pde_250-50: 0.6714s
+pde_250-40: 0.7690s
+Solved indices: 1504 : 1507
+Solved batches: 377 of 512
+pde_250-200: 1.0130s
+pde_250-100: 0.7720s
+pde_250-50: 0.8850s
+pde_250-40: 0.8515s
+Solved indices: 1508 : 1511
+Solved batches: 378 of 512
+pde_250-200: 1.2193s
+pde_250-100: 0.8828s
+pde_250-50: 0.9331s
+pde_250-40: 0.6255s
+Solved indices: 1512 : 1515
+Solved batches: 379 of 512
+pde_250-200: 0.9073s
+pde_250-100: 0.8671s
+pde_250-50: 0.5835s
+pde_250-40: 0.5552s
+Solved indices: 1516 : 1519
+Solved batches: 380 of 512
+pde_250-200: 0.7532s
+pde_250-100: 0.5971s
+pde_250-50: 0.5669s
+pde_250-40: 0.7282s
+Solved indices: 1520 : 1523
+Solved batches: 381 of 512
+pde_250-200: 1.1530s
+pde_250-100: 0.9008s
+pde_250-50: 1.0523s
+pde_250-40: 0.7919s
+Solved indices: 1524 : 1527
+Solved batches: 382 of 512
+pde_250-200: 1.0020s
+pde_250-100: 0.8579s
+pde_250-50: 0.7591s
+pde_250-40: 1.0399s
+Solved indices: 1528 : 1531
+Solved batches: 383 of 512
+pde_250-200: 1.0420s
+pde_250-100: 0.8876s
+pde_250-50: 0.8951s
+pde_250-40: 0.8593s
+Solved indices: 1532 : 1535
+Solved batches: 384 of 512
+pde_250-200: 1.0351s
+pde_250-100: 0.9190s
+pde_250-50: 0.8106s
+pde_250-40: 0.8017s
+Solved indices: 1536 : 1539
+Solved batches: 385 of 512
+pde_250-200: 1.0166s
+pde_250-100: 0.8896s
+pde_250-50: 0.7678s
+pde_250-40: 0.7864s
+Solved indices: 1540 : 1543
+Solved batches: 386 of 512
+pde_250-200: 1.1686s
+pde_250-100: 0.9640s
+pde_250-50: 0.9997s
+pde_250-40: 0.7771s
+Solved indices: 1544 : 1547
+Solved batches: 387 of 512
+pde_250-200: 1.1556s
+pde_250-100: 0.7998s
+pde_250-50: 0.7138s
+pde_250-40: 0.6525s
+Solved indices: 1548 : 1551
+Solved batches: 388 of 512
+pde_250-200: 0.9356s
+pde_250-100: 1.0019s
+pde_250-50: 1.0698s
+pde_250-40: 0.7607s
+Solved indices: 1552 : 1555
+Solved batches: 389 of 512
+pde_250-200: 0.9619s
+pde_250-100: 0.6856s
+pde_250-50: 0.6953s
+pde_250-40: 0.6622s
+Solved indices: 1556 : 1559
+Solved batches: 390 of 512
+pde_250-200: 0.8284s
+pde_250-100: 0.8863s
+pde_250-50: 0.9994s
+pde_250-40: 1.0222s
+Solved indices: 1560 : 1563
+Solved batches: 391 of 512
+pde_250-200: 1.0201s
+pde_250-100: 0.7796s
+pde_250-50: 0.7349s
+pde_250-40: 0.6680s
+Solved indices: 1564 : 1567
+Solved batches: 392 of 512
+pde_250-200: 0.8342s
+pde_250-100: 0.7106s
+pde_250-50: 0.6506s
+pde_250-40: 0.6552s
+Solved indices: 1568 : 1571
+Solved batches: 393 of 512
+pde_250-200: 0.7966s
+pde_250-100: 0.6807s
+pde_250-50: 0.7569s
+pde_250-40: 0.8899s
+Solved indices: 1572 : 1575
+Solved batches: 394 of 512
+pde_250-200: 1.0704s
+pde_250-100: 0.9712s
+pde_250-50: 1.0425s
+pde_250-40: 0.8570s
+Solved indices: 1576 : 1579
+Solved batches: 395 of 512
+pde_250-200: 1.0040s
+pde_250-100: 1.2339s
+pde_250-50: 1.0479s
+pde_250-40: 0.9835s
+Solved indices: 1580 : 1583
+Solved batches: 396 of 512
+pde_250-200: 1.2975s
+pde_250-100: 0.9656s
+pde_250-50: 0.7041s
+pde_250-40: 0.9018s
+Solved indices: 1584 : 1587
+Solved batches: 397 of 512
+pde_250-200: 1.1142s
+pde_250-100: 0.8309s
+pde_250-50: 0.8113s
+pde_250-40: 0.7975s
+Solved indices: 1588 : 1591
+Solved batches: 398 of 512
+pde_250-200: 0.9698s
+pde_250-100: 0.7102s
+pde_250-50: 0.7716s
+pde_250-40: 0.8089s
+Solved indices: 1592 : 1595
+Solved batches: 399 of 512
+pde_250-200: 1.2617s
+pde_250-100: 0.9384s
+pde_250-50: 0.8033s
+pde_250-40: 0.7049s
+Solved indices: 1596 : 1599
+Solved batches: 400 of 512
+pde_250-200: 0.9971s
+pde_250-100: 0.8290s
+pde_250-50: 0.8506s
+pde_250-40: 0.8856s
+Solved indices: 1600 : 1603
+Solved batches: 401 of 512
+pde_250-200: 1.1817s
+pde_250-100: 0.7149s
+pde_250-50: 0.6641s
+pde_250-40: 0.6984s
+Solved indices: 1604 : 1607
+Solved batches: 402 of 512
+pde_250-200: 0.7913s
+pde_250-100: 0.7280s
+pde_250-50: 0.8061s
+pde_250-40: 0.9801s
+Solved indices: 1608 : 1611
+Solved batches: 403 of 512
+pde_250-200: 0.8950s
+pde_250-100: 0.7097s
+pde_250-50: 0.7195s
+pde_250-40: 0.6642s
+Solved indices: 1612 : 1615
+Solved batches: 404 of 512
+pde_250-200: 0.9123s
+pde_250-100: 0.7515s
+pde_250-50: 0.7498s
+pde_250-40: 0.6399s
+Solved indices: 1616 : 1619
+Solved batches: 405 of 512
+pde_250-200: 0.8137s
+pde_250-100: 0.9679s
+pde_250-50: 0.8783s
+pde_250-40: 0.7303s
+Solved indices: 1620 : 1623
+Solved batches: 406 of 512
+pde_250-200: 0.7740s
+pde_250-100: 0.7264s
+pde_250-50: 0.6396s
+pde_250-40: 0.6583s
+Solved indices: 1624 : 1627
+Solved batches: 407 of 512
+pde_250-200: 0.7681s
+pde_250-100: 0.7115s
+pde_250-50: 0.6678s
+pde_250-40: 0.6259s
+Solved indices: 1628 : 1631
+Solved batches: 408 of 512
+pde_250-200: 0.7862s
+pde_250-100: 0.6930s
+pde_250-50: 0.7553s
+pde_250-40: 0.6775s
+Solved indices: 1632 : 1635
+Solved batches: 409 of 512
+pde_250-200: 0.8375s
+pde_250-100: 0.9683s
+pde_250-50: 0.9293s
+pde_250-40: 0.7799s
+Solved indices: 1636 : 1639
+Solved batches: 410 of 512
+pde_250-200: 0.9327s
+pde_250-100: 1.0663s
+pde_250-50: 0.7175s
+pde_250-40: 0.6695s
+Solved indices: 1640 : 1643
+Solved batches: 411 of 512
+pde_250-200: 0.8280s
+pde_250-100: 0.9362s
+pde_250-50: 1.0707s
+pde_250-40: 0.8637s
+Solved indices: 1644 : 1647
+Solved batches: 412 of 512
+pde_250-200: 0.8955s
+pde_250-100: 0.8145s
+pde_250-50: 0.7670s
+pde_250-40: 1.0577s
+Solved indices: 1648 : 1651
+Solved batches: 413 of 512
+pde_250-200: 1.4346s
+pde_250-100: 0.7636s
+pde_250-50: 1.0195s
+pde_250-40: 0.7808s
+Solved indices: 1652 : 1655
+Solved batches: 414 of 512
+pde_250-200: 1.2294s
+pde_250-100: 0.8892s
+pde_250-50: 0.8526s
+pde_250-40: 0.9280s
+Solved indices: 1656 : 1659
+Solved batches: 415 of 512
+pde_250-200: 1.6232s
+pde_250-100: 0.8427s
+pde_250-50: 0.8970s
+pde_250-40: 0.7972s
+Solved indices: 1660 : 1663
+Solved batches: 416 of 512
+pde_250-200: 1.0962s
+pde_250-100: 0.8580s
+pde_250-50: 0.7799s
+pde_250-40: 0.7790s
+Solved indices: 1664 : 1667
+Solved batches: 417 of 512
+pde_250-200: 1.4632s
+pde_250-100: 0.8609s
+pde_250-50: 0.9374s
+pde_250-40: 0.7472s
+Solved indices: 1668 : 1671
+Solved batches: 418 of 512
+pde_250-200: 0.8926s
+pde_250-100: 0.8597s
+pde_250-50: 0.6724s
+pde_250-40: 0.7251s
+Solved indices: 1672 : 1675
+Solved batches: 419 of 512
+pde_250-200: 0.8483s
+pde_250-100: 0.7203s
+pde_250-50: 0.8250s
+pde_250-40: 0.9359s
+Solved indices: 1676 : 1679
+Solved batches: 420 of 512
+pde_250-200: 1.1403s
+pde_250-100: 1.1176s
+pde_250-50: 1.0472s
+pde_250-40: 0.8730s
+Solved indices: 1680 : 1683
+Solved batches: 421 of 512
+pde_250-200: 1.1025s
+pde_250-100: 1.1811s
+pde_250-50: 0.6854s
+pde_250-40: 0.7563s
+Solved indices: 1684 : 1687
+Solved batches: 422 of 512
+pde_250-200: 1.0067s
+pde_250-100: 0.7693s
+pde_250-50: 1.1020s
+pde_250-40: 1.1987s
+Solved indices: 1688 : 1691
+Solved batches: 423 of 512
+pde_250-200: 1.2577s
+pde_250-100: 0.7434s
+pde_250-50: 0.7193s
+pde_250-40: 0.9426s
+Solved indices: 1692 : 1695
+Solved batches: 424 of 512
+pde_250-200: 1.4026s
+pde_250-100: 1.1646s
+pde_250-50: 0.9399s
+pde_250-40: 0.7740s
+Solved indices: 1696 : 1699
+Solved batches: 425 of 512
+pde_250-200: 1.2201s
+pde_250-100: 0.9805s
+pde_250-50: 1.0430s
+pde_250-40: 1.0168s
+Solved indices: 1700 : 1703
+Solved batches: 426 of 512
+pde_250-200: 1.0193s
+pde_250-100: 0.9538s
+pde_250-50: 0.8281s
+pde_250-40: 0.8309s
+Solved indices: 1704 : 1707
+Solved batches: 427 of 512
+pde_250-200: 1.0316s
+pde_250-100: 0.9419s
+pde_250-50: 1.0834s
+pde_250-40: 0.9562s
+Solved indices: 1708 : 1711
+Solved batches: 428 of 512
+pde_250-200: 1.3029s
+pde_250-100: 1.0681s
+pde_250-50: 0.8811s
+pde_250-40: 0.8352s
+Solved indices: 1712 : 1715
+Solved batches: 429 of 512
+pde_250-200: 1.2970s
+pde_250-100: 1.2750s
+pde_250-50: 1.0154s
+pde_250-40: 0.9598s
+Solved indices: 1716 : 1719
+Solved batches: 430 of 512
+pde_250-200: 1.2723s
+pde_250-100: 1.0910s
+pde_250-50: 0.8052s
+pde_250-40: 1.0310s
+Solved indices: 1720 : 1723
+Solved batches: 431 of 512
+pde_250-200: 1.1158s
+pde_250-100: 1.1006s
+pde_250-50: 1.0650s
+pde_250-40: 0.9666s
+Solved indices: 1724 : 1727
+Solved batches: 432 of 512
+pde_250-200: 1.3171s
+pde_250-100: 1.0019s
+pde_250-50: 0.8127s
+pde_250-40: 1.1985s
+Solved indices: 1728 : 1731
+Solved batches: 433 of 512
+pde_250-200: 1.4387s
+pde_250-100: 1.0666s
+pde_250-50: 1.0623s
+pde_250-40: 1.1073s
+Solved indices: 1732 : 1735
+Solved batches: 434 of 512
+pde_250-200: 1.3783s
+pde_250-100: 0.9498s
+pde_250-50: 0.8926s
+pde_250-40: 1.0464s
+Solved indices: 1736 : 1739
+Solved batches: 435 of 512
+pde_250-200: 1.1072s
+pde_250-100: 0.7707s
+pde_250-50: 0.8496s
+pde_250-40: 0.8160s
+Solved indices: 1740 : 1743
+Solved batches: 436 of 512
+pde_250-200: 0.9709s
+pde_250-100: 0.7198s
+pde_250-50: 0.9159s
+pde_250-40: 1.0138s
+Solved indices: 1744 : 1747
+Solved batches: 437 of 512
+pde_250-200: 1.2446s
+pde_250-100: 0.8563s
+pde_250-50: 0.7728s
+pde_250-40: 0.7303s
+Solved indices: 1748 : 1751
+Solved batches: 438 of 512
+pde_250-200: 0.9991s
+pde_250-100: 0.8192s
+pde_250-50: 0.7957s
+pde_250-40: 0.7701s
+Solved indices: 1752 : 1755
+Solved batches: 439 of 512
+pde_250-200: 1.3423s
+pde_250-100: 0.9984s
+pde_250-50: 0.6475s
+pde_250-40: 0.7819s
+Solved indices: 1756 : 1759
+Solved batches: 440 of 512
+pde_250-200: 0.9441s
+pde_250-100: 0.6945s
+pde_250-50: 0.6284s
+pde_250-40: 0.6373s
+Solved indices: 1760 : 1763
+Solved batches: 441 of 512
+pde_250-200: 0.7698s
+pde_250-100: 0.7114s
+pde_250-50: 0.6798s
+pde_250-40: 0.9153s
+Solved indices: 1764 : 1767
+Solved batches: 442 of 512
+pde_250-200: 1.0560s
+pde_250-100: 0.7228s
+pde_250-50: 1.1022s
+pde_250-40: 0.7862s
+Solved indices: 1768 : 1771
+Solved batches: 443 of 512
+pde_250-200: 1.0274s
+pde_250-100: 1.0916s
+pde_250-50: 0.9611s
+pde_250-40: 0.8529s
+Solved indices: 1772 : 1775
+Solved batches: 444 of 512
+pde_250-200: 1.3010s
+pde_250-100: 0.7876s
+pde_250-50: 0.8611s
+pde_250-40: 0.8992s
+Solved indices: 1776 : 1779
+Solved batches: 445 of 512
+pde_250-200: 1.2289s
+pde_250-100: 0.8404s
+pde_250-50: 1.0894s
+pde_250-40: 1.0085s
+Solved indices: 1780 : 1783
+Solved batches: 446 of 512
+pde_250-200: 1.0957s
+pde_250-100: 0.9142s
+pde_250-50: 0.6364s
+pde_250-40: 0.6398s
+Solved indices: 1784 : 1787
+Solved batches: 447 of 512
+pde_250-200: 1.1812s
+pde_250-100: 0.9306s
+pde_250-50: 0.8895s
+pde_250-40: 0.7693s
+Solved indices: 1788 : 1791
+Solved batches: 448 of 512
+pde_250-200: 0.9341s
+pde_250-100: 0.9945s
+pde_250-50: 1.0410s
+pde_250-40: 1.0536s
+Solved indices: 1792 : 1795
+Solved batches: 449 of 512
+pde_250-200: 0.8604s
+pde_250-100: 0.7064s
+pde_250-50: 1.1232s
+pde_250-40: 0.8928s
+Solved indices: 1796 : 1799
+Solved batches: 450 of 512
+pde_250-200: 0.8987s
+pde_250-100: 0.7480s
+pde_250-50: 0.7086s
+pde_250-40: 0.6760s
+Solved indices: 1800 : 1803
+Solved batches: 451 of 512
+pde_250-200: 1.1888s
+pde_250-100: 1.0021s
+pde_250-50: 0.9027s
+pde_250-40: 0.7643s
+Solved indices: 1804 : 1807
+Solved batches: 452 of 512
+pde_250-200: 1.0827s
+pde_250-100: 1.3292s
+pde_250-50: 1.0099s
+pde_250-40: 0.9912s
+Solved indices: 1808 : 1811
+Solved batches: 453 of 512
+pde_250-200: 0.9220s
+pde_250-100: 0.8170s
+pde_250-50: 0.7319s
+pde_250-40: 0.9586s
+Solved indices: 1812 : 1815
+Solved batches: 454 of 512
+pde_250-200: 1.0597s
+pde_250-100: 0.9639s
+pde_250-50: 1.0749s
+pde_250-40: 0.9346s
+Solved indices: 1816 : 1819
+Solved batches: 455 of 512
+pde_250-200: 1.3756s
+pde_250-100: 1.1144s
+pde_250-50: 1.0509s
+pde_250-40: 0.8180s
+Solved indices: 1820 : 1823
+Solved batches: 456 of 512
+pde_250-200: 1.2018s
+pde_250-100: 1.1897s
+pde_250-50: 0.7444s
+pde_250-40: 0.6201s
+Solved indices: 1824 : 1827
+Solved batches: 457 of 512
+pde_250-200: 1.1711s
+pde_250-100: 0.9021s
+pde_250-50: 0.6819s
+pde_250-40: 0.6495s
+Solved indices: 1828 : 1831
+Solved batches: 458 of 512
+pde_250-200: 0.8008s
+pde_250-100: 0.7092s
+pde_250-50: 0.6729s
+pde_250-40: 0.8342s
+Solved indices: 1832 : 1835
+Solved batches: 459 of 512
+pde_250-200: 0.9684s
+pde_250-100: 0.7786s
+pde_250-50: 0.7025s
+pde_250-40: 0.8571s
+Solved indices: 1836 : 1839
+Solved batches: 460 of 512
+pde_250-200: 1.3568s
+pde_250-100: 0.8779s
+pde_250-50: 0.7801s
+pde_250-40: 0.8131s
+Solved indices: 1840 : 1843
+Solved batches: 461 of 512
+pde_250-200: 1.2585s
+pde_250-100: 0.8784s
+pde_250-50: 0.8216s
+pde_250-40: 0.7593s
+Solved indices: 1844 : 1847
+Solved batches: 462 of 512
+pde_250-200: 1.2417s
+pde_250-100: 0.9923s
+pde_250-50: 0.7308s
+pde_250-40: 0.9542s
+Solved indices: 1848 : 1851
+Solved batches: 463 of 512
+pde_250-200: 1.0777s
+pde_250-100: 1.1167s
+pde_250-50: 0.9180s
+pde_250-40: 0.9154s
+Solved indices: 1852 : 1855
+Solved batches: 464 of 512
+pde_250-200: 1.2320s
+pde_250-100: 1.1219s
+pde_250-50: 1.1238s
+pde_250-40: 1.1413s
+Solved indices: 1856 : 1859
+Solved batches: 465 of 512
+pde_250-200: 1.3927s
+pde_250-100: 1.0305s
+pde_250-50: 0.9121s
+pde_250-40: 0.8402s
+Solved indices: 1860 : 1863
+Solved batches: 466 of 512
+pde_250-200: 1.3591s
+pde_250-100: 1.1065s
+pde_250-50: 0.9418s
+pde_250-40: 1.1367s
+Solved indices: 1864 : 1867
+Solved batches: 467 of 512
+pde_250-200: 1.4150s
+pde_250-100: 1.0717s
+pde_250-50: 1.0538s
+pde_250-40: 0.8671s
+Solved indices: 1868 : 1871
+Solved batches: 468 of 512
+pde_250-200: 1.5329s
+pde_250-100: 1.0342s
+pde_250-50: 1.1325s
+pde_250-40: 1.0023s
+Solved indices: 1872 : 1875
+Solved batches: 469 of 512
+pde_250-200: 1.1428s
+pde_250-100: 0.8995s
+pde_250-50: 0.7933s
+pde_250-40: 1.2371s
+Solved indices: 1876 : 1879
+Solved batches: 470 of 512
+pde_250-200: 1.0272s
+pde_250-100: 0.8991s
+pde_250-50: 0.8798s
+pde_250-40: 0.8649s
+Solved indices: 1880 : 1883
+Solved batches: 471 of 512
+pde_250-200: 1.0303s
+pde_250-100: 0.9062s
+pde_250-50: 0.7840s
+pde_250-40: 0.7938s
+Solved indices: 1884 : 1887
+Solved batches: 472 of 512
+pde_250-200: 1.0799s
+pde_250-100: 0.8186s
+pde_250-50: 0.8004s
+pde_250-40: 0.6808s
+Solved indices: 1888 : 1891
+Solved batches: 473 of 512
+pde_250-200: 1.0000s
+pde_250-100: 1.0410s
+pde_250-50: 0.8798s
+pde_250-40: 0.7193s
+Solved indices: 1892 : 1895
+Solved batches: 474 of 512
+pde_250-200: 1.4125s
+pde_250-100: 1.0467s
+pde_250-50: 0.9512s
+pde_250-40: 1.0882s
+Solved indices: 1896 : 1899
+Solved batches: 475 of 512
+pde_250-200: 1.3399s
+pde_250-100: 0.9870s
+pde_250-50: 1.0645s
+pde_250-40: 0.9451s
+Solved indices: 1900 : 1903
+Solved batches: 476 of 512
+pde_250-200: 1.4093s
+pde_250-100: 0.9431s
+pde_250-50: 1.0165s
+pde_250-40: 1.0073s
+Solved indices: 1904 : 1907
+Solved batches: 477 of 512
+pde_250-200: 1.0463s
+pde_250-100: 0.9205s
+pde_250-50: 1.1896s
+pde_250-40: 1.0561s
+Solved indices: 1908 : 1911
+Solved batches: 478 of 512
+pde_250-200: 1.2652s
+pde_250-100: 1.0813s
+pde_250-50: 1.0235s
+pde_250-40: 0.8043s
+Solved indices: 1912 : 1915
+Solved batches: 479 of 512
+pde_250-200: 1.3135s
+pde_250-100: 1.1700s
+pde_250-50: 0.8032s
+pde_250-40: 0.8452s
+Solved indices: 1916 : 1919
+Solved batches: 480 of 512
+pde_250-200: 1.1325s
+pde_250-100: 1.0752s
+pde_250-50: 1.0498s
+pde_250-40: 1.2468s
+Solved indices: 1920 : 1923
+Solved batches: 481 of 512
+pde_250-200: 1.0790s
+pde_250-100: 0.8629s
+pde_250-50: 0.8904s
+pde_250-40: 0.8655s
+Solved indices: 1924 : 1927
+Solved batches: 482 of 512
+pde_250-200: 1.2932s
+pde_250-100: 1.0796s
+pde_250-50: 0.8731s
+pde_250-40: 0.7966s
+Solved indices: 1928 : 1931
+Solved batches: 483 of 512
+pde_250-200: 0.8464s
+pde_250-100: 0.7896s
+pde_250-50: 0.7186s
+pde_250-40: 0.6820s
+Solved indices: 1932 : 1935
+Solved batches: 484 of 512
+pde_250-200: 0.9584s
+pde_250-100: 0.8742s
+pde_250-50: 1.1139s
+pde_250-40: 0.7321s
+Solved indices: 1936 : 1939
+Solved batches: 485 of 512
+pde_250-200: 0.8697s
+pde_250-100: 0.7631s
+pde_250-50: 0.6836s
+pde_250-40: 0.6117s
+Solved indices: 1940 : 1943
+Solved batches: 486 of 512
+pde_250-200: 0.8529s
+pde_250-100: 0.8198s
+pde_250-50: 0.6691s
+pde_250-40: 0.6577s
+Solved indices: 1944 : 1947
+Solved batches: 487 of 512
+pde_250-200: 0.8846s
+pde_250-100: 0.7782s
+pde_250-50: 0.7997s
+pde_250-40: 0.9834s
+Solved indices: 1948 : 1951
+Solved batches: 488 of 512
+pde_250-200: 0.9777s
+pde_250-100: 0.8813s
+pde_250-50: 0.6891s
+pde_250-40: 0.7448s
+Solved indices: 1952 : 1955
+Solved batches: 489 of 512
+pde_250-200: 0.9092s
+pde_250-100: 0.9382s
+pde_250-50: 1.0339s
+pde_250-40: 1.1681s
+Solved indices: 1956 : 1959
+Solved batches: 490 of 512
+pde_250-200: 0.8596s
+pde_250-100: 0.7878s
+pde_250-50: 0.9117s
+pde_250-40: 1.0537s
+Solved indices: 1960 : 1963
+Solved batches: 491 of 512
+pde_250-200: 1.3927s
+pde_250-100: 0.8616s
+pde_250-50: 0.8612s
+pde_250-40: 0.9131s
+Solved indices: 1964 : 1967
+Solved batches: 492 of 512
+pde_250-200: 1.0485s
+pde_250-100: 1.0716s
+pde_250-50: 1.0747s
+pde_250-40: 1.0885s
+Solved indices: 1968 : 1971
+Solved batches: 493 of 512
+pde_250-200: 1.0093s
+pde_250-100: 0.9253s
+pde_250-50: 0.8944s
+pde_250-40: 0.8924s
+Solved indices: 1972 : 1975
+Solved batches: 494 of 512
+pde_250-200: 1.3525s
+pde_250-100: 0.8048s
+pde_250-50: 0.8063s
+pde_250-40: 0.8822s
+Solved indices: 1976 : 1979
+Solved batches: 495 of 512
+pde_250-200: 0.9209s
+pde_250-100: 1.1678s
+pde_250-50: 0.9637s
+pde_250-40: 0.8236s
+Solved indices: 1980 : 1983
+Solved batches: 496 of 512
+pde_250-200: 0.8453s
+pde_250-100: 1.2891s
+pde_250-50: 0.6950s
+pde_250-40: 0.9373s
+Solved indices: 1984 : 1987
+Solved batches: 497 of 512
+pde_250-200: 0.9500s
+pde_250-100: 0.6742s
+pde_250-50: 0.6346s
+pde_250-40: 0.7278s
+Solved indices: 1988 : 1991
+Solved batches: 498 of 512
+pde_250-200: 1.2336s
+pde_250-100: 0.8618s
+pde_250-50: 0.6239s
+pde_250-40: 0.5920s
+Solved indices: 1992 : 1995
+Solved batches: 499 of 512
+pde_250-200: 0.7875s
+pde_250-100: 1.0277s
+pde_250-50: 0.7859s
+pde_250-40: 0.6527s
+Solved indices: 1996 : 1999
+Solved batches: 500 of 512
+pde_250-200: 0.7969s
+pde_250-100: 0.6843s
+pde_250-50: 0.6728s
+pde_250-40: 0.6809s
+Solved indices: 2000 : 2003
+Solved batches: 501 of 512
+pde_250-200: 1.1324s
+pde_250-100: 0.6852s
+pde_250-50: 0.6278s
+pde_250-40: 0.6859s
+Solved indices: 2004 : 2007
+Solved batches: 502 of 512
+pde_250-200: 1.2672s
+pde_250-100: 0.7495s
+pde_250-50: 0.6855s
+pde_250-40: 0.6441s
+Solved indices: 2008 : 2011
+Solved batches: 503 of 512
+pde_250-200: 1.1439s
+pde_250-100: 0.9048s
+pde_250-50: 0.7226s
+pde_250-40: 0.6744s
+Solved indices: 2012 : 2015
+Solved batches: 504 of 512
+pde_250-200: 0.7483s
+pde_250-100: 0.6839s
+pde_250-50: 0.6942s
+pde_250-40: 0.6591s
+Solved indices: 2016 : 2019
+Solved batches: 505 of 512
+pde_250-200: 1.0589s
+pde_250-100: 0.8050s
+pde_250-50: 0.6681s
+pde_250-40: 0.6996s
+Solved indices: 2020 : 2023
+Solved batches: 506 of 512
+pde_250-200: 0.8245s
+pde_250-100: 1.0267s
+pde_250-50: 1.1368s
+pde_250-40: 1.0855s
+Solved indices: 2024 : 2027
+Solved batches: 507 of 512
+pde_250-200: 1.1722s
+pde_250-100: 1.0448s
+pde_250-50: 0.6606s
+pde_250-40: 0.7712s
+Solved indices: 2028 : 2031
+Solved batches: 508 of 512
+pde_250-200: 1.3462s
+pde_250-100: 1.1238s
+pde_250-50: 1.0432s
+pde_250-40: 0.9550s
+Solved indices: 2032 : 2035
+Solved batches: 509 of 512
+pde_250-200: 1.2371s
+pde_250-100: 0.7880s
+pde_250-50: 0.6972s
+pde_250-40: 0.6333s
+Solved indices: 2036 : 2039
+Solved batches: 510 of 512
+pde_250-200: 0.9223s
+pde_250-100: 0.7656s
+pde_250-50: 0.6537s
+pde_250-40: 0.6709s
+Solved indices: 2040 : 2043
+Solved batches: 511 of 512
+pde_250-200: 0.7900s
+pde_250-100: 0.6904s
+pde_250-50: 0.6734s
+pde_250-40: 0.6647s
+Solved indices: 2044 : 2047
+Solved batches: 512 of 512
+
+Data saved
+
+
+Device: cpu
+Equation: E1
+Mode: test
+Number of samples: 128
+Batch size: 4
+Number of batches: 32
+pde_250-200: 1.2711s
+pde_250-100: 0.8014s
+pde_250-50: 0.6760s
+pde_250-40: 0.6491s
+Solved indices: 0 : 3
+Solved batches: 1 of 32
+pde_250-200: 0.8742s
+pde_250-100: 1.1093s
+pde_250-50: 0.7729s
+pde_250-40: 0.6397s
+Solved indices: 4 : 7
+Solved batches: 2 of 32
+pde_250-200: 0.7950s
+pde_250-100: 0.7121s
+pde_250-50: 0.7780s
+pde_250-40: 1.0213s
+Solved indices: 8 : 11
+Solved batches: 3 of 32
+pde_250-200: 0.8365s
+pde_250-100: 0.6825s
+pde_250-50: 0.6610s
+pde_250-40: 0.6342s
+Solved indices: 12 : 15
+Solved batches: 4 of 32
+pde_250-200: 0.7671s
+pde_250-100: 0.7143s
+pde_250-50: 0.6147s
+pde_250-40: 0.6114s
+Solved indices: 16 : 19
+Solved batches: 5 of 32
+pde_250-200: 0.7838s
+pde_250-100: 0.7156s
+pde_250-50: 0.5993s
+pde_250-40: 0.8163s
+Solved indices: 20 : 23
+Solved batches: 6 of 32
+pde_250-200: 1.0761s
+pde_250-100: 0.7300s
+pde_250-50: 0.6678s
+pde_250-40: 0.6721s
+Solved indices: 24 : 27
+Solved batches: 7 of 32
+pde_250-200: 1.0615s
+pde_250-100: 0.7333s
+pde_250-50: 0.9162s
+pde_250-40: 0.8430s
+Solved indices: 28 : 31
+Solved batches: 8 of 32
+pde_250-200: 0.8357s
+pde_250-100: 0.7131s
+pde_250-50: 0.6432s
+pde_250-40: 0.6576s
+Solved indices: 32 : 35
+Solved batches: 9 of 32
+pde_250-200: 0.8099s
+pde_250-100: 0.7311s
+pde_250-50: 0.6956s
+pde_250-40: 0.6489s
+Solved indices: 36 : 39
+Solved batches: 10 of 32
+pde_250-200: 1.0114s
+pde_250-100: 0.8979s
+pde_250-50: 1.0451s
+pde_250-40: 1.3886s
+Solved indices: 40 : 43
+Solved batches: 11 of 32
+pde_250-200: 1.0935s
+pde_250-100: 0.9599s
+pde_250-50: 0.9907s
+pde_250-40: 1.0202s
+Solved indices: 44 : 47
+Solved batches: 12 of 32
+pde_250-200: 1.1553s
+pde_250-100: 0.9006s
+pde_250-50: 0.8908s
+pde_250-40: 1.1091s
+Solved indices: 48 : 51
+Solved batches: 13 of 32
+pde_250-200: 1.3538s
+pde_250-100: 1.0389s
+pde_250-50: 1.0443s
+pde_250-40: 1.1735s
+Solved indices: 52 : 55
+Solved batches: 14 of 32
+pde_250-200: 1.2240s
+pde_250-100: 1.3051s
+pde_250-50: 1.5568s
+pde_250-40: 0.9887s
+Solved indices: 56 : 59
+Solved batches: 15 of 32
+pde_250-200: 1.4231s
+pde_250-100: 1.1509s
+pde_250-50: 1.1741s
+pde_250-40: 0.7770s
+Solved indices: 60 : 63
+Solved batches: 16 of 32
+pde_250-200: 1.2623s
+pde_250-100: 0.9428s
+pde_250-50: 0.9343s
+pde_250-40: 0.9513s
+Solved indices: 64 : 67
+Solved batches: 17 of 32
+pde_250-200: 0.9976s
+pde_250-100: 0.9261s
+pde_250-50: 0.7849s
+pde_250-40: 0.8698s
+Solved indices: 68 : 71
+Solved batches: 18 of 32
+pde_250-200: 1.1748s
+pde_250-100: 1.1141s
+pde_250-50: 1.0934s
+pde_250-40: 0.8557s
+Solved indices: 72 : 75
+Solved batches: 19 of 32
+pde_250-200: 1.4105s
+pde_250-100: 1.0127s
+pde_250-50: 0.8817s
+pde_250-40: 0.6770s
+Solved indices: 76 : 79
+Solved batches: 20 of 32
+pde_250-200: 1.2790s
+pde_250-100: 0.7766s
+pde_250-50: 1.0049s
+pde_250-40: 0.8039s
+Solved indices: 80 : 83
+Solved batches: 21 of 32
+pde_250-200: 1.1470s
+pde_250-100: 0.6822s
+pde_250-50: 0.6554s
+pde_250-40: 0.6529s
+Solved indices: 84 : 87
+Solved batches: 22 of 32
+pde_250-200: 0.8178s
+pde_250-100: 1.0329s
+pde_250-50: 1.1860s
+pde_250-40: 0.9343s
+Solved indices: 88 : 91
+Solved batches: 23 of 32
+pde_250-200: 0.9323s
+pde_250-100: 0.8856s
+pde_250-50: 0.6535s
+pde_250-40: 0.8868s
+Solved indices: 92 : 95
+Solved batches: 24 of 32
+pde_250-200: 1.0485s
+pde_250-100: 0.7052s
+pde_250-50: 0.7420s
+pde_250-40: 0.8993s
+Solved indices: 96 : 99
+Solved batches: 25 of 32
+pde_250-200: 0.9356s
+pde_250-100: 0.7965s
+pde_250-50: 0.8883s
+pde_250-40: 1.0050s
+Solved indices: 100 : 103
+Solved batches: 26 of 32
+pde_250-200: 1.0529s
+pde_250-100: 0.9853s
+pde_250-50: 0.6370s
+pde_250-40: 0.7954s
+Solved indices: 104 : 107
+Solved batches: 27 of 32
+pde_250-200: 1.3836s
+pde_250-100: 0.8749s
+pde_250-50: 0.9632s
+pde_250-40: 0.8322s
+Solved indices: 108 : 111
+Solved batches: 28 of 32
+pde_250-200: 0.8334s
+pde_250-100: 0.8324s
+pde_250-50: 1.0044s
+pde_250-40: 0.8905s
+Solved indices: 112 : 115
+Solved batches: 29 of 32
+pde_250-200: 1.1791s
+pde_250-100: 0.9188s
+pde_250-50: 0.9719s
+pde_250-40: 0.8537s
+Solved indices: 116 : 119
+Solved batches: 30 of 32
+pde_250-200: 0.7850s
+pde_250-100: 0.7918s
+pde_250-50: 0.8860s
+pde_250-40: 1.0202s
+Solved indices: 120 : 123
+Solved batches: 31 of 32
+pde_250-200: 0.8860s
+pde_250-100: 0.7287s
+pde_250-50: 0.6988s
+pde_250-40: 0.7972s
+Solved indices: 124 : 127
+Solved batches: 32 of 32
+
+Data saved
+
+
+Device: cpu
+Equation: E1
+Mode: valid
+Number of samples: 128
+Batch size: 4
+Number of batches: 32
+pde_250-200: 0.9228s
+pde_250-100: 0.7364s
+pde_250-50: 0.9283s
+pde_250-40: 0.9014s
+Solved indices: 0 : 3
+Solved batches: 1 of 32
+pde_250-200: 1.0719s
+pde_250-100: 1.0759s
+pde_250-50: 0.7502s
+pde_250-40: 0.9046s
+Solved indices: 4 : 7
+Solved batches: 2 of 32
+pde_250-200: 1.0759s
+pde_250-100: 0.7699s
+pde_250-50: 0.8736s
+pde_250-40: 1.0578s
+Solved indices: 8 : 11
+Solved batches: 3 of 32
+pde_250-200: 0.7743s
+pde_250-100: 0.6595s
+pde_250-50: 0.6220s
+pde_250-40: 0.6914s
+Solved indices: 12 : 15
+Solved batches: 4 of 32
+pde_250-200: 0.9534s
+pde_250-100: 0.9367s
+pde_250-50: 0.9190s
+pde_250-40: 0.8965s
+Solved indices: 16 : 19
+Solved batches: 5 of 32
+pde_250-200: 1.1274s
+pde_250-100: 1.2288s
+pde_250-50: 0.7786s
+pde_250-40: 1.0076s
+Solved indices: 20 : 23
+Solved batches: 6 of 32
+pde_250-200: 1.1245s
+pde_250-100: 0.8684s
+pde_250-50: 0.7343s
+pde_250-40: 0.9147s
+Solved indices: 24 : 27
+Solved batches: 7 of 32
+pde_250-200: 1.1186s
+pde_250-100: 0.9534s
+pde_250-50: 0.7337s
+pde_250-40: 0.6396s
+Solved indices: 28 : 31
+Solved batches: 8 of 32
+pde_250-200: 1.1927s
+pde_250-100: 1.0487s
+pde_250-50: 0.7825s
+pde_250-40: 0.8190s
+Solved indices: 32 : 35
+Solved batches: 9 of 32
+pde_250-200: 1.3260s
+pde_250-100: 1.0744s
+pde_250-50: 1.1587s
+pde_250-40: 0.8821s
+Solved indices: 36 : 39
+Solved batches: 10 of 32
+pde_250-200: 0.9623s
+pde_250-100: 0.8330s
+pde_250-50: 0.7049s
+pde_250-40: 0.7351s
+Solved indices: 40 : 43
+Solved batches: 11 of 32
+pde_250-200: 0.9015s
+pde_250-100: 0.8777s
+pde_250-50: 0.8664s
+pde_250-40: 0.9017s
+Solved indices: 44 : 47
+Solved batches: 12 of 32
+pde_250-200: 1.0951s
+pde_250-100: 1.0295s
+pde_250-50: 0.8777s
+pde_250-40: 0.7360s
+Solved indices: 48 : 51
+Solved batches: 13 of 32
+pde_250-200: 1.0882s
+pde_250-100: 0.8928s
+pde_250-50: 0.7643s
+pde_250-40: 0.9417s
+Solved indices: 52 : 55
+Solved batches: 14 of 32
+pde_250-200: 1.3255s
+pde_250-100: 0.7915s
+pde_250-50: 0.8553s
+pde_250-40: 0.7146s
+Solved indices: 56 : 59
+Solved batches: 15 of 32
+pde_250-200: 1.1497s
+pde_250-100: 0.9202s
+pde_250-50: 0.9783s
+pde_250-40: 0.8053s
+Solved indices: 60 : 63
+Solved batches: 16 of 32
+pde_250-200: 1.2572s
+pde_250-100: 1.1838s
+pde_250-50: 0.9904s
+pde_250-40: 0.8963s
+Solved indices: 64 : 67
+Solved batches: 17 of 32
+pde_250-200: 1.2439s
+pde_250-100: 0.9939s
+pde_250-50: 0.6797s
+pde_250-40: 0.7537s
+Solved indices: 68 : 71
+Solved batches: 18 of 32
+pde_250-200: 0.7818s
+pde_250-100: 0.9084s
+pde_250-50: 0.9730s
+pde_250-40: 0.9062s
+Solved indices: 72 : 75
+Solved batches: 19 of 32
+pde_250-200: 1.0386s
+pde_250-100: 1.0878s
+pde_250-50: 0.9288s
+pde_250-40: 0.7583s
+Solved indices: 76 : 79
+Solved batches: 20 of 32
+pde_250-200: 0.9507s
+pde_250-100: 0.6909s
+pde_250-50: 0.6547s
+pde_250-40: 0.8029s
+Solved indices: 80 : 83
+Solved batches: 21 of 32
+pde_250-200: 0.9464s
+pde_250-100: 0.8141s
+pde_250-50: 0.8160s
+pde_250-40: 0.6840s
+Solved indices: 84 : 87
+Solved batches: 22 of 32
+pde_250-200: 0.9462s
+pde_250-100: 0.7259s
+pde_250-50: 0.7699s
+pde_250-40: 0.7925s
+Solved indices: 88 : 91
+Solved batches: 23 of 32
+pde_250-200: 0.9908s
+pde_250-100: 0.7258s
+pde_250-50: 0.7314s
+pde_250-40: 0.6846s
+Solved indices: 92 : 95
+Solved batches: 24 of 32
+pde_250-200: 0.9700s
+pde_250-100: 0.8544s
+pde_250-50: 0.7643s
+pde_250-40: 0.6843s
+Solved indices: 96 : 99
+Solved batches: 25 of 32
+pde_250-200: 0.8814s
+pde_250-100: 0.8614s
+pde_250-50: 1.1009s
+pde_250-40: 1.0870s
+Solved indices: 100 : 103
+Solved batches: 26 of 32
+pde_250-200: 1.4671s
+pde_250-100: 1.0262s
+pde_250-50: 0.6705s
+pde_250-40: 0.8190s
+Solved indices: 104 : 107
+Solved batches: 27 of 32
+pde_250-200: 1.2876s
+pde_250-100: 0.8291s
+pde_250-50: 0.7885s
+pde_250-40: 0.7362s
+Solved indices: 108 : 111
+Solved batches: 28 of 32
+pde_250-200: 0.8881s
+pde_250-100: 0.9050s
+pde_250-50: 0.8770s
+pde_250-40: 0.6511s
+Solved indices: 112 : 115
+Solved batches: 29 of 32
+pde_250-200: 0.8626s
+pde_250-100: 0.7793s
+pde_250-50: 0.9290s
+pde_250-40: 0.8829s
+Solved indices: 116 : 119
+Solved batches: 30 of 32
+pde_250-200: 0.9840s
+pde_250-100: 1.1390s
+pde_250-50: 1.1886s
+pde_250-40: 1.0369s
+Solved indices: 120 : 123
+Solved batches: 31 of 32
+pde_250-200: 1.0803s
+pde_250-100: 0.8650s
+pde_250-50: 0.9511s
+pde_250-40: 0.9156s
+Solved indices: 124 : 127
+Solved batches: 32 of 32
+
+Data saved
+
+

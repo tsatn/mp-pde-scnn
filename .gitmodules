@@ -1,0 +1,6 @@
+[submodule "snn/simplicial_neural_networks"]
+	path = snn/simplicial_neural_networks
+	url = https://github.com/stefaniaebli/simplicial_neural_networks.git
+[submodule "third_party/snn"]
+	path = third_party/snn
+	url = https://github.com/stefaniaebli/simplicial_neural_networks.git

@@ -9,8 +9,14 @@ from typing import Tuple
 from torch_geometric.data import Data
 from torch_cluster import radius_graph, knn_graph
 from equations.PDEs import *
+from common.simplicial_utils import enrich_pyg_data_with_simplicial
 
-
+###
+    # how u and y are built: given that the expected time_window = 25.
+    # permute the tensors so that the time‑window dimension is kept
+    # (25), then reshape once outside the loop — no more transposes inside the
+    # loop.
+###
 class HDF5Dataset(Dataset):
     """Load samples of an PDE Dataset, get items according to PDE"""
 
@@ -145,9 +151,40 @@ class GraphCreator(nn.Module):
         self.tw = time_window
         self.t_res = t_resolution
         self.x_res = x_resolution
+        
+        # ---- static 1‑D chain graph for all samples -----------------
+        # nodes are 0 … (nx‑1); undirected edges (i,i+1)
+        self.num_nodes = self.x_res
+        src  = torch.arange(self.x_res - 1, dtype=torch.long)
+        dst  = src + 1
+        # edge_index shape [2, 2*(nx‑1)]
+        self.edge_index = torch.stack(
+            [torch.cat([src, dst]),          # forward edges
+             torch.cat([dst, src])], dim=0   # backward edges (undirected)
+        )
 
+        # positions along the spatial axis (needed by SCN mesh)
+        self._grid = torch.linspace(
+            getattr(pde, 'xmin', 0.0),       # 0 if attribute missing
+            getattr(pde, 'xmax', 1.0),
+            self.x_res
+        )
+        
         assert isinstance(self.n, int)
         assert isinstance(self.tw, int)
+    
+    def get_grid(self) -> torch.Tensor:
+        """[num_nodes] tensor with node x‑positions (0‑1)."""
+        # Return the 1‑D spatial grid (x‑coordinates) as a 1‑D tensor of
+        # length nx = self.pde.grid_size[1].
+        # return self._grid
+        # return torch.linspace(
+        #     0.0, self.pde.L, self.pde.grid_size[1],
+        #     device=self.pde.device if hasattr(self.pde, "device") else "cpu"
+        # )
+        """Returns the 1‑D spatial coordinates as a tensor [N]."""
+        return torch.linspace(0, self.pde.L, self.pde.grid_size[1])
+
 
     def create_data(self, datapoints: torch.Tensor, steps: list) -> Tuple[torch.Tensor, torch.Tensor]:
         """
@@ -167,74 +204,63 @@ class GraphCreator(nn.Module):
             labels = torch.cat((labels, l[None, :]), 0)
 
         return data, labels
+    
+    def create_graph(
+            self,
+            data: torch.Tensor,   # shape [B, time_window, nx]
+            labels: torch.Tensor, # shape [B, time_window, nx]
+            x: torch.Tensor,
+            variables: dict,
+            steps: list) -> Data:
 
-
-    def create_graph(self,
-                     data: torch.Tensor,
-                     labels: torch.Tensor,
-                     x: torch.Tensor,
-                     variables: dict,
-                     steps: list) -> Data:
-        """
-        Getting graph structure out of data sample
-        previous timesteps are combined in one node
-        Args:
-            data (torch.Tensor): input data tensor
-            labels (torch.Tensor): label tensor
-            x (torch.Tensor): spatial coordinates tensor
-            variables (dict): dictionary of equation specific parameters
-            steps (list): list of different starting points for each batch entry
-        Returns:
-            Data: Pytorch Geometric data graph
-        """
+        B, tw, nx = data.size()           # tw == self.tw
         nt = self.pde.grid_size[0]
-        nx = self.pde.grid_size[1]
-        t = torch.linspace(self.pde.tmin, self.pde.tmax, nt)
+        t_vec = torch.linspace(self.pde.tmin, self.pde.tmax, nt, device=data.device)
 
-        u, x_pos, t_pos, y, batch = torch.Tensor(), torch.Tensor(), torch.Tensor(), torch.Tensor(), torch.Tensor()
-        for b, (data_batch, labels_batch, step) in enumerate(zip(data, labels, steps)):
-            u = torch.cat((u, torch.transpose(torch.cat([d[None, :] for d in data_batch]), 0, 1)), )
-            y = torch.cat((y, torch.transpose(torch.cat([l[None, :] for l in labels_batch]), 0, 1)), )
-            x_pos = torch.cat((x_pos, x[0]), )
-            t_pos = torch.cat((t_pos, torch.ones(nx) * t[step]), )
-            batch = torch.cat((batch, torch.ones(nx) * b), )
+        # ------------- features & labels ---------------------------------
+        #   data:  [B, tw, nx]  →  [B, nx, tw]  →  [B*nx, tw]
+        u = data.permute(0, 2, 1).contiguous().view(-1, tw)
+        y = labels.permute(0, 2, 1).contiguous().view(-1, tw)
 
-        # Calculate the edge_index
+        # ------------- positional encodings ------------------------------
+        x_pos = x.repeat(B, 1)                   # [B*nx]
+        t_pos = torch.cat([t_vec[step].repeat(nx) for step in steps])  # [B*nx]
+        pos   = torch.stack([t_pos, x_pos], dim=1)                     # [B*nx, 2]
+
+        # ------------- edge index (radius or k‑NN) -----------------------
+        batch_vec = torch.repeat_interleave(torch.arange(B), nx).to(data.device)
+
         if f'{self.pde}' == 'CE':
-            dx = x[0][1] - x[0][0]
-            radius = self.n * dx + 0.0001
-            edge_index = radius_graph(x_pos, r=radius, batch=batch.long(), loop=False)
-        elif f'{self.pde}' == 'WE':
-            edge_index = knn_graph(x_pos, k=self.n, batch=batch.long(), loop=False)
+            dx = x[0, 1] - x[0, 0]
+            from math import exp
+            r  = self.n * dx + 1 * exp(-4)
+            edge_index = radius_graph(x_pos, r=r, batch=batch_vec, loop=False)
 
-        graph = Data(x=u, edge_index=edge_index)
-        graph.y = y
-        graph.pos = torch.cat((t_pos[:, None], x_pos[:, None]), 1)
-        graph.batch = batch.long()
+        else:   # WE
+            edge_index = knn_graph(x_pos, k=self.n, batch=batch_vec, loop=False)
 
-        # Equation specific parameters
-        if f'{self.pde}' == 'CE':
-            alpha, beta, gamma = torch.Tensor(), torch.Tensor(), torch.Tensor()
-            for i in batch.long():
-                alpha = torch.cat((alpha, torch.tensor([variables['alpha'][i]])[:, None]), )
-                beta = torch.cat((beta, torch.tensor([variables['beta'][i]*(-1.)])[:, None]), )
-                gamma = torch.cat((gamma, torch.tensor([variables['gamma'][i]])[:, None]), )
+        # build PyG Data ---------------------------------------------------
+        graph = Data(x=u, edge_index=edge_index, y=y, pos=pos, batch=batch_vec)
+        graph = enrich_pyg_data_with_simplicial(graph, max_order=2)
 
-            graph.alpha = alpha
-            graph.beta = beta
-            graph.gamma = gamma
-
-        elif f'{self.pde}' == 'WE':
-            bc_left, bc_right, c = torch.Tensor(), torch.Tensor(), torch.Tensor()
-            for i in batch.long():
-                bc_left = torch.cat((bc_left, torch.tensor([variables['bc_left'][i]])[:, None]), )
-                bc_right = torch.cat((bc_right, torch.tensor([variables['bc_right'][i]])[:, None]), )
-                c = torch.cat((c, torch.tensor([variables['c'][i]])[:, None]), )
-
-            graph.bc_left = bc_left
-            graph.bc_right = bc_right
-            graph.c = c
-
+        # ------ (optional) PDE‑specific scalars per node ------------------
+        if f'{self.pde}' == 'WE':
+            bc_left  = torch.tensor(variables['bc_left' ][batch_vec])
+            bc_right = torch.tensor(variables['bc_right'][batch_vec])
+            c_speed  = torch.tensor(variables['c'       ][batch_vec])
+            graph.bc_left, graph.bc_right, graph.c = bc_left, bc_right, c_speed
+        # (same idea for CE if you need α,β,γ)
+        
+        # --------------------------------------------------------------
+        #  SCN needs a feature tensor for every edge / triangle
+        #
+        E = edge_index.size(1)
+        graph.edge_attr = torch.zeros(E, 1)          # 1 feature per edge
+        #
+        graph.triangles = torch.empty(0, 3, dtype=torch.long)  # no tris yet
+        graph.tri_attr  = torch.zeros(0, 1)
+        # --------------------------------------------------------------
+        
         return graph
 
 
@@ -268,4 +294,4 @@ class GraphCreator(nn.Module):
         graph.pos[:, 0] = t_pos
 
         return graph
-
+    
