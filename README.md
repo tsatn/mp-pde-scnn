@@ -1,4 +1,7 @@
-# Message Passing Neural PDE Solvers
+
+
+
+<!-- # Message Passing Neural PDE Solvers
 
 Johannes Brandstetter*, Daniel Worrall*, Max Welling
 
@@ -15,7 +18,7 @@ If you find our work and/or our code useful, please cite us via:
   journal={arXiv preprint arXiv:2202.03376},
   year={2022}
 }
-```
+``` -->
 
 <img src="assets/MP-PDE-Solver.png" width="800">
 

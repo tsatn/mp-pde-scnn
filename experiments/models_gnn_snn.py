@@ -14,9 +14,7 @@ except ImportError:
     snn_complex = None        
 
 
-# ---------------------------------------------------------------------
 #  Minimal first‑order simplicial convolution (triangle -> edge / edge -> node)
-# ---------------------------------------------------------------------
 class SimplicialConvolution(nn.Module):
     def __init__(self,
                  in_channels:  int,
