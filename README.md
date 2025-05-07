@@ -1,5 +1,7 @@
 # Message‑Passing & Simplicial Neural PDE Solvers  
 ---
+## 0. Short Introduction
+This GitHub repository implements a framework for solving partial differential equations (PDEs) using neural networks, specifically integrating message-passing and simplicial convolutional neural networks (SCNNs). This approach builds upon the work presented in the paper "Message Passing Neural PDE Solvers" by Brandstetter et al., which introduces neural message-passing techniques for PDE solutions .
 
 ## 1. High‑level pipeline
 
