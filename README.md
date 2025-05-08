@@ -22,6 +22,20 @@ Numerical solver (WENO/FDM)  ─▶  *.h5  ─▶  HDF5Dataset  ─▶  GraphCre
                                    rollout / evaluation
 
 ```
+
+### structure: 
+Input: A simplicial complex (mesh) with features on nodes/edges/triangles.
+
+Encoding: Node/edge/triangle features are projected into a latent space via enc0, enc1, enc2.
+
+Processing: Simplicial convolutions propagate information across simplices using boundary operators (B1, B2).
+Combines features from adjacent simplices (e.g., node features are updated using edges and triangles).
+
+Temporal Bundling: Aggregates features across multiple timesteps to model dynamics.
+
+Decoding: Maps processed features back to physical space (e.g. PDE solution).
+
+
 ## Git: large files
 Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
 
