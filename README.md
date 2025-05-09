@@ -74,7 +74,7 @@ python experiments/train.py \
        --base_resolution 250,100 --neighbors 6 --time_window 25 \
        --batch_size 16 --device cuda:0  --log True
        
-| block                                | parameters |
+ block                                 |  parameters 
 | ------------------------------------ | ---------- |
 | Encoder0 (Linear 25→128)             | 3 328      |
 | Simplicial conv ×3 (0‑,1‑,2‑simplex) | \~50 k     |
@@ -99,4 +99,27 @@ python experiments/train.py \
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=10 --time_window=25 --log=True`
 
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=6 --time_window=25 --log=True`
+
+
+
+
+
+
+# Model Comparison
+Aspect	                        Your SCN-PDE Model	MP-Neural-PDE-Solvers	Simplicial-NN (SNN)
+Input Features	                       - Nodes: PDE       states + coordinates.
+- Edges: Edge lengths.
+- Triangles: Areas.	- Nodes: PDE states + coordinates.
+- Edges: Not used (implicit via adjacency).	- Nodes/Edges/Triangles: Features per simplex (e.g., node signals, edge flows, triangle pressures).
+Input Operators: Boundary matrices B1 (edges→nodes), B2 (triangles→edges).	Standard adjacency matrix (edges as connectivity).	Hodge Laplacians (L0, L1, L2) for gradient/curl/divergence.
+Output: Predicted PDE state (node features).	Predicted PDE state (node features).	Task-dependent (e.g., edge flows, node classifications, triangle properties).
+Temporal Input: Temporal bundling of temporal_steps hidden states.	Time-unrolled PDE states passed through recurrent message passing.	No explicit temporal component (designed for static complexes).
+
+
+# Improvements 
+- Adopt Hodge Laplacians (from Simplicial-NN) to enrich topological interactions.
+- Integrate time-unrolling (from MP-PDE) for better temporal modeling.
+- Use Simplicial-NN’s normalization for improved stability.
+- Hessian Matrix
+- 
 
