@@ -7,14 +7,36 @@ from pathlib import Path
 import networkx as nx
 from torch_geometric.data import Data
 import numpy as np
-from common.simplicial_utils import build_complex_from_edge_index
-try:
-    from third_party.snn.data import complex as snn_complex
-except ImportError:
-    snn_complex = None        
-
+from common.simplicial_utils import build_complex_from_edge_index 
+import torch
+import torch.nn as nn
+import numpy as np
+import scipy.sparse as sp
+from third_party.snn import chebyshev
+from third_party.snn.scnn.chebyshev import normalize 
 
 #  Minimal first‑order simplicial convolution (triangle -> edge / edge -> node)
+class SimplicialProcessor(nn.Module):
+    def __init__(self, hidden_dim, boundary_maps, K=3):
+        super().__init__()
+        # Use official SCNN layers
+        self.conv0 = SimplicialConvolution(K=K, C_in=hidden_dim, C_out=hidden_dim)
+        self.conv1 = SimplicialConvolution(K=K, C_in=hidden_dim, C_out=hidden_dim)
+        self.coboundary = Coboundary(C_in=hidden_dim, C_out=hidden_dim)
+        
+        # MP-PDE compatibility
+        self.swish = Swish()
+        self.alpha = nn.Parameter(torch.tensor(0.5))
+
+    def forward(self, X0, X1, X2):
+        # Node updates using SCNN
+        X0 = self.swish(self.conv0(self.boundary_maps['B1'], X0))
+        # Edge updates
+        X1 = self.swish(self.alpha * self.conv1(self.boundary_maps['B2'], X1) + \
+                   (1-self.alpha) * self.coboundary(self.boundary_maps['B2'], X2))
+        return X0, X1, X2
+    
+# old version    
 class SimplicialConvolution(nn.Module):
     def __init__(self,
                  in_channels:  int,
@@ -101,12 +123,7 @@ class SCNPDEModel(nn.Module):
             'B1': mesh.B1,
             'B2': mesh.B2
         }
-        # self.enc0 = nn.Sequential(
-        #     nn.Linear(feat_dims['node'], hidden),   # feat_dims['node'] == tw+2
-        #     nn.ReLU(),
-        #     nn.Linear(hidden, hidden)
-        # )
-        
+
         # Encoders (same as MP-PDE)
         self.enc0 = nn.Sequential(
             nn.Linear(feat_dims['node'], hidden),
@@ -202,8 +219,11 @@ def build_scn_maps(mesh, max_order: int = 2):
 
 def normalize_boundary(B):
     """Hybrid normalization from both implementations"""
-    row_sum = B.sum(1).A1
-    col_sum = B.sum(0).A1
+    # row_sum = B.sum(1).A1
+    # col_sum = B.sum(0).A1
+    row_sum = torch.sparse.sum(B, dim=1).to_dense()
+    col_sum = torch.sparse.sum(B, dim=0).to_dense()
+
     row_norm = torch.from_numpy(1 / np.sqrt(row_sum + 1e-8))
     col_norm = torch.from_numpy(1 / np.sqrt(col_sum + 1e-8))
     
