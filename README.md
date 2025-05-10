@@ -35,6 +35,43 @@ Temporal Bundling: Aggregates features across multiple timesteps to model dynami
 
 Decoding: Maps processed features back to physical space (e.g. PDE solution).
 
+## Input Data Flow (HDF5 → Graph)
+
+### `HDF5Dataset`
+
+This component loads partial differential equation (PDE) solution tensors from `.h5` files and prepares them for training.
+
+**Functionality:**
+
+* Loads both high-resolution and low-resolution solution data.
+* Downsamples high-resolution solutions into training-compatible format `u_super`.
+
+**Returns:**
+
+* `u_base`: Low-resolution ground truth solution tensor of shape `[nt, nx]`.
+* `u_super`: Downsampled high-resolution input tensor.
+* `x`: Spatial coordinates of shape `[nx]`.
+* `variables`: PDE-specific parameters (e.g., wave speed `c`, diffusion coefficient `alpha`, damping `gamma`).
+
+### `GraphCreator`
+
+This module constructs graph-based input data and labels from the downsampled tensors.
+
+**Functionality:**
+
+* Builds sliding window sequences from `u_super` for both input and target labels:
+  * `data.shape` = `[B, time_window, nx]`
+  * `labels.shape` = `[B, time_window, nx]`
+* Constructs PyTorch Geometric `Data` objects with:
+  * `x`: Node features reshaped to `[B * nx, time_window]`
+  * `y`: Target outputs reshaped similarly
+  * `pos`: Positional encodings `[B * nx, 2]` for time and space
+  * `edge_index`: Computed via `radius_graph` or `knn_graph`
+* Optionally includes:
+  * PDE-specific node scalars (e.g., `bc_left`, `c`)
+  * Placeholder attributes: `edge_attr`, `triangles`, and `tri_attr` for downstream use
+
+
 
 ## Git: large files
 Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
