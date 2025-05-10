@@ -4,7 +4,6 @@
 This GitHub repository implements a framework for solving partial differential equations (PDEs) using neural networks, specifically integrating message-passing and simplicial convolutional neural networks (SCNNs). This approach builds upon the work presented in the paper "Message Passing Neural PDE Solvers" by Brandstetter et al., which introduces neural message-passing techniques for PDE solutions .
 
 ## 1. High‑level pipeline
-
 ```text
 Numerical solver (WENO/FDM)  ─▶  *.h5  ─▶  HDF5Dataset  ─▶  GraphCreator
                     (generate/)        (common/utils.py)      (→ PyG Data)
@@ -20,20 +19,13 @@ Numerical solver (WENO/FDM)  ─▶  *.h5  ─▶  HDF5Dataset  ─▶  GraphCre
                                             │
                                             ▼
                                    rollout / evaluation
-
 ```
-
 ### structure: 
-Input: A simplicial complex (mesh) with features on nodes/edges/triangles.
-
-Encoding: Node/edge/triangle features are projected into a latent space via enc0, enc1, enc2.
-
-Processing: Simplicial convolutions propagate information across simplices using boundary operators (B1, B2).
-Combines features from adjacent simplices (e.g., node features are updated using edges and triangles).
-
-Temporal Bundling: Aggregates features across multiple timesteps to model dynamics.
-
-Decoding: Maps processed features back to physical space (e.g. PDE solution).
+- Input: A simplicial complex (mesh) with features on nodes/edges/triangles.
+- Encoding: Node/edge/triangle features are projected into a latent space via enc0, enc1, enc2.
+- Processing: Simplicial convolutions propagate information across simplices using boundary operators (B1, B2). Combines features from adjacent simplices (e.g., node features are updated using edges and triangles).
+- Temporal Bundling: Aggregates features across multiple timesteps to model dynamics.
+- Decoding: Maps processed features back to physical space (e.g. PDE solution).
 
 ## Input Data Flow (HDF5 → Graph)
 
@@ -71,6 +63,13 @@ This module constructs graph-based input data and labels from the downsampled te
   * PDE-specific node scalars (e.g., `bc_left`, `c`)
   * Placeholder attributes: `edge_attr`, `triangles`, and `tri_attr` for downstream use
 
+
+## Model Core: SCNPDEModel
+* Receives a PyG Data object.
+* Passes node features and optionally edge/triangle features through:
+** Input MLP: enc0, enc1, enc2 depending on simplex level
+** Simplicial convolution layers (like SimplicialConvolution)
+** Output MLP to return prediction ŷ with shape [B*nx, tw]
 
 
 ## Git: large files
