@@ -145,7 +145,8 @@ python generate/generate_data.py --experiment WE1 \
 python experiments/train.py \
        --model SCN --experiment WE1 \
        --base_resolution 250,100 --neighbors 6 --time_window 25 \
-       --batch_size 16 --device cuda:0  --log True
+       --batch_size 16 --device cpu --log True
+
        
  block                                 |  parameters 
 | ------------------------------------ | ---------- |
