@@ -91,6 +91,7 @@ This module constructs graph-based input data and labels from the downsampled te
 #### tableaux.py:
 - Contains Butcher tableaux for explicit Runge-Kutta methods, e.g., Euler, Midpoint, RK4, Dopri45.
 
+
 ### 2. Simplicial Complexes and Graph Utilities
 #### environment.sh
 - shell script setting up a Conda environment named mp-pde-solvers. Installs dependencies such as Python 3.8, PyTorch, PyTorch Geometric, CUDA toolkit, numpy, scipy, h5py, etc.
@@ -100,6 +101,7 @@ This module constructs graph-based input data and labels from the downsampled te
 - Functions to construct simplicial complexes (nodes, edges, triangles) from PyTorch Geometric edge indices (build_complex_from_edge_index).
 - Functions for Chebyshev polynomial computations adapted from Simplicial Neural Networks (SCNN), ensuring compatibility with PyTorch sparse operations.
 
+
 ### 3. Machine Learning Models (CNN/GNN/SCN):
 #### models_cnn.py:
 - Implements a baseline ResCNN model with convolutional layers and skip connections.
@@ -107,17 +109,35 @@ This module constructs graph-based input data and labels from the downsampled te
 - Implements Message Passing Neural Networks (MP-PDE Solver) for graph-based PDE solutions.
 #### models_gnn_snn.py:
 - Implements Simplicial Convolutional Neural Networks (SCNN), leveraging simplicial complexes.
-#### orig_gnn_models.txt:
+
+
+### 4. Training and Data Handling
+train_helper.py: Provides core training loops and evaluation methods.
+
+train.py: Orchestrates dataset handling, model training, evaluation, and logging.
+
+generate_data.py: Generates PDE datasets using numerical solutions for different PDE tasks.
+
+solvers.py: General PDE solver classes leveraging various numerical temporal methods.
+
+tableaux.py: Implements Butcher tableaux for explicit Runge-Kutta time integrators.
+
+### 5. Numerical Benchmarking (using JAX)
+burgers_E1_E2.py: Numerical benchmarks for the 1D Burgers' PDE equation.
+
+wave_WE1.py: Numerical benchmarks for the 1D Wave PDE.
 
 ## Git: large files
 Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
 With >100 MB assets, install Git‑LFS: git lfs install && git lfs track '*.dylib'.
 
 ## Running Commands
-## Set up conda environment
+### Set up conda environment
 source environment.sh
+- environment.sh: Conda environment setup script for reproducibility.
+- setup.py: Python package setup script.
 
-## NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
+### NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 python generate/generate_data.py --experiment WE1 \
        --train_samples 2048 --valid_samples 128 --test_samples 128 \
        --device cpu
@@ -134,17 +154,17 @@ python experiments/train.py \
 | Decoder (128→25)                     | 3 225      |
 | **Total**                            | **≈ 60 k** |
 
-## OLD MODEL:
+### OLD MODEL:
 ### Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 `python generate/generate_data.py --experiment={E1, E2, E3, WE1, WE2, WE3} --train_samples=2048 --valid_samples=128 --test_samples=128 --log=True --device=cuda:0`
 
-###  Train MP-PDE solvers for tasks E1, E2, E3
+####  Train MP-PDE solvers for tasks E1, E2, E3
 `python experiments/train.py --device=cuda:0 --experiment={E1, E2, E3} --model={GNN, ResCNN, Res1DCNN} --base_resolution=250,{100,50,40} --time_window=25 --log=True`
 
-### Train MP-PDE solvers for tasks WE1, WE2
+#### Train MP-PDE solvers for tasks WE1, WE2
 `python experiments/train.py --device=cuda:0 --experiment={WE1, WE2} --base_resolution=250,{100,50,40} --neighbors=6 --time_window=25 --log=True`
 
-### Train MP-PDE solvers for task WE3
+#### Train MP-PDE solvers for task WE3
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,100 --neighbors=20 --time_window=25 --log=True`
 
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,50 --neighbors=12 --time_window=25 --log=True`
@@ -152,10 +172,6 @@ python experiments/train.py \
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=10 --time_window=25 --log=True`
 
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=6 --time_window=25 --log=True`
-
-
-
-
 
 
 # Model Comparison
