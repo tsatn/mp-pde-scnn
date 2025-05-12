@@ -1,3 +1,7 @@
+# Note: 
+# Explicitly using NumPy for numerical integrations.
+# Full PyTorch conversion planned for future GPU acceleration and device compatibility.
+
 import argparse
 import os
 import sys

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 conda create --yes --name mp-pde-solvers python=3.8 numpy scipy matplotlib scikit-learn
 source ~/anaconda3/etc/profile.d/conda.sh
 CONDA_PATH=$(conda info | grep -i 'base environment' | awk '{print $4}')

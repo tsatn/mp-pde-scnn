@@ -12,14 +12,14 @@ class PDE(nn.Module):
     def __init__(self):
         # Data params for grid and initial conditions
         super().__init__()
-        pass
+        # pass
 
     def __repr__(self):
         return "PDE"
 
-    def FDM_reconstruction(self, t: float, u: torch.Tensor) -> torch.Tensor:
-        """A finite differences method template"""
-        pass
+    # def FDM_reconstruction(self, t: float, u: torch.Tensor) -> torch.Tensor:
+    #     """A finite differences method template"""
+    #     pass
 
     def FVM_reconstruction(self, t: float, u: torch.Tensor) -> torch.Tensor:
         """A finite volumes method template"""

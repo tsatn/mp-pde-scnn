@@ -7,6 +7,7 @@ from equations.PDEs import *
 from experiments.models_gnn_snn import SCNPDEModel  
 from common.simplicial_utils import normalize
 
+
 def training_loop(model: nn.Module,
                   unrolling: list,
                   batch_size: int,
@@ -39,7 +40,6 @@ def training_loop(model: nn.Module,
             graph.L0 = normalize(graph.B1, half_interval=True).to(device)  # Node Laplacian
             graph.L1 = normalize(graph.B2, half_interval=True).to(device)  # Edge Laplacian
 
-        # push‑forward unrolling 
         with torch.no_grad():
             for _ in range(n_unroll):
                 random_steps = [s + graph_creator.tw for s in random_steps]
@@ -53,18 +53,9 @@ def training_loop(model: nn.Module,
                 else:
                     data = model(data)    
                     labels = labels.to(device)
-
-        # The actual training step 
-        if is_graph and isinstance(model, SCNPDEModel):
-            # For SCNN, explicitly pass Laplacians and node features
-            pred = model(graph.L0, graph.L1, graph.x)
-            loss = criterion(pred, graph.y)
-        else:
-            # Existing MP-PDE logic
-            pred  = model(graph)
-            loss  = criterion(pred, labels)
-
-        loss = torch.sqrt(criterion(pred, graph.y))
+        pred = model(graph)
+        loss = criterion(pred, graph.y)  # MSE used explicitly
+        # loss = torch.sqrt(criterion(pred, graph.y))
         loss.backward()
         optimizer.step()
         losses.append(loss.detach() / batch_size)
