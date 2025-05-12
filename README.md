@@ -64,7 +64,6 @@ This module constructs graph-based input data and labels from the downsampled te
   * PDE-specific node scalars (e.g., `bc_left`, `c`)
   * Placeholder attributes: `edge_attr`, `triangles`, and `tri_attr` for downstream use
 
-
 ## Model Core: SCNPDEModel
 * Receives a PyG Data object.
 * Passes node features and optionally edge/triangle features through:
@@ -72,11 +71,6 @@ This module constructs graph-based input data and labels from the downsampled te
 ** Simplicial convolution layers (like SimplicialConvolution)
 ** Output MLP to return prediction ŷ with shape [B*nx, tw]
 
-
-## Git: large files
-Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
-
-If you must version >100 MB assets, install Git‑LFS: git lfs install && git lfs track '*.dylib'.
 
 ## Files
 ### 1. PDE Definitions and Numerical Methods
@@ -115,6 +109,9 @@ If you must version >100 MB assets, install Git‑LFS: git lfs install && git 
 - Implements Simplicial Convolutional Neural Networks (SCNN), leveraging simplicial complexes.
 #### orig_gnn_models.txt:
 
+## Git: large files
+Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
+With >100 MB assets, install Git‑LFS: git lfs install && git lfs track '*.dylib'.
 
 ## Running Commands
 ## Set up conda environment
