@@ -3,6 +3,7 @@
 ## 0. Short Introduction
 This GitHub repository implements a framework for solving partial differential equations (PDEs) using neural networks, specifically integrating message-passing and simplicial convolutional neural networks (SCNNs). This approach builds upon the work presented in the paper "Message Passing Neural PDE Solvers" by Brandstetter et al., which introduces neural message-passing techniques for PDE solutions .
 
+
 ## 1. High‑level pipeline
 ```text
 Numerical solver (WENO/FDM)  ─▶  *.h5  ─▶  HDF5Dataset  ─▶  GraphCreator
@@ -78,29 +79,48 @@ Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
 If you must version >100 MB assets, install Git‑LFS: git lfs install && git lfs track '*.dylib'.
 
 ## Files
-common/utils.py: HDF5Dataset & GraphCreator
-common/simplicial_utils.py: Adds incidence matrices A01, A12, triangles, B1,B2
-equations/PDEs.py: PDE base class + Burgers (CE) & Wave (WE) implementations
-generate/generate_data.py: Offline local dataset creation
-experiments/train.py:	CLI entry, logging, epoch loop
-experiments/train_helper.py: training_loop(), test_* helpers
-experiments/models_cnn.py: Res‑CNN baselines
-experiments/models_gnn.py: vanilla MP‑PDE GNN
-experiments/models_gnn_snn.py: SCNPDEModel with Simplicial‑Conv processor
-third_party/snn/*: lightweight stubs to satisfy historical imports
+### 1. PDE Definitions and Numerical Methods
+#### coefficients.py
+- (Contains numerical coefficients for finite differences and WENO reconstructions.)
+- Stores numerical constants and coefficients used for finite difference methods (FDM) and WENO (Weighted Essentially Non-Oscillatory) reconstruction methods.
+- Defines specific derivative approximations (1st to 4th derivatives) using finite difference coefficients.
+#### derivatives.py
+- (Implements FDM and WENO derivative reconstruction methods.)
+- Finite Difference Method (FDM) for derivative computation (1st-4th derivatives).
+- WENO5 method for spatial derivative reconstruction, including Godunov and Lax-Friedrichs flux reconstructions.
+#### PDEs.py (References methods from derivatives.py for spatial reconstructions.)
+- Defines PDE classes with numerical solvers (CE and WE classes):
+- Combined Equation (CE): Includes special cases like Burgers and KdV equations, solved using WENO and FDM reconstructions.
+- Wave Equation (WE): Implements the second-order PDE as a first-order augmented system, using Chebyshev pseudo-spectral methods.
+#### solvers.py:
+- Implements generic PDE solvers utilizing Runge-Kutta methods defined in tableaux.py.
+#### tableaux.py:
+- Contains Butcher tableaux for explicit Runge-Kutta methods, e.g., Euler, Midpoint, RK4, Dopri45.
 
-## Citation
-@article{brandstetter2022message,
-  title   = {Message Passing Neural PDE Solvers},
-  author  = {Brandstetter, Johannes and Worrall, Daniel and Welling, Max},
-  journal = {ICLR},
-  year    = {2022}
-}
+### 2. Simplicial Complexes and Graph Utilities
+#### environment.sh
+- shell script setting up a Conda environment named mp-pde-solvers. Installs dependencies such as Python 3.8, PyTorch, PyTorch Geometric, CUDA toolkit, numpy, scipy, h5py, etc.
+#### simplicial_utils.py
+- Manages the conversion of graph structures into simplicial complexes using PyTorch and PyTorch Geometric.
+- Functions to normalize incidence matrices (_normalize_incidence).
+- Functions to construct simplicial complexes (nodes, edges, triangles) from PyTorch Geometric edge indices (build_complex_from_edge_index).
+- Functions for Chebyshev polynomial computations adapted from Simplicial Neural Networks (SCNN), ensuring compatibility with PyTorch sparse operations.
 
+### 3. Machine Learning Models (CNN/GNN/SCN):
+#### models_cnn.py:
+- Implements a baseline ResCNN model with convolutional layers and skip connections.
+#### models_gnn.py:
+- Implements Message Passing Neural Networks (MP-PDE Solver) for graph-based PDE solutions.
+#### models_gnn_snn.py:
+- Implements Simplicial Convolutional Neural Networks (SCNN), leveraging simplicial complexes.
+#### orig_gnn_models.txt:
+
+
+## Running Commands
 ## Set up conda environment
 source environment.sh
 
-### NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
+## NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 python generate/generate_data.py --experiment WE1 \
        --train_samples 2048 --valid_samples 128 --test_samples 128 \
        --device cpu
@@ -117,7 +137,7 @@ python experiments/train.py \
 | Decoder (128→25)                     | 3 225      |
 | **Total**                            | **≈ 60 k** |
 
-
+## OLD MODEL:
 ### Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 `python generate/generate_data.py --experiment={E1, E2, E3, WE1, WE2, WE3} --train_samples=2048 --valid_samples=128 --test_samples=128 --log=True --device=cuda:0`
 
