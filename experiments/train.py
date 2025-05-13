@@ -274,42 +274,18 @@ def main(args: argparse):
 
         # enrich with A01 / A02 / A12 / triangles
         enrich_pyg_data_with_simplicial(mesh, max_order=2)
-
-        # ----------------------------------------------------------------
-        # model = SCNPDEModel(
-        #     mesh       = mesh,
-        #     time_steps = graph_creator.tw,
-        #     feat_dims  = {
-        #         'node'     : graph_creator.tw,   # 25 features from u(t-τ … t-1)
-        #         'edge'     : 1,
-        #         'triangle' : 1
-        #     },
-        #     hidden = 128
-        # ).to(device)
         
-        node_in_dim = graph_creator.x_res          # 100 for nx=100
-        model = SCNPDEModel(
-            mesh       = mesh,
-            time_steps = graph_creator.tw,
-            feat_dims  = {
-                'node'     : node_in_dim,          # <-- 100
-                'edge'     : 1,
-                'triangle' : 1
-            },
-            hidden = 128
-        ).to(device)
-        
-        # model = SCNPDEModel(
-        #     mesh       = mesh,
-        #     time_steps = graph_creator.tw,
-        #     feat_dims  = {
-        #         'node'     : graph_creator.tw + 2,   # u(t‑τ…t‑1) + (x,t)
-        #         'edge'     : 1,                      # you can start with zeros
-        #         'triangle' : 1                       # idem
-        #     },
-        #     hidden = 128
-        # ).to(device)
+        mesh.edge_attr = torch.zeros(mesh.num_edges, 1)
+        mesh.tri_attr  = torch.zeros(mesh.num_triangles, 1) if hasattr(mesh, 'num_triangles') else None
 
+        # node_in_dim = graph_creator.x_res          # 100 for nx=100
+        feat_dims = {
+            'node'     : graph_creator.tw + 2,   # 25 history + (t,x)
+            'edge'     : 1,
+            'triangle' : 1
+        }
+        model = SCNPDEModel(mesh, graph_creator.tw, feat_dims, hidden=128).to(device)
+        
     elif args.model == 'BaseCNN':
         model = BaseCNN(pde=pde,
                         time_window=args.time_window).to(device)

@@ -110,8 +110,8 @@ def build_complex_from_edge_index(edge_index: torch.Tensor,
     rows_te, cols_te = [], []
     for t_idx, (i, j, k) in enumerate(tris):
         for e in [(i, j), (j, k), (k, i)]:
-            rows_te.append(edge_to_idx[e])
-            cols_te.append(t_idx)
+            rows_te.append(edge_to_idx[tuple(sorted(e))])
+            cols_te.append(t_idx)       
 
     A12, _, _ = _normalize_incidence(torch.tensor(rows_te),
                                      torch.tensor(cols_te),
