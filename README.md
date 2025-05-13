@@ -138,14 +138,26 @@ source environment.sh
 - setup.py: Python package setup script.
 
 ### NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
+## Generate data
 python generate/generate_data.py --experiment WE1 \
        --train_samples 2048 --valid_samples 128 --test_samples 128 \
        --device cpu
-       
-python experiments/train.py \
-       --model SCN --experiment WE1 \
-       --base_resolution 250, 100 --neighbors 6 --time_window 25 \
-       --batch_size 16 --device cpu --log True
+
+## Train
+# nx = 100
+python experiments/train.py --model SCN --experiment WE1 \
+       --base_resolution 250,100 --neighbors 6 --time_window 25 \
+       --batch_size 16 --device cpu
+
+# nx = 50
+python experiments/train.py --model SCN --experiment WE1 \
+       --base_resolution 250,50 --neighbors 6 --time_window 25 \
+       --batch_size 16 --device cpu
+
+# nx = 40
+python experiments/train.py --model SCN --experiment WE1 \
+       --base_resolution 250,40 --neighbors 6 --time_window 25 \
+       --batch_size 16 --device cpu
 
        
  block                                 |  parameters 
