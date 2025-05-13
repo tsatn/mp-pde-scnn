@@ -133,25 +133,25 @@ def main(args: argparse):
 
     # Check for experiments and if resolution is available
     
-    #     “irregular” here simply means “radius / k‑NN graphs instead of the
+    # “irregular” here simply means “radius / k‑NN graphs instead of the
     # implicit Chebyshev lattice used for spectral derivatives”.
     # We are now deliberately creating such irregular graphs (with knn_graph
     # or radius_graph) so that the simplicial complex makes sense.
     # Therefore that check is obsolete for the new SCN model.
     if args.experiment == 'E1' or args.experiment == 'E2' or args.experiment == 'E3':
         pde = CE(device=device)
-        assert(base_resolution[0] == 250)
+        # assert(base_resolution[0] == 250)
         assert(base_resolution[1] == 100 or base_resolution[1] == 50 or base_resolution[1] == 40)
+    
     elif args.experiment == 'WE1' or args.experiment == 'WE2' or args.experiment == 'WE3':
         pde = WE(device=device)
-        assert (base_resolution[0] == 250)
+        # assert (base_resolution[0] == 250)
         assert (base_resolution[1] == 100 or base_resolution[1] == 50 or base_resolution[1] == 40 or base_resolution[1] == 20)
-        graph_creator = GraphCreator(pde=pde,
-                                  neighbors=args.neighbors,
-                                  time_window=args.time_window,
-                                  t_resolution=args.base_resolution[0],
-                                  x_resolution=args.base_resolution[1]).to(device)
-
+        graph_creator = GraphCreator(pde, neighbors=args.neighbors,
+                             time_window=args.time_window,
+                             t_resolution=args.nt_base,
+                             x_resolution=args.nx_base)
+        
     else:
         raise Exception("Wrong experiment")
 
@@ -163,19 +163,26 @@ def main(args: argparse):
     test_string  = f'data/{pde}_test_{args.experiment}.h5'
     
     try:
-        train_dataset = HDF5Dataset(train_string, pde=pde, mode='train', base_resolution=base_resolution, super_resolution=super_resolution)
+
+        train_dataset = HDF5Dataset(train_string, pde=pde, mode='train',
+                                    base_resolution=[args.nt_base, args.nx_base],
+                                    super_resolution=args.super_resolution)
         train_loader = DataLoader(train_dataset,
                                 batch_size=args.batch_size,
                                 shuffle=True,
                                 num_workers=0)
 
-        valid_dataset = HDF5Dataset(valid_string, pde=pde, mode='valid', base_resolution=base_resolution, super_resolution=super_resolution)
+        valid_dataset = HDF5Dataset(valid_string, pde=pde, mode='valid', 
+                                    base_resolution=[args.nt_base, args.nx_base], 
+                                    super_resolution=args.super_resolution)
         valid_loader = DataLoader(valid_dataset,
                                 batch_size=args.batch_size,
                                 shuffle=False,
                                 num_workers=0)
 
-        test_dataset = HDF5Dataset(test_string, pde=pde, mode='test', base_resolution=base_resolution, super_resolution=super_resolution)
+        test_dataset = HDF5Dataset(test_string, pde=pde, mode='test', 
+                                   base_resolution=[args.nt_base, args.nx_base],
+                                   super_resolution=args.super_resolution)
         test_loader = DataLoader(test_dataset,
                                 batch_size=args.batch_size,
                                 shuffle=False,
@@ -221,11 +228,11 @@ def main(args: argparse):
     timestring = f'{dateTimeObj.date().month}{dateTimeObj.date().day}{dateTimeObj.time().hour}{dateTimeObj.time().minute}'
 
     if(args.log):
-        logfile = f'experiments/log/{args.model}_{pde}_{args.experiment}_xresolution{args.base_resolution[1]}-{args.super_resolution[1]}_n{args.neighbors}_tw{args.time_window}_unrolling{args.unrolling}_time{timestring}.csv'
+        logfile = f'experiments/log/{args.model}_{pde}_{args.experiment}_xresolution{base_resolution[1]}-{super_resolution[1]}_n{args.neighbors}_tw{args.time_window}_unrolling{args.unrolling}_time{timestring}.csv'
         print(f'Writing to log file {logfile}')
         sys.stdout = open(logfile, 'w')
 
-    save_path = f'models/GNN_{pde}_{args.experiment}_xresolution{args.base_resolution[1]}-{args.super_resolution[1]}_n{args.neighbors}_tw{args.time_window}_unrolling{args.unrolling}_time{timestring}.pt'
+    save_path = f'models/GNN_{pde}_{args.experiment}_xresolution{base_resolution[1]}-{super_resolution[1]}_n{args.neighbors}_tw{args.time_window}_unrolling{args.unrolling}_time{timestring}.pt'
     print(f'Training on dataset {train_string}')
     print(device)
     print(save_path)
@@ -244,13 +251,14 @@ def main(args: argparse):
         elif (args.experiment == 'WE3'):
             print('Boundary parameters added to the GNN solver')
             eq_variables['bc_left'] = 1
-            eq_variables['bc_right'] = 1
+    #         eq_variables['bc_right'] = 1
 
-    graph_creator = GraphCreator(pde=pde,
-                                 neighbors=args.neighbors,
-                                 time_window=args.time_window,
-                                 t_resolution=args.base_resolution[0],
-                                 x_resolution=args.base_resolution[1]).to(device)
+    graph_creator = GraphCreator(
+                                pde             = pde,
+                                neighbors       = args.neighbors,
+                                time_window     = args.time_window,
+                                t_resolution    = args.nt_base,
+                                x_resolution    = args.nx_base).to(device)
 
     # In the model selection block of main():
     if args.model == 'GNN':
@@ -365,8 +373,12 @@ if __name__ == "__main__":
                         help='Flag for ablating MP-PDE solver without equation specific parameters')
 
     # Base resolution and super resolution
-    parser.add_argument('--base_resolution', type=lambda s: [int(item) for item in s.split(',')],
-            default=[250, 100], help="PDE base resolution on which network is applied")
+    # parser.add_argument('--base_resolution', type=lambda s: [int(item) for item in s.split(',')],
+    #         default=[250, 100], help="PDE base resolution on which network is applied")
+    # new
+    parser.add_argument("--base_resolution", type=str,
+            default="250,100",  help="nt,nx  (e.g. 250,100 or 250,50)")
+    
     parser.add_argument('--super_resolution', type=lambda s: [int(item) for item in s.split(',')],
             default=[250, 200], help="PDE super resolution for calculating training and validation loss")
     parser.add_argument('--neighbors', type=int,
@@ -385,4 +397,12 @@ if __name__ == "__main__":
             help='pip the output to log file')
 
     args = parser.parse_args()
+    
+    # -----------------------------------------------
+    # turn "250,100" → [250, 100]  (and store both)
+    nt_base, nx_base = map(int, args.base_resolution.split(','))
+    args.base_resolution = [nt_base, nx_base]   # overwrite the string
+    args.nt_base, args.nx_base = nt_base, nx_base
+
+    
     main(args)

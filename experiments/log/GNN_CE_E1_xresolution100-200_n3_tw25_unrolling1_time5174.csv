@@ -1,8 +1,0 @@
-Training on dataset data/CE_train_E1.h5
-cpu
-models/GNN_CE_E1_xresolution100-200_n3_tw25_unrolling1_time5174.pt
-Number of parameters: 634745
-Epoch 0
-Starting epoch 0...
-Training Loss (progress: 0.00): 1.3902358770512415
-Training Loss (progress: 0.08): 0.2749643615608899

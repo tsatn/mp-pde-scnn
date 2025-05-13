@@ -205,6 +205,7 @@ class GraphCreator(nn.Module):
 
         return data, labels
     
+    
     def create_graph(
             self,
             data: torch.Tensor,   # shape [B, time_window, nx]
@@ -213,22 +214,39 @@ class GraphCreator(nn.Module):
             variables: dict,
             steps: list) -> Data:
 
-        B, tw, nx = data.size()           # tw == self.tw
+        """
+        Getting graph structure out of data sample
+        previous timesteps are combined in one node
+        Args:
+            data (torch.Tensor): input data tensor
+            labels (torch.Tensor): label tensor
+            x (torch.Tensor): spatial coordinates tensor
+            variables (dict): dictionary of equation specific parameters
+            steps (list): list of different starting points for each batch entry
+        Returns:
+            Data: Pytorch Geometric data graph
+        """
+        B, tw = data.size(0)  # Get batch size from data tensor
         nt = self.pde.grid_size[0]
+        nx = self.pde.grid_size[1] # nx = data.size() 
         t_vec = torch.linspace(self.pde.tmin, self.pde.tmax, nt, device=data.device)
+        
+        # positional encodings for every node in the graph
+        x_pos = x.repeat(B, 1).flatten()                       # [B * nx]  ← space coord of each node
+        t_pos = torch.cat([t_vec[step].repeat(nx) for step in steps])   # [B * nx]  ← time coord
+        pos   = torch.stack([t_pos, x_pos], dim=1)                      # [B * nx, 2]
 
         # ------------- features & labels ---------------------------------
         #   data:  [B, tw, nx]  →  [B, nx, tw]  →  [B*nx, tw]
         u = data.permute(0, 2, 1).contiguous().view(-1, tw)
         y = labels.permute(0, 2, 1).contiguous().view(-1, tw)
 
-        # ------------- positional encodings ------------------------------
-        x_pos = x.repeat(B, 1)                   # [B*nx]
-        t_pos = torch.cat([t_vec[step].repeat(nx) for step in steps])  # [B*nx]
-        pos   = torch.stack([t_pos, x_pos], dim=1)                     # [B*nx, 2]
-
-        # ------------- edge index (radius or k‑NN) -----------------------
-        batch_vec = torch.repeat_interleave(torch.arange(B), nx).to(data.device)
+        # ------------- edge index (radius or k‑NN) -----------------------        
+        # torch.arange(B, device=data.device) creates the batch IDs directly on the right device (CPU/GPU).
+        # repeat_interleave(nx) expands each batch ID nx times, giving a vector of length B × nx, 
+        # which now matches x_pos, t_pos, and the node features you stack.
+        batch_vec = torch.arange(B, device=data.device).repeat_interleave(nx)
+                # batch_vec = torch.repeat_interleave(torch.arange(B), nx).to(data.device)
 
         if f'{self.pde}' == 'CE':
             dx = x[0, 1] - x[0, 0]
@@ -262,6 +280,7 @@ class GraphCreator(nn.Module):
         # --------------------------------------------------------------
         
         return graph
+
 
 
     def create_next_graph(self,
