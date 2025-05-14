@@ -4,8 +4,10 @@ from torch.utils.data import DataLoader
 from torch import nn, optim
 from common.utils import GraphCreator
 from equations.PDEs import *
+from experiments.models_gnn_snn import SCNPDEModel  
+from common.simplicial_utils import normalize
 
-# ---------------------------------------------------------------
+
 def training_loop(model: nn.Module,
                   unrolling: list,
                   batch_size: int,
@@ -14,10 +16,6 @@ def training_loop(model: nn.Module,
                   graph_creator: GraphCreator,
                   criterion: nn.modules.loss._Loss,
                   device: torch.device = "cpu") -> torch.Tensor:
-    """
-    One epoch over `loader`; each sample is processed at a random
-    starting time‑step and, optionally, un‑rolled (“push‑forward trick”).
-    """
 
     losses = []
     is_graph = getattr(model, "is_graph_model", False)
@@ -25,23 +23,23 @@ def training_loop(model: nn.Module,
     for (u_base, u_super, x, variables) in loader:
         optimizer.zero_grad()
 
-        # ---- pick #unrollings & random start steps -----------------
+        # Pick #unrollings & random start steps 
         n_unroll = random.choice(unrolling)
         legal_steps = range(graph_creator.tw,
                             graph_creator.t_res - graph_creator.tw -
                             graph_creator.tw * n_unroll + 1)
         random_steps = random.choices(list(legal_steps), k=batch_size)
-
+        
+        # Create graph with simplicial structure 
         data, labels = graph_creator.create_data(u_super, random_steps)
+        graph = graph_creator.create_graph(data, labels, x, variables, random_steps).to(device)
+        
+        # Inject SCNN-specific features
+        if hasattr(graph, 'B1') and hasattr(graph, 'B2'):
+            # Convert boundary matrices to normalized Laplacians (SCNN requirement)
+            graph.L0 = normalize(graph.B1, half_interval=True).to(device)  # Node Laplacian
+            graph.L1 = normalize(graph.B2, half_interval=True).to(device)  # Edge Laplacian
 
-        if is_graph:
-            graph = graph_creator.create_graph(
-                data, labels, x, variables, random_steps
-            ).to(device)
-        else:
-            data, labels = data.to(device), labels.to(device)
-
-        # ---- push‑forward unrolling --------------------------------
         with torch.no_grad():
             for _ in range(n_unroll):
                 random_steps = [s + graph_creator.tw for s in random_steps]
@@ -53,26 +51,17 @@ def training_loop(model: nn.Module,
                         graph, pred, labels, random_steps
                     ).to(device)
                 else:
-                    data = model(data)      # feed prediction back in
+                    data = model(data)    
                     labels = labels.to(device)
-
-        # ---- actual training step ---------------------------------
-        if is_graph:
-            pred = model(graph)
-            loss = criterion(pred, graph.y)
-        else:
-            pred  = model(data)
-            loss  = criterion(pred, labels)
-
-        loss = torch.sqrt(loss)
+        pred = model(graph)
+        loss = criterion(pred, graph.y)  # MSE used explicitly
+        # loss = torch.sqrt(criterion(pred, graph.y))
         loss.backward()
         optimizer.step()
         losses.append(loss.detach() / batch_size)
 
     return torch.stack(losses)
 
-
-# ---------------------------------------------------------------
 def test_timestep_losses(model: nn.Module,
                          steps: list,
                          batch_size: int,
@@ -112,7 +101,6 @@ def test_timestep_losses(model: nn.Module,
         print(f"Step {step:4d} | mean loss {torch.mean(torch.stack(losses)):.4e}")
 
 
-# ---------------------------------------------------------------
 def test_unrolled_losses(model: nn.Module,
                          steps: list,
                          batch_size: int,
@@ -147,7 +135,7 @@ def test_unrolled_losses(model: nn.Module,
 
             batch_losses = [loss / batch_size]
 
-            # un‑roll forward -------------------------------------------------
+            # un‑roll forward 
             for step in range(graph_creator.tw * (nr_gt_steps + 1),
                               graph_creator.t_res - graph_creator.tw + 1,
                               graph_creator.tw):
@@ -167,7 +155,7 @@ def test_unrolled_losses(model: nn.Module,
 
                 batch_losses.append(loss / batch_size)
 
-            # numerical baseline ---------------------------------------------
+            # numerical baseline
             base_losses = []
             for step in range(graph_creator.tw * nr_gt_steps,
                               graph_creator.t_res - graph_creator.tw + 1,

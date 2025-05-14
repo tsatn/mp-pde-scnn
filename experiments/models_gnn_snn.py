@@ -7,16 +7,16 @@ from pathlib import Path
 import networkx as nx
 from torch_geometric.data import Data
 import numpy as np
-from common.simplicial_utils import build_complex_from_edge_index
-try:
-    from third_party.snn.data import complex as snn_complex
-except ImportError:
-    snn_complex = None        
+from common.simplicial_utils import build_complex_from_edge_index 
+import torch
+import torch.nn as nn
+import numpy as np
+import scipy.sparse as sp
+# from third_party.snn import chebyshev
+# from third_party.snn.scnn.chebyshev import normalize 
+from common.simplicial_utils import normalize
 
-
-# ---------------------------------------------------------------------
-#  Minimal first‑order simplicial convolution (triangle -> edge / edge -> node)
-# ---------------------------------------------------------------------
+# old version    
 class SimplicialConvolution(nn.Module):
     def __init__(self,
                  in_channels:  int,
@@ -47,47 +47,68 @@ class Swish(nn.Module):
         return x * torch.sigmoid(self.beta * x)
 
 
+# class SimplicialProcessor(nn.Module):
+#     def __init__(self, hidden_dim, boundary_maps, alpha=0.5):
+#         super().__init__()
+#         self.boundary_maps = boundary_maps
+        
+#         # Simplicial convolutions clearly defined for nodes, edges, triangles
+#         self.conv0 = SimplicialConvolution(
+#             in_channels=hidden_dim,
+#             out_channels=hidden_dim,
+#             dim=0,
+#             laplacian_type="normalized"
+#         )
+#         self.conv1 = SimplicialConvolution(
+#             in_channels=hidden_dim,
+#             out_channels=hidden_dim,
+#             dim=1,
+#             laplacian_type="normalized"
+#         )
+#         self.conv2 = SimplicialConvolution(
+#             in_channels=hidden_dim,
+#             out_channels=hidden_dim,
+#             dim=2,
+#             laplacian_type="normalized"
+#         )
+
+#         # Parameter to balance between simplicial interactions
+#         self.alpha = nn.Parameter(torch.tensor(alpha))
+#         self.swish = Swish()
+
+#     def forward(self, X0, X1, X2):    
+#         X0_lower = self.conv0(X0, self.boundary_maps['B1'])
+#         X0_upper = matmul(self.boundary_maps['B2'], X2)
+#         X0_out = self.swish(self.alpha * X0_lower + (1 - self.alpha) * X0_upper)
+        
+#         X1_lower = self.conv1(X1, self.boundary_maps['B1'])
+#         X1_upper = matmul(self.boundary_maps['B2'].t(), X2)
+#         X1_out = self.swish(0.5 * (X1_lower + X1_upper))
+        
+#         X2_out = self.swish(self.conv2(X2, self.boundary_maps['B2']))
+#         return X0_out, X1_out, X2_out
+
 class SimplicialProcessor(nn.Module):
     def __init__(self, hidden_dim, boundary_maps, alpha=0.5):
         super().__init__()
         self.boundary_maps = boundary_maps
         
-        # SCNN components from reference implementation
-        self.conv0 = SimplicialConvolution(
-            in_channels=hidden_dim,
-            out_channels=hidden_dim,
-            dim=0,
-            laplacian_type="normalized"
-        )
-        self.conv1 = SimplicialConvolution(
-            in_channels=hidden_dim,
-            out_channels=hidden_dim,
-            dim=1,
-            laplacian_type="normalized"
-        )
-        self.conv2 = SimplicialConvolution(
-            in_channels=hidden_dim,
-            out_channels=hidden_dim,
-            dim=2,
-            laplacian_type="normalized"
-        )
-        
-        # MP-PDE style parameters
+        self.conv0 = SimplicialConvolution(hidden_dim, hidden_dim, dim=0, laplacian_type="normalized")
+        self.conv1 = SimplicialConvolution(hidden_dim, hidden_dim, dim=1, laplacian_type="normalized")
+        self.conv2 = SimplicialConvolution(hidden_dim, hidden_dim, dim=2, laplacian_type="normalized")
+
         self.alpha = nn.Parameter(torch.tensor(alpha))
         self.swish = Swish()
 
     def forward(self, X0, X1, X2):    
-        # Node updates
         X0_lower = self.conv0(X0, self.boundary_maps['B1'])
         X0_upper = matmul(self.boundary_maps['B2'], X2)
         X0_out = self.swish(self.alpha * X0_lower + (1 - self.alpha) * X0_upper)
         
-        # Edge updates
         X1_lower = self.conv1(X1, self.boundary_maps['B1'])
         X1_upper = matmul(self.boundary_maps['B2'].t(), X2)
         X1_out = self.swish(0.5 * (X1_lower + X1_upper))
         
-        # Triangle updates
         X2_out = self.swish(self.conv2(X2, self.boundary_maps['B2']))
         return X0_out, X1_out, X2_out
 
@@ -96,19 +117,14 @@ class SCNPDEModel(nn.Module):
     def __init__(self, mesh, time_steps, feat_dims, hidden=128):
         super().__init__()
         self.is_graph_model = True   
-        self.expects_graph = True   #  <-- add this line
+        self.expects_graph = True  
         
         # Store boundary matrices from mesh
         self.boundary_maps = {
             'B1': mesh.B1,
             'B2': mesh.B2
         }
-        # self.enc0 = nn.Sequential(
-        #     nn.Linear(feat_dims['node'], hidden),   # feat_dims['node'] == tw+2
-        #     nn.ReLU(),
-        #     nn.Linear(hidden, hidden)
-        # )
-        
+
         # Encoders (same as MP-PDE)
         self.enc0 = nn.Sequential(
             nn.Linear(feat_dims['node'], hidden),
@@ -202,13 +218,25 @@ def build_scn_maps(mesh, max_order: int = 2):
 
     return maps
 
-def normalize_boundary(B):
-    """Hybrid normalization from both implementations"""
-    row_sum = B.sum(1).A1
-    col_sum = B.sum(0).A1
-    row_norm = torch.from_numpy(1 / np.sqrt(row_sum + 1e-8))
-    col_norm = torch.from_numpy(1 / np.sqrt(col_sum + 1e-8))
+# def normalize_boundary(B):
+#     row_sum = torch.sparse.sum(B, dim=1).to_dense()
+#     col_sum = torch.sparse.sum(B, dim=0).to_dense()
+
+#     row_norm = torch.from_numpy(1 / np.sqrt(row_sum + 1e-8))
+#     col_norm = torch.from_numpy(1 / np.sqrt(col_sum + 1e-8))
     
-    indices = torch.from_numpy(np.vstack([B.row, B.col]))
-    values = torch.from_numpy(B.data) * row_norm[B.row] * col_norm[B.col]
+#     indices = torch.from_numpy(np.vstack([B.row, B.col]))
+#     values = torch.from_numpy(B.data) * row_norm[B.row] * col_norm[B.col]
+#     return torch.sparse_coo_tensor(indices, values, B.shape)
+
+def normalize_boundary(B: torch.Tensor):
+    row_sum = torch.sparse.sum(B, dim=1).to_dense()
+    col_sum = torch.sparse.sum(B, dim=0).to_dense()
+
+    row_norm = 1 / torch.sqrt(row_sum + 1e-8)
+    col_norm = 1 / torch.sqrt(col_sum + 1e-8)
+
+    indices = B._indices()
+    values = B._values() * row_norm[indices[0]] * col_norm[indices[1]]
+
     return torch.sparse_coo_tensor(indices, values, B.shape)

@@ -1,3 +1,5 @@
+<!-- # Message Passing Neural PDE Solvers
+=======
 # Message‑Passing & Simplicial Neural PDE Solvers  
 ---
 ## 0. Short Introduction
@@ -35,9 +37,6 @@ Numerical solver (WENO/FDM)  ─▶  *.h5  ─▶  HDF5Dataset  ─▶  GraphCre
 This component loads partial differential equation (PDE) solution tensors from `.h5` files and prepares them for training.
 
 **Functionality:**
-
-* Loads both high-resolution and low-resolution solution data.
-* Downsamples high-resolution solutions into training-compatible format `u_super`.
 
 **Returns:**
 

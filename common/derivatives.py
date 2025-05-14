@@ -97,14 +97,19 @@ class WENO():
         self.gamma = torch.tensor(gamma).to(self.device)
         self.stencils = torch.tensor(stencils).to(self.device)
 
-    def pad(self, input: torch.Tensor) -> torch.Tensor:
-        """
-        Padding according to order of Weno scheme
-        """
-        left = input[..., -self.order:-1]
-        right = input[..., 1:self.order]
-        padded_input = torch.cat([left, input, right], -1)
-        return padded_input
+    # def pad(self, input: torch.Tensor) -> torch.Tensor:
+    #     """
+    #     Padding according to order of Weno scheme
+    #     """
+    #     left = input[..., -self.order:-1]
+    #     right = input[..., 1:self.order]
+    #     padded_input = torch.cat([left, input, right], -1)
+    #     return padded_input
+    
+    def pad(self, u: torch.Tensor) -> torch.Tensor:
+        padding = self.stencil // 2
+        u_padded = F.pad(u.unsqueeze(1), (padding, padding), mode='circular').squeeze(1)
+        return u_padded
 
     def reconstruct_godunov(self, input: torch.Tensor, dx: torch.Tensor) -> torch.Tensor:
         """

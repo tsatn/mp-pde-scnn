@@ -68,7 +68,6 @@ class BaseCNN(nn.Module):
     def forward(self, u):
         """Forward pass of solver
         """
-
         x = F.elu(self.conv1(u))
         x = x + F.elu(self.conv2(x))
         x = x + F.elu(self.conv3(x))
@@ -78,7 +77,9 @@ class BaseCNN(nn.Module):
         x = x + F.elu(self.conv7(x))
         x = self.conv8(x)
 
-        dt = (torch.ones(1, self.time_window) * self.pde.dt).to(x.device)
-        dt = torch.cumsum(dt, dim=1)[None, :, :, None]
-        out = u[:, -1, :][:, None, None, :].repeat(1, 1, self.time_window, 1) + dt * x[:, None, :, :]
-        return out.squeeze()
+        # dt = (torch.ones(1, self.time_window) * self.pde.dt).to(x.device)
+        # dt = torch.cumsum(dt, dim=1)[None, :, :, None]
+        dt = torch.cumsum(torch.ones(1, self.time_window) * self.pde.dt, dim=1).to(x.device).view(1, self.time_window, 1)
+        out = u[:, -1, :].unsqueeze(1).repeat(1, self.time_window, 1) + dt * x.permute(0, 2, 1)
+        return out
+    

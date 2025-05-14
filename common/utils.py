@@ -1,4 +1,3 @@
-import os
 import h5py
 import numpy as np
 import torch
@@ -55,24 +54,22 @@ class HDF5Dataset(Dataset):
         assert (ratio_nx.is_integer())
         self.ratio_nt = int(ratio_nt)
         self.ratio_nx = int(ratio_nx)
-
         self.nt = self.data[self.dataset_base].attrs['nt']
         self.dt = self.data[self.dataset_base].attrs['dt']
         self.dx = self.data[self.dataset_base].attrs['dx']
         self.x = self.data[self.dataset_base].attrs['x']
         self.tmin = self.data[self.dataset_base].attrs['tmin']
         self.tmax = self.data[self.dataset_base].attrs['tmax']
-
         if load_all:
             data = {self.dataset_super: self.data[self.dataset_super][:]}
             f.close()
             self.data = data
 
-
     def __len__(self):
         return self.data[self.dataset_super].shape[0]
 
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, list]:
+        
         """
         Get data item
         Args:
@@ -92,14 +89,13 @@ class HDF5Dataset(Dataset):
             weights = torch.tensor([[[[0.2]*5]]])
             u_super = F.conv2d(u_super_padded, weights, stride=(1, self.ratio_nx)).squeeze().numpy()
             x = self.x
-
+            
             # Base resolution trajectories (numerical baseline) and equation specific parameters
             u_base = self.data[self.dataset_base][idx]
             variables = {}
             variables['alpha'] = self.data['alpha'][idx]
             variables['beta'] = self.data['beta'][idx]
             variables['gamma'] = self.data['gamma'][idx]
-
             return u_base, u_super, x, variables
 
         elif(f'{self.pde}' == 'WE'):
@@ -108,7 +104,7 @@ class HDF5Dataset(Dataset):
             weights = torch.tensor([[[[1./self.ratio_nx]*self.ratio_nx]]])
             u_super = self.data[self.dataset_super][idx][::self.ratio_nt][None, None, ...]
             u_super = F.conv2d(torch.tensor(u_super), weights, stride=(1, self.ratio_nx)).squeeze().numpy()
-
+            
             # To match the downprojected trajectories, also coordinates need to be downprojected
             x_super = torch.tensor(self.data[self.dataset_super].attrs['x'][None, None, None, :])
             x = F.conv2d(x_super, weights, stride=(1, self.ratio_nx)).squeeze().numpy()
@@ -124,7 +120,6 @@ class HDF5Dataset(Dataset):
 
         else:
             raise Exception("Wrong experiment")
-
 
 class GraphCreator(nn.Module):
     def __init__(self,
@@ -151,6 +146,9 @@ class GraphCreator(nn.Module):
         self.tw = time_window
         self.t_res = t_resolution
         self.x_res = x_resolution
+        # let PDE know the actual grid used
+        self.pde.grid_size = (self.t_res, self.x_res)
+
         
         # ---- static 1‑D chain graph for all samples -----------------
         # nodes are 0 … (nx‑1); undirected edges (i,i+1)
@@ -205,6 +203,7 @@ class GraphCreator(nn.Module):
 
         return data, labels
     
+    
     def create_graph(
             self,
             data: torch.Tensor,   # shape [B, time_window, nx]
@@ -213,31 +212,59 @@ class GraphCreator(nn.Module):
             variables: dict,
             steps: list) -> Data:
 
-        B, tw, nx = data.size()           # tw == self.tw
-        nt = self.pde.grid_size[0]
+        """
+        Getting graph structure out of data sample
+        previous timesteps are combined in one node
+        Args:
+            data (torch.Tensor): input data tensor
+            labels (torch.Tensor): label tensor
+            x (torch.Tensor): spatial coordinates tensor
+            variables (dict): dictionary of equation specific parameters
+            steps (list): list of different starting points for each batch entry
+        Returns:
+            Data: Pytorch Geometric data graph
+        """
+        
+        # B = batch size, N = number of spatial nodes, tw = time-window length
+        B, tw, nx = data.size()    # Get batch size from data tensor
+        nt        = self.t_res         
         t_vec = torch.linspace(self.pde.tmin, self.pde.tmax, nt, device=data.device)
-
+        
+        # positional encodings for every node in the graph
+        x_pos = x[0].repeat(B)                          # [B*nx]
+        t_pos = torch.cat([t_vec[s].repeat(nx) for s in steps])  # [B*nx]  ← time coord
+        pos   = torch.stack([t_pos, x_pos], dim=1)      # [B*nx, 2]
+        
         # ------------- features & labels ---------------------------------
         #   data:  [B, tw, nx]  →  [B, nx, tw]  →  [B*nx, tw]
-        u = data.permute(0, 2, 1).contiguous().view(-1, tw)
-        y = labels.permute(0, 2, 1).contiguous().view(-1, tw)
+        u = data.permute(0, 2, 1).reshape(-1, tw)      # [B*nx, tw]
+        y = labels.permute(0, 2, 1).reshape(-1, tw)    # [B*nx, tw]
+        
+        # ------------- edge index (radius or k‑NN) -----------------------        
+        # torch.arange(B, device=data.device) creates the batch IDs directly on the right device (CPU/GPU).
+        # repeat_interleave(nx) expands each batch ID nx times, giving a vector of length B × nx, 
+        # which now matches x_pos, t_pos, and the node features you stack.                
+        # batch index  [B*nx]  → 0,0,…,1,1,…,B-1
+        
+        batch_vec = torch.arange(B, device=data.device).repeat_interleave(nx)
 
-        # ------------- positional encodings ------------------------------
-        x_pos = x.repeat(B, 1)                   # [B*nx]
-        t_pos = torch.cat([t_vec[step].repeat(nx) for step in steps])  # [B*nx]
-        pos   = torch.stack([t_pos, x_pos], dim=1)                     # [B*nx, 2]
-
-        # ------------- edge index (radius or k‑NN) -----------------------
-        batch_vec = torch.repeat_interleave(torch.arange(B), nx).to(data.device)
-
+        edge_index = torch.cat([
+             self.edge_index + i*nx for i in range(B)
+        ], dim=1)                                     # [2,  B*(nx-1)*2]
+        
         if f'{self.pde}' == 'CE':
             dx = x[0, 1] - x[0, 0]
             from math import exp
             r  = self.n * dx + 1 * exp(-4)
             edge_index = radius_graph(x_pos, r=r, batch=batch_vec, loop=False)
 
-        else:   # WE
+        else: # WE
             edge_index = knn_graph(x_pos, k=self.n, batch=batch_vec, loop=False)
+
+        # —- keep each undirected edge once, oriented i < j 
+        src, dst = edge_index
+        mask     = src < dst             # canonical orientation
+        edge_index = torch.stack([src[mask], dst[mask]], dim=0)
 
         # build PyG Data ---------------------------------------------------
         graph = Data(x=u, edge_index=edge_index, y=y, pos=pos, batch=batch_vec)
@@ -245,12 +272,13 @@ class GraphCreator(nn.Module):
 
         # ------ (optional) PDE‑specific scalars per node ------------------
         if f'{self.pde}' == 'WE':
-            bc_left  = torch.tensor(variables['bc_left' ][batch_vec])
-            bc_right = torch.tensor(variables['bc_right'][batch_vec])
-            c_speed  = torch.tensor(variables['c'       ][batch_vec])
-            graph.bc_left, graph.bc_right, graph.c = bc_left, bc_right, c_speed
-        # (same idea for CE if you need α,β,γ)
-        
+            if 'bc_left' in variables:           # normal training path
+                bc_left  = torch.tensor(variables['bc_left' ][batch_vec])
+                bc_right = torch.tensor(variables['bc_right'][batch_vec])
+                c_speed  = torch.tensor(variables['c'       ][batch_vec])
+                graph.bc_left, graph.bc_right, graph.c = bc_left, bc_right, c_speed
+                # else:  quick unit-test with {} — just skip per-node scalars
+    
         # --------------------------------------------------------------
         #  SCN needs a feature tensor for every edge / triangle
         #
@@ -262,6 +290,7 @@ class GraphCreator(nn.Module):
         # --------------------------------------------------------------
         
         return graph
+
 
 
     def create_next_graph(self,
