@@ -21,11 +21,9 @@ def _normalize_incidence(rows, cols, n_rows, n_cols):
     ).coalesce()
     return A_norm, deg_r, deg_c
 
-
 # ---------- main entry --------------------------------------
 def build_complex_from_edge_index(edge_index: torch.Tensor,
                                   max_order: int = 2):
-
     """
     Takes a PyG Data with .edge_index and .num_nodes
     Adds .A01 .A02 .A12 .Z10 .Z20 .triangles
@@ -162,26 +160,52 @@ import scipy.sparse.linalg as spl
 import numpy as np
 
 def sparse_scipy_to_torch(mat):
+    """Convert a SciPy COO to a coalesced PyTorch sparse tensor."""
     mat = mat.tocoo()
-    indices = torch.LongTensor(np.vstack((mat.row, mat.col)))
-    values = torch.FloatTensor(mat.data)
-    return torch.sparse_coo_tensor(indices, values, mat.shape)
+    idx = np.vstack((mat.row, mat.col))
+    vals = mat.data
+    indices = torch.from_numpy(idx).long()
+    values  = torch.from_numpy(vals).float()
+    return torch.sparse_coo_tensor(indices, values, mat.shape).coalesce()
 
+# sccn orig: Input: Expects a SciPy sparse matrix (scipy.sparse), 
+# typically in CSR or COO format.
+# Operates directly on the SciPy sparse matrix without any conversion.
+
+# this: Input: Expects a PyTorch sparse tensor (torch.sparse_coo_tensor), suitable for PyTorch-based workflows.
+# Converts the PyTorch sparse tensor to a SciPy COO matrix for eigenvalue computation, 
+# then converts it back to a PyTorch sparse tensor.
+# Set k=1 and which='LM' to find the largest magnitude eigenvalue.
+
+# shared Normalization Logic
+# Half-Interval Normalization (half_interval=True): Scales the Laplacian matrix by dividing by topeig.
+# Full-Interval Normalization (half_interval=False): Scales by 2.0 / topeig and adjusts the diagonal to ensure the spectrum lies within a specific interval, often [-1, 1].
 def normalize(L, half_interval=False):
-    assert is_sparse(L), "Input must be PyTorch sparse tensor"
-    M = L.shape[0]
-    topeig = spl.eigsh(L, k=1, which="LM", return_eigenvectors=False)[0]
+    """
+    Normalize a PyTorch sparse Laplacian by its largest eigenvalue.
+    Converts L→SciPy, does eigsh, rescales, then converts back.
+    """
+    assert L.is_sparse, "normalize() expects a PyTorch sparse tensor"
 
-    ret = L.copy()
+    # Convert PyTorch sparse tensor to SciPy sparse COO matrix
+    Lc = L.coalesce()
+    idx, vals = Lc._indices().cpu().numpy(), Lc._values().cpu().numpy()
+    L_scipy = sp.coo_matrix((vals, (idx[0], idx[1])), shape=L.shape)
+
+    # Compute top eigen values
+    topeig = spl.eigsh(L_scipy, k=1, which="LM", return_eigenvectors=False)[0]
+    ret = L_scipy.copy()
+    
     if half_interval:
-        ret *= 1.0 / topeig
+        ret.data *= (1.0 / topeig)
     else:
-        ret *= 2.0 / topeig
-        ret.setdiag(ret.diagonal(0) - np.ones(M))
+        ret.data *= (2.0 / topeig)
+        ret.setdiag(ret.diagonal() - np.ones(ret.shape[0], dtype=ret.dtype))
+    assert np.all(np.isfinite(ret.data)), "L must be finite"
 
-    # Convert to PyTorch sparse tensor
-    ret = sparse_scipy_to_torch(ret)
-    return ret
+    # Return as PyTorch sparse
+    return sparse_scipy_to_torch(ret)
+
 
 def assemble(K, L, x):
     B, C_in, M = x.shape
@@ -252,7 +276,6 @@ class SimplicialConvolution(nn.Module):
         else:
             self.bias = 0.0
     
-
     def forward(self, L, x):
         assert(len(L.shape) == 2)
         assert(L.shape[0] == L.shape[1])
@@ -275,6 +298,11 @@ class SimplicialConvolution(nn.Module):
 #
 # Note: You can use this for a adjoints of coboundaries too. Just feed
 # a transposed D.
+
+'''
+class takes an incidence matrix D 
+(like B1, B2, or B1.T) and applies a learnable linear transform.
+'''
 class Coboundary(nn.Module):
     def __init__(self, C_in, C_out, enable_bias = True, variance = 1.0):
         super().__init__()
@@ -285,8 +313,8 @@ class Coboundary(nn.Module):
         self.C_in = C_in
         self.C_out = C_out
         self.enable_bias = enable_bias
-
         self.theta = nn.parameter.Parameter(variance*torch.randn((self.C_out, self.C_in)))
+        
         if self.enable_bias:
             self.bias = nn.parameter.Parameter(torch.zeros((1, self.C_out, 1)))
         else:
@@ -294,9 +322,9 @@ class Coboundary(nn.Module):
 
     def forward(self, D, x):
         assert(len(D.shape) == 2)
-        
         (B, C_in, M) = x.shape
-        
+        # x is your batched node features: shape [B, C_in, M] So M = number of nodes.
+        # D is your coboundary matrix (mesh.B1), and must be [*, M] So, D.shape[1] must match M.
         assert(D.shape[1] == M)
         assert(C_in == self.C_in)
         

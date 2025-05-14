@@ -73,7 +73,7 @@ class ForwardEuler(Tableau):
     order = 1
     a = np.array([[0.]])
     b = np.array([1.])
-    c = np.array([1.])
+    c = np.array([0.])
 
     def __init__(self):
         super().__init__()

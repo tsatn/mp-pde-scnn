@@ -11,16 +11,22 @@ from matplotlib import pyplot as plt
 from torch import nn, optim
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
-from torch_geometric.nn import MessagePassing
-from common.simplicial_utils import enrich_pyg_data_with_simplicial
-from common.utils import HDF5Dataset, GraphCreator
+# from torch_geometric.nn import MessagePassing
 from experiments.models_gnn import MP_PDE_Solver
-from experiments.models_gnn_snn import SCNPDEModel, build_scn_maps
-from experiments.models_cnn import BaseCNN
 from experiments.train_helper import *
 from equations.PDEs import *
 from torch_geometric.data import Data
-from common.simplicial_utils import Coboundary
+from experiments.models_gnn_snn  import normalize_boundary
+from common.simplicial_utils import Coboundary, normalize
+from experiments.models_gnn_snn import SCNPDEModel
+
+
+from common.simplicial_utils import enrich_pyg_data_with_simplicial, Coboundary, normalize
+from common.utils import HDF5Dataset, GraphCreator
+from experiments.models_gnn import MP_PDE_Solver
+from experiments.models_gnn_snn import SCNPDEModel
+from experiments.models_cnn import BaseCNN
+from experiments.train_helper import *
 
 def check_directory() -> None:
     """
@@ -267,14 +273,18 @@ def main(args: argparse):
                             eq_variables=eq_variables).to(device)
     
     elif args.model == 'SCN':
-        # --- build a static mesh ------------------------------------
+        # build a static mesh
         mesh = Data(edge_index = graph_creator.edge_index,
                     num_nodes  = graph_creator.num_nodes,
                     pos        = graph_creator.get_grid().unsqueeze(-1))   # [N,1]
 
         # enrich with A01 / A02 / A12 / triangles
+        # attaches A01, A12, A02, B1, B2, etc. to the mesh, returns the enriched mesh object ready for use in SCNPDEModel
         enrich_pyg_data_with_simplicial(mesh, max_order=2)
-        
+        # ensure our sparse B1/B2 are coalesced for downstream SCN routines
+        # PyTorch sparse incidence matrices from enrich_pyg_data_with_simplicial
+        mesh.B1 = normalize_boundary(mesh.B1).coalesce()
+        mesh.B2 = normalize_boundary(mesh.B2).coalesce()
         mesh.edge_attr = torch.zeros(mesh.num_edges, 1)
         mesh.tri_attr  = torch.zeros(mesh.num_triangles, 1) if hasattr(mesh, 'num_triangles') else None
 
@@ -375,10 +385,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # -----------------------------------------------
-    # turn "250,100" → [250, 100]  (and store both)
+    # turn "250,100" → [250, 100], store both
     nt_base, nx_base = map(int, args.base_resolution.split(','))
-    args.base_resolution = [nt_base, nx_base]   # overwrite the string
+    args.base_resolution = [nt_base, nx_base]  
     args.nt_base, args.nx_base = nt_base, nx_base
 
-    
     main(args)

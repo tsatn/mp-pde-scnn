@@ -7,7 +7,6 @@ from equations.PDEs import *
 from experiments.models_gnn_snn import SCNPDEModel  
 from common.simplicial_utils import normalize
 
-
 def training_loop(model: nn.Module,
                   unrolling: list,
                   batch_size: int,
@@ -37,8 +36,11 @@ def training_loop(model: nn.Module,
         # Inject SCNN-specific features
         if hasattr(graph, 'B1') and hasattr(graph, 'B2'):
             # Convert boundary matrices to normalized Laplacians (SCNN requirement)
-            graph.L0 = normalize(graph.B1, half_interval=True).to(device)  # Node Laplacian
-            graph.L1 = normalize(graph.B2, half_interval=True).to(device)  # Edge Laplacian
+            L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+            graph.L0 = normalize(L0, half_interval=True).to(device)        # Node Laplacian
+            
+            L1 = torch.sparse.mm(graph.B2, graph.B2.transpose(0, 1)).coalesce() 
+            graph.L1 = normalize(L1, half_interval=True).to(device)        # Node Laplacian
 
         with torch.no_grad():
             for _ in range(n_unroll):
