@@ -1,5 +1,3 @@
-<!-- # Message Passing Neural PDE Solvers
-=======
 # Message‑Passing & Simplicial Neural PDE Solvers  
 ---
 ## 0. Short Introduction
