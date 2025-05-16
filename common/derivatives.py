@@ -215,7 +215,9 @@ class HessianOperator(nn.Module):
         super().__init__()
         self.device = device
         self.pde = pde
-        
+        self.spectral_operator = SpectralSimplicialOperator(pde, device)
+        # self.fdm = FDM(pde, device)
+        # self.weno = WENO(pde, device=device)
         
     def compute_hessian(self, x: torch.Tensor, B1: torch.Tensor, B2: torch.Tensor = None):
         """
