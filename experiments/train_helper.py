@@ -22,6 +22,15 @@ def training_loop(model: nn.Module,
     for (u_base, u_super, x, variables) in loader:
         optimizer.zero_grad()
 
+        # Convert data to float32
+        u_base = u_base.to(torch.float32)
+        u_super = u_super.to(torch.float32)
+        x = x.to(torch.float32)
+        
+        # Convert variables dict values to float32
+        variables = {k: v.to(torch.float32) if torch.is_tensor(v) else v 
+                    for k, v in variables.items()}
+
         # Pick #unrollings & random start steps 
         n_unroll = random.choice(unrolling)
         legal_steps = range(graph_creator.tw,

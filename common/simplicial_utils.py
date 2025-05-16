@@ -22,26 +22,21 @@ def _normalize_incidence(rows, cols, n_rows, n_cols):
     return A_norm, deg_r, deg_c
 
 # ---------- main entry --------------------------------------
-def build_complex_from_edge_index(edge_index: torch.Tensor,
-                                  max_order: int = 2):
+def build_complex_from_edge_index(edge_index: torch.Tensor, max_order: int = 2):
     """
     Takes a PyG Data with .edge_index and .num_nodes
     Adds .A01 .A02 .A12 .Z10 .Z20 .triangles
     Returns the same Data (for chaining).
-    """
-    
-    """
+        
     Parameters
-    ----------
     edge_index : LongTensor shape [2,E]  undirected
     max_order  : 1 ➡︎ only edges; 2 ➡︎ edges + triangles
 
-    Returns
-    -------
+    Returns:
     dict  (all torch tensors ‑ sparse where appropriate)
         'A01' |V|×|E|  edge‑to‑node
         'Z10' diag vec (|V|)
-        —— if max_order >= 2 ————————————————
+        —— if max_order >= 2 —————
         'A02' |V|×|T|  tri‑to‑node
         'A12' |E|×|T|  tri‑to‑edge
         'Z20' diag vec (|V|)
@@ -57,13 +52,10 @@ def build_complex_from_edge_index(edge_index: torch.Tensor,
     if len(edges) == 0:
         raise ValueError("Graph has no edges → cannot build complex")
 
-    rows_e = torch.tensor([u for u, v in edges] +
-                          [v for u, v in edges], dtype=torch.long)
+    rows_e = torch.tensor([u for u, v in edges] + [v for u, v in edges], dtype=torch.long)
     cols_e = torch.tensor(list(range(len(edges))) * 2, dtype=torch.long)
 
-    A01, Z10, _ = _normalize_incidence(rows_e, cols_e,
-                                       n_rows=n_nodes,
-                                       n_cols=len(edges))
+    A01, Z10, _ = _normalize_incidence(rows_e, cols_e, n_rows=n_nodes, n_cols=len(edges))
     out = dict(A01=A01, Z10=Z10)
 
     # 2.  optionally triangles
@@ -71,22 +63,21 @@ def build_complex_from_edge_index(edge_index: torch.Tensor,
         out['A02'] = out['A12'] = out['Z20'] = None
         out['triangles'] = torch.empty(0, 3, dtype=torch.long)
         return out
-
-    tris = [tuple(sorted(c))
-            for c in nx.enumerate_all_cliques(G) if len(c) == 3]
+    # finds all 3-cliques (triangles) in the undirected graph, matching the SCNN definition of 2-simplices
+    tris = [tuple(sorted(c)) for c in nx.enumerate_all_cliques(G) if len(c) == 3]
     tris = list(dict.fromkeys(tris))   # unique & stable order
 
     if len(tris) == 0:
         # supply empty placeholders so the rest of the pipeline does not
         # branch on `None`
         out.update(
-            A02=torch.sparse_coo_tensor(torch.empty(2, 0, dtype=torch.long),
+            A02 = torch.sparse_coo_tensor(torch.empty(2, 0, dtype=torch.long),
                                         torch.empty(0),
                                         (n_nodes, 0)),
-            A12=torch.sparse_coo_tensor(torch.empty(2, 0, dtype=torch.long),
+            A12 = torch.sparse_coo_tensor(torch.empty(2, 0, dtype=torch.long),
                                         torch.empty(0),
                                         (len(edges), 0)),
-            Z20=torch.zeros(0),
+            Z20 = torch.zeros(0),
             triangles=torch.empty(0, 3, dtype=torch.long),
         )
         return out
@@ -98,6 +89,7 @@ def build_complex_from_edge_index(edge_index: torch.Tensor,
     # 2.a  tri → node
     rows_tn = tris_t.view(-1)
     cols_tn = torch.repeat_interleave(torch.arange(n_tri), 3)
+    
     A02, Z20, _ = _normalize_incidence(rows_tn, cols_tn,
                                        n_rows=n_nodes,
                                        n_cols=n_tri)
@@ -106,18 +98,18 @@ def build_complex_from_edge_index(edge_index: torch.Tensor,
     # 2.b  tri → edge
     edge_to_idx = {tuple(sorted(e)): i for i, e in enumerate(edges)}
     rows_te, cols_te = [], []
+
     for t_idx, (i, j, k) in enumerate(tris):
         for e in [(i, j), (j, k), (k, i)]:
             rows_te.append(edge_to_idx[tuple(sorted(e))])
             cols_te.append(t_idx)       
 
-    A12, _, _ = _normalize_incidence(torch.tensor(rows_te),
-                                     torch.tensor(cols_te),
+    A12, _, _ = _normalize_incidence(torch.tensor(rows_te), 
+                                     torch.tensor(cols_te), 
                                      n_rows=len(edges),
                                      n_cols=n_tri)
     out['A12'] = A12
     return out
-
 
 # ---------- mesh → Data enrich ------------------------------------------
 def enrich_pyg_data_with_simplicial(data: Data,
@@ -129,21 +121,19 @@ def enrich_pyg_data_with_simplicial(data: Data,
     """
     comp = build_complex_from_edge_index(data.edge_index, max_order)
 
-    data.triangles = comp['triangles']          # [n_tri,3]
+    data.triangles = comp['triangles']     # [n_tri,3]
     data.A01       = comp['A01']           # |V| × |E|
-    data.Z10       = comp['Z10']          # |E|
+    data.Z10       = comp['Z10']           # |E|
     if max_order >= 2:
-        data.A02       = comp['A02']         # |V| × |T|
+        data.A02       = comp['A02']       # |V| × |T|
         data.A12       = comp['A12']       # |E| × |T|
-        data.Z20       = comp['Z20']      # |T|
-        data.triangles = comp['triangles']  # [n_tri,3]
+        data.Z20       = comp['Z20']       # |T|
+        data.triangles = comp['triangles'] # [n_tri,3]
         
     data.B1 = data.A01            # edge -> node  (1‑boundary)
     data.B2 = data.A12            # tri  -> edge  (2‑boundary)
     
     return data
-
-
 
 
 #_________________________functions from snn/chebyshev.py________________________________________________________
@@ -323,29 +313,54 @@ class Coboundary(nn.Module):
     def forward(self, D, x):
         assert(len(D.shape) == 2)
         (B, C_in, M) = x.shape
-        # x is your batched node features: shape [B, C_in, M] So M = number of nodes.
-        # D is your coboundary matrix (mesh.B1), and must be [*, M] So, D.shape[1] must match M.
         assert(D.shape[1] == M)
         assert(C_in == self.C_in)
-        
         N = D.shape[0]
 
-        # This is essentially the equivalent of chebyshev.assemble for
-        # the convolutional modules.
+        x = x.to(dtype=D.dtype)
         X = []
-        for b in range(0, B):
+        for b in range(B):
             X12 = []
-            for c_in in range(0, self.C_in):
-                X12.append(D.mm(x[b, c_in, :].unsqueeze(1)).transpose(0,1)) # D.mm(x[b, c_in, :]) has shape Nx1
-            X12 = torch.cat(X12, 0)
+            for c_in in range(self.C_in):
+                X12.append(D.mm(x[b, c_in, :].unsqueeze(1)).transpose(0,1)) # (1, N)
+            X12 = torch.cat(X12, 0)  # (C_in, N)
+            assert X12.shape == (self.C_in, N)
+            X.append(X12.unsqueeze(0))  # (1, C_in, N)
+        X = torch.cat(X, dim=0)  # (B, C_in, N)
+        assert X.shape == (B, self.C_in, N)
 
-            assert(X12.shape == (self.C_in, N))
-            X.append(X12.unsqueeze(0))
-
-        X = torch.cat(X, 0)
-        assert(X.shape == (B, self.C_in, N))
-                   
         y = torch.einsum("oi,bin->bon", (self.theta, X))
-        assert(y.shape == (B, self.C_out, N))
-
+        assert y.shape == (B, self.C_out, N)
         return y + self.bias
+
+def normalize_boundary(B: torch.Tensor):
+    """Normalize boundary operator for stable training."""
+    B = B.coalesce()
+    row_sum = torch.sparse.sum(B, dim=1).to_dense()
+    col_sum = torch.sparse.sum(B, dim=0).to_dense()
+    
+    row_norm = 1.0 / torch.sqrt(row_sum + 1e-8)
+    col_norm = 1.0 / torch.sqrt(col_sum + 1e-8)
+
+    indices = B._indices()
+    values = B._values() * row_norm[indices[0]] * col_norm[indices[1]]
+    
+    return torch.sparse_coo_tensor(indices, values, B.shape).coalesce()
+
+
+
+
+# ### The following function computes the Hodge Laplacian for 0-forms (nodes) and optionally for 1-forms (edges) and 2-forms (triangles).
+# # It uses the boundary operators B1 and B2 to compute the Laplacians.
+# # The function returns the Laplacians as sparse tensors.
+# # The Hodge Laplacian is a differential operator that combines the exterior derivative and codifferential operators.
+# # It is used in the context of simplicial complexes and is important for applications in computational topology and geometry processing.
+# def compute_hodge_laplacian(B1, B2=None):
+#     """Compute Hodge Laplacians for different k-forms"""
+#     L0 = torch.sparse.mm(B1, B1.t())  # 0-form Laplacian (nodes)
+#     if B2 is not None:
+#         L1 = (torch.sparse.mm(B1.t(), B1) + 
+#               torch.sparse.mm(B2, B2.t()))  # 1-form Laplacian (edges)
+#         L2 = torch.sparse.mm(B2.t(), B2)    # 2-form Laplacian (triangles)
+#         return L0, L1, L2
+#     return L0

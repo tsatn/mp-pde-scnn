@@ -50,12 +50,11 @@ import numpy as onp
 from jax import vmap, jit, random
 from jax.lax import scan
 from functools import partial
-from jax.config import config
+from jax import config
 config.update("jax_enable_x64", True)
 from time import time
 import matplotlib.pyplot as plt
 PI = jnp.pi
-
 
 def ssp_rk3(a_n, t_n, F, dt):
     """

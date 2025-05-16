@@ -5,7 +5,7 @@ import sys
 import time
 from datetime import datetime
 import torch
-import random
+# import random
 import numpy as np
 from matplotlib import pyplot as plt
 from torch import nn, optim
@@ -19,12 +19,8 @@ from torch_geometric.data import Data
 from experiments.models_gnn_snn  import normalize_boundary
 from common.simplicial_utils import Coboundary, normalize
 from experiments.models_gnn_snn import SCNPDEModel
-
-
 from common.simplicial_utils import enrich_pyg_data_with_simplicial, Coboundary, normalize
 from common.utils import HDF5Dataset, GraphCreator
-from experiments.models_gnn import MP_PDE_Solver
-from experiments.models_gnn_snn import SCNPDEModel
 from experiments.models_cnn import BaseCNN
 from experiments.train_helper import *
 
@@ -314,7 +310,7 @@ def main(args: argparse):
     # Training loop
     min_val_loss = 10e30
     test_loss = 10e30
-    criterion = torch.nn.MSELoss(reduction="sum")
+    criterion = torch.nn.MSELoss(reduction="sum").to(torch.float32)
     for epoch in range(args.num_epochs):
         print(f"Epoch {epoch}")
         train(args, pde, epoch, model, optimizer, train_loader, graph_creator, criterion, device=device)
