@@ -250,7 +250,6 @@ class SimplicialConvolution(nn.Module):
     def __init__(self, K, C_in, C_out, enable_bias = True, variance = 1.0, groups = 1):
         assert groups == 1, "Only groups = 1 is currently supported."
         super().__init__()
-
         assert(C_in > 0)
         assert(C_out > 0)
         assert(K > 0)
@@ -259,7 +258,6 @@ class SimplicialConvolution(nn.Module):
         self.C_out = C_out
         self.K = K
         self.enable_bias = enable_bias
-
         self.theta = nn.parameter.Parameter(variance*torch.randn((self.C_out, self.C_in, self.K)))
         if self.enable_bias:
             self.bias = nn.parameter.Parameter(torch.zeros((1, self.C_out, 1)))
@@ -333,12 +331,13 @@ class Coboundary(nn.Module):
         assert y.shape == (B, self.C_out, N)
         return y + self.bias
 
+
 def normalize_boundary(B: torch.Tensor):
     """Normalize boundary operator for stable training."""
     B = B.coalesce()
+
     row_sum = torch.sparse.sum(B, dim=1).to_dense()
     col_sum = torch.sparse.sum(B, dim=0).to_dense()
-    
     row_norm = 1.0 / torch.sqrt(row_sum + 1e-8)
     col_norm = 1.0 / torch.sqrt(col_sum + 1e-8)
 
@@ -348,19 +347,19 @@ def normalize_boundary(B: torch.Tensor):
     return torch.sparse_coo_tensor(indices, values, B.shape).coalesce()
 
 
-
-
-# ### The following function computes the Hodge Laplacian for 0-forms (nodes) and optionally for 1-forms (edges) and 2-forms (triangles).
-# # It uses the boundary operators B1 and B2 to compute the Laplacians.
-# # The function returns the Laplacians as sparse tensors.
-# # The Hodge Laplacian is a differential operator that combines the exterior derivative and codifferential operators.
-# # It is used in the context of simplicial complexes and is important for applications in computational topology and geometry processing.
-# def compute_hodge_laplacian(B1, B2=None):
-#     """Compute Hodge Laplacians for different k-forms"""
-#     L0 = torch.sparse.mm(B1, B1.t())  # 0-form Laplacian (nodes)
-#     if B2 is not None:
-#         L1 = (torch.sparse.mm(B1.t(), B1) + 
-#               torch.sparse.mm(B2, B2.t()))  # 1-form Laplacian (edges)
-#         L2 = torch.sparse.mm(B2.t(), B2)    # 2-form Laplacian (triangles)
-#         return L0, L1, L2
-#     return L0
+#__________________________________________________________________________________________________________
+### The following function computes the Hodge Laplacian for 0-forms (nodes) and optionally for 1-forms (edges) and 2-forms (triangles).
+# It uses the boundary operators B1 and B2 to compute the Laplacians.
+# The function returns the Laplacians as sparse tensors.
+# The Hodge Laplacian is a differential operator that combines the exterior derivative and codifferential operators.
+# It is used in the context of simplicial complexes and is important for applications in computational topology and geometry processing.
+def compute_hodge_laplacian(B1, B2=None):
+    """Compute Hodge Laplacians for different k-forms"""
+    L0 = torch.sparse.mm(B1, B1.t())  # 0-form Laplacian (nodes)
+    if B2 is not None:
+        L1 = (torch.sparse.mm(B1.t(), B1) + 
+              torch.sparse.mm(B2, B2.t()))  # 1-form Laplacian (edges)
+        L2 = torch.sparse.mm(B2.t(), B2)    # 2-form Laplacian (triangles)
+        return L0, L1, L2
+    
+    return L0

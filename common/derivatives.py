@@ -179,3 +179,29 @@ class WENO():
 
         return output
 
+class SpectralSimplicialOperator(nn.Module):
+    """Implementation aligned with IEEE TPAMI paper"""
+    def __init__(self, pde, device="cpu"):
+        super().__init__()
+        self.device = device
+        self.pde = pde
+        
+    def compute_operators(self, B1: torch.Tensor, B2: torch.Tensor = None):
+        """Compute Hodge Laplacians as in paper Section 3.2"""
+        # Lower Laplacian (for 0-forms)
+        L0_lower = torch.sparse.mm(B1, B1.t())
+        
+        if B2 is not None:
+            # Upper Laplacian (for 1-forms)
+            L1_upper = torch.sparse.mm(B2, B2.t())
+            # Complete Hodge Laplacian for 1-forms
+            L1 = torch.sparse.mm(B1.t(), B1) + L1_upper
+            return L0_lower, L1
+            
+        return L0_lower
+
+    def compute_harmonic_components(self, x: torch.Tensor, L: torch.Tensor):
+        """Compute harmonic components as in paper Section 3.3"""
+        # Solve Lh = 0 where h is harmonic component
+        return x - torch.sparse.mm(L, x)
+
