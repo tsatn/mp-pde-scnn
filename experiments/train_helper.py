@@ -5,7 +5,7 @@ from torch import nn, optim
 from common.utils import GraphCreator
 from equations.PDEs import *
 from experiments.models_gnn_snn import SCNPDEModel  
-from common.simplicial_utils import normalize
+from common.simplicial_utils import compute_hodge_laplacian, normalize
 
 def training_loop(model: nn.Module,
                   unrolling: list,
@@ -51,6 +51,21 @@ def training_loop(model: nn.Module,
             L1 = torch.sparse.mm(graph.B2, graph.B2.transpose(0, 1)).coalesce() 
             graph.L1 = normalize(L1, half_interval=True).to(device)        # Node Laplacian
 
+        # Add Hodge Laplacian computation
+        if hasattr(graph, 'B1'):
+            # Compute normalized Hodge Laplacians
+            L0, L1, L2 = compute_hodge_laplacian(
+                graph.B1.to(torch.float32), 
+                graph.B2.to(torch.float32) if hasattr(graph, 'B2') else None
+            )
+            
+            # Normalize and store on device
+            graph.L0 = normalize(L0, half_interval=True).to(device)
+            if L1 is not None:
+                graph.L1 = normalize(L1, half_interval=True).to(device)
+            if L2 is not None:
+                graph.L2 = normalize(L2, half_interval=True).to(device)
+
         with torch.no_grad():
             for _ in range(n_unroll):
                 random_steps = [s + graph_creator.tw for s in random_steps]
@@ -85,7 +100,7 @@ def test_timestep_losses(model: nn.Module,
     """
 
     is_graph = getattr(model, "is_graph_model", False)
-
+    
     for step in steps:
         if step != graph_creator.tw and step % graph_creator.tw != 0:
             continue
@@ -108,7 +123,6 @@ def test_timestep_losses(model: nn.Module,
                     loss  = criterion(pred, labels)
 
                 losses.append(loss / batch_size)
-
         print(f"Step {step:4d} | mean loss {torch.mean(torch.stack(losses)):.4e}")
 
 
@@ -124,7 +138,6 @@ def test_unrolled_losses(model: nn.Module,
     """
     Fully unroll the trajectory and accumulate the error.
     """
-
     is_graph = getattr(model, "is_graph_model", False)
     losses, losses_base = [], []
 
@@ -177,11 +190,9 @@ def test_unrolled_losses(model: nn.Module,
                 base_losses.append(
                     criterion(y_super, y_base) / nx_base_resolution / batch_size
                 )
-
         losses.append(torch.sum(torch.stack(batch_losses)))
         losses_base.append(torch.sum(torch.stack(base_losses)))
 
     print(f"Unrolled forward loss      : {torch.mean(torch.stack(losses)):.4e}")
     print(f"Unrolled numerical baseline: {torch.mean(torch.stack(losses_base)):.4e}")
-
     return torch.stack(losses)

@@ -162,6 +162,16 @@ class SCNPDEModel(nn.Module):
             Swish()
         )
         
+        # Add temporal processing
+        self.temporal_processor = TemporalSimplicialProcessor(hidden, self.boundary_maps)
+        
+        # Add stable convolutions
+        self.node_conv = StableSimplicialConvolution(hidden)
+        self.edge_conv = StableSimplicialConvolution(hidden)
+        
+        # Add physics-informed component
+        self.physics_processor = PhysicsInformedProcessor(hidden, self.boundary_maps)
+        
     def forward(self, data: Data):
         # Ensure input tensors are float32
         X0 = torch.cat([
@@ -266,70 +276,72 @@ def normalize_boundary(B: torch.Tensor):
     return torch.sparse_coo_tensor(indices, values, B.shape)
 
 
-
-# class TemporalSimplicialProcessor(nn.Module):
-#     # This class processes simplicial complexes over time.
-#     # It uses a GRU to evolve the simplicial complex features over time.
-#     # The input features are expected to be in the form of node features (X0),
-#     # edge features (X1), and triangle features (X2).
-#     # The time information is embedded and added to the node features.
-#     # The simplicial complex is processed using a SimplicialProcessor,
-#     # and the temporal evolution is handled by a GRU.
-#     # The output is the updated node features (X0_temporal),
-#     # edge features (X1_next), and triangle features (X2_next).
-#     def __init__(self, hidden_dim, boundary_maps):
-#         super().__init__()
-#         self.time_embedding = nn.Linear(1, hidden_dim)
-#         self.processor = SimplicialProcessor(hidden_dim, boundary_maps)
-#         self.temporal_gru = nn.GRU(hidden_dim, hidden_dim)
+#__________________________________________________________________________________________________________
+# The following classes are used to process simplicial complexes over time.
+# including a temporal simplicial processor, a stable simplicial convolution, enforcing conservation laws
+class TemporalSimplicialProcessor(nn.Module):
+    # This class processes simplicial complexes over time.
+    # It uses a GRU to evolve the simplicial complex features over time.
+    # The input features are expected to be in the form of node features (X0),
+    # edge features (X1), and triangle features (X2).
+    # The time information is embedded and added to the node features.
+    # The simplicial complex is processed using a SimplicialProcessor,
+    # and the temporal evolution is handled by a GRU.
+    # The output is the updated node features (X0_temporal),
+    # edge features (X1_next), and triangle features (X2_next).
+    def __init__(self, hidden_dim, boundary_maps):
+        super().__init__()
+        self.time_embedding = nn.Linear(1, hidden_dim)
+        self.processor = SimplicialProcessor(hidden_dim, boundary_maps)
+        self.temporal_gru = nn.GRU(hidden_dim, hidden_dim)
     
-#     def forward(self, X0, X1, X2, t):
-#         # Embed time information
-#         t_emb = self.time_embedding(t.unsqueeze(-1))
-#         X0 = X0 + t_emb.unsqueeze(-1)  # Add time information to nodes
+    def forward(self, X0, X1, X2, t):
+        # Embed time information
+        t_emb = self.time_embedding(t.unsqueeze(-1))
+        X0 = X0 + t_emb.unsqueeze(-1)  # add time info to nodes
         
-#         # Process simplicial complex
-#         X0_next, X1_next, X2_next = self.processor(X0, X1, X2)
+        # Process simplicial complex
+        X0_next, X1_next, X2_next = self.processor(X0, X1, X2)
         
-#         # Apply temporal evolution
-#         X0_temporal, _ = self.temporal_gru(X0_next.transpose(1, 2))
-#         return X0_temporal.transpose(1, 2), X1_next, X2_next
+        # Apply temporal evolution
+        X0_temporal, _ = self.temporal_gru(X0_next.transpose(1, 2))
+        return X0_temporal.transpose(1, 2), X1_next, X2_next
 
-# class StableSimplicialConvolution(nn.Module):
-#     def __init__(self, hidden_dim):
-#         super().__init__()
-#         self.conv = SimplicialConvolution(hidden_dim, hidden_dim)
-#         self.norm = nn.LayerNorm(hidden_dim)
-#         self.dropout = nn.Dropout(0.1)
+class StableSimplicialConvolution(nn.Module):
+    def __init__(self, hidden_dim):
+        super().__init__()
+        self.conv = SimplicialConvolution(hidden_dim, hidden_dim)
+        self.norm = nn.LayerNorm(hidden_dim)
+        self.dropout = nn.Dropout(0.1)
     
-#     def forward(self, x, B=None):
-#         identity = x
-#         x = self.conv(x, B)
-#         x = self.norm(x)
-#         x = self.dropout(x)
-#         return x + identity
+    def forward(self, x, B=None):
+        identity = x
+        x = self.conv(x, B)
+        x = self.norm(x)
+        x = self.dropout(x)
+        return x + identity
 
-# class PhysicsInformedProcessor(SimplicialProcessor):
-#     def __init__(self, hidden_dim, boundary_maps):
-#         super().__init__(hidden_dim, boundary_maps)
-#         self.conservation_proj = nn.Linear(hidden_dim, 1)
+class PhysicsInformedProcessor(SimplicialProcessor):
+    def __init__(self, hidden_dim, boundary_maps):
+        super().__init__(hidden_dim, boundary_maps)
+        self.conservation_proj = nn.Linear(hidden_dim, 1)
     
-#     def forward(self, X0, X1, X2):
-#         X0_next, X1_next, X2_next = super().forward(X0, X1, X2)
+    def forward(self, X0, X1, X2):
+        X0_next, X1_next, X2_next = super().forward(X0, X1, X2)
         
-#         # Enforce conservation laws
-#         mass = self.conservation_proj(X0_next.transpose(1, 2)).sum(dim=1)
-#         X0_next = X0_next * (mass.unsqueeze(1) / mass.sum())
-#         return X0_next, X1_next, X2_next
+        # Enforce conservation laws
+        mass = self.conservation_proj(X0_next.transpose(1, 2)).sum(dim=1)
+        X0_next = X0_next * (mass.unsqueeze(1) / mass.sum())
+        return X0_next, X1_next, X2_next
 
-# class MultiScaleSCN(nn.Module):
-#     def __init__(self, hidden_dims=[32, 64, 128]):
-#         super().__init__()
-#         self.encoders = nn.ModuleList([
-#             SimplicialProcessor(h_in, h_out) 
-#             for h_in, h_out in zip(hidden_dims[:-1], hidden_dims[1:])
-#         ])
-#         self.decoders = nn.ModuleList([
-#             SimplicialProcessor(h_out, h_in)
-#             for h_in, h_out in zip(hidden_dims[:-1], hidden_dims[1:])
-#         ])
+class MultiScaleSCN(nn.Module):
+    def __init__(self, hidden_dims=[32, 64, 128]):
+        super().__init__()
+        self.encoders = nn.ModuleList([
+            SimplicialProcessor(h_in, h_out) 
+            for h_in, h_out in zip(hidden_dims[:-1], hidden_dims[1:])
+        ])
+        self.decoders = nn.ModuleList([
+            SimplicialProcessor(h_out, h_in)
+            for h_in, h_out in zip(hidden_dims[:-1], hidden_dims[1:])
+        ])
