@@ -34,11 +34,16 @@ class FDM():
         Padding according to FDM derivatives for periodic boundary conditions
         Padding with size 2 is correct for 4th order accuracy for first and second derivative and
         for 2nd order accuracy for third and fourth derivative (for simplicity)
-        """
-        left = input[..., -3:-1]
-        right = input[..., 1:3]
+        """        
+        k = 2   # stencil half-width
+        if input.size(-1) <= k:
+            raise ValueError("signal too short for FDM padding")
+        left  = input[..., -k-1:-1]
+        right = input[..., 1:k+1]
+
         padded_input = torch.cat([left, input, right], -1)
         return padded_input
+    
 
     def first_derivative(self, input: torch.Tensor) -> torch.Tensor:
         """
@@ -84,7 +89,7 @@ class WENO():
         self.pde = pde
         self.order = order
         self.epsilon = 1e-16
-        self.device = device
+        self.device = device        
 
         assert(self.order == 3) # as default for WENO5 scheme, higher orders are not implemented
         betaA = coefficients.betaA_all[self.order]
@@ -97,15 +102,6 @@ class WENO():
         self.gamma = torch.tensor(gamma).to(self.device)
         self.stencils = torch.tensor(stencils).to(self.device)
 
-    # def pad(self, input: torch.Tensor) -> torch.Tensor:
-    #     """
-    #     Padding according to order of Weno scheme
-    #     """
-    #     left = input[..., -self.order:-1]
-    #     right = input[..., 1:self.order]
-    #     padded_input = torch.cat([left, input, right], -1)
-    #     return padded_input
-    
     def pad(self, u: torch.Tensor) -> torch.Tensor:
         padding = self.stencil // 2
         u_padded = F.pad(u.unsqueeze(1), (padding, padding), mode='circular').squeeze(1)
@@ -124,9 +120,9 @@ class WENO():
         rec_plus = self.reconstruct(torch.flip(input, [-1]))
         rec_plus = torch.flip(rec_plus, [-1])
         rec_plus = torch.roll(rec_plus, -1, -1)
+        
         # reconstruct from the left
         rec_minus = self.reconstruct(input)
-
         switch = torch.ge(rec_plus, rec_minus).type(torch.float64)
         flux_plus = self.pde.flux(rec_plus)
         flux_minus = self.pde.flux(rec_minus)
@@ -154,10 +150,12 @@ class WENO():
 
         # construct flux from the left
         flux_plus = self.reconstruct(f_plus) / 2
+        
         # construct flux from the right
         flux_minus = self.reconstruct(torch.flip(f_minus, [-1])) / 2
         flux_minus = torch.flip(flux_minus, [-1])
         flux_minus = torch.roll(flux_minus, -1, -1)
+        
         # add fluxes
         flux_out = flux_plus + flux_minus
         flux_in = torch.roll(flux_out, 1, -1)
@@ -169,7 +167,6 @@ class WENO():
         '''
         Weno5 reconstruction
         '''
-
         b1 = F.conv1d(input, self.betaAm)
         b2 = F.conv1d(input, self.betaBm)
         beta = b1 * b1 + b2 * b2

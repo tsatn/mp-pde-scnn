@@ -37,7 +37,7 @@ class SimplicialFeatureBridge:
                 node_coords[tri[2]] - node_coords[tri[0]]
             ))] 
             for tri in self.complex['2-simplices']
-        ]) if self.complex['2-simplices'] else torch.zeros((0, 1))
+        ]) if len(self.complex['2-simplices']) else torch.zeros((0, 1))
         return tri_feats
     
 def generate_task_dataset(task: str, n_points: int = 512, T: int = 11):

@@ -219,15 +219,14 @@ def generate_data_wave_equation(experiment: str,
             u0 = np.concatenate([u, v])
 
             # Solving for the full trajectories and runtime measurement using pseudospectral Radau method
-            # torch.cuda.synchronize()
-            if torch.cuda.is_available():
+            if torch.cuda.is_available() and str(device).startswith("cuda"):
                 torch.cuda.synchronize()
 
             t1 = time.time()
             # Spatial derivatives are calculated using chebdx method
             solved = solve_ivp(pde[key].chebdx, [t[key][0], t[key][-1]], u0, method='Radau', t_eval=t[key], args=(x[key], c), rtol=tol, atol=tol)
             # torch.cuda.synchronize()
-            if torch.cuda.is_available():
+            if torch.cuda.is_available() and str(device).startswith("cuda"):
                 torch.cuda.synchronize()
 
             t2 = time.time()
@@ -303,6 +302,7 @@ def generate_data_combined_equation(experiment: str,
     h5f_alpha = {}
     h5f_beta = {}
     h5f_gamma = {}
+    
 
     for key in pde:
         t[key] = torch.linspace(pde[key].tmin, pde[key].tmax, pde[key].grid_size[0]).to(device)
@@ -369,8 +369,7 @@ def generate_data_combined_equation(experiment: str,
 
         h5f_alpha['alpha'][idx * batch_size:(idx + 1) * batch_size] = alpha_.detach().cpu()
         h5f_beta['beta'][idx * batch_size:(idx + 1) * batch_size] = beta_.detach().cpu()
-        h5f_beta['gamma'][idx * batch_size:(idx + 1) * batch_size] = gamma_.detach().cpu()
-
+        h5f_gamma['gamma'] = dataset.create_dataset('gamma', (num_samples, ), dtype=float)
         print("Solved indices: {:d} : {:d}".format(idx * batch_size, (idx + 1) * batch_size - 1))
         print("Solved batches: {:d} of {:d}".format(idx + 1, num_batches))
 

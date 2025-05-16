@@ -81,15 +81,11 @@ class HDF5Dataset(Dataset):
             list: equation specific parameters
         """
         if(f'{self.pde}' == 'CE'):
-            # Super resolution trajectories are downprojected via kernel which averages of neighboring cell values
-            u_super = self.data[self.dataset_super][idx][::self.ratio_nt][None, None, ...]
-            left = u_super[..., -3:-1]
-            right = u_super[..., 1:3]
-            u_super_padded = torch.tensor(np.concatenate((left, u_super, right), -1))
-            weights = torch.tensor([[[[0.2]*5]]])
+            # Super resolution trajectories are downprojected via kernel which averages of neighboring cell values            
+            u_super_padded = torch.tensor(self.data[self.dataset_super][idx][::self.ratio_nt][None, None, ...], dtype=self.dtype, device='cpu')
+            weights        = torch.tensor([[[[0.2]*5]]], dtype=self.dtype, device=u_super_padded.device)
             u_super = F.conv2d(u_super_padded, weights, stride=(1, self.ratio_nx)).squeeze().numpy()
-            x = self.x
-            
+            x = self.x         
             # Base resolution trajectories (numerical baseline) and equation specific parameters
             u_base = self.data[self.dataset_base][idx]
             variables = {}
@@ -101,14 +97,14 @@ class HDF5Dataset(Dataset):
         elif(f'{self.pde}' == 'WE'):
             # Super resolution trajectories are downprojected via kernel which averages of neighboring cell values
             # No padding is possible due to non-periodic boundary conditions
-            weights = torch.tensor([[[[1./self.ratio_nx]*self.ratio_nx]]])
-            u_super = self.data[self.dataset_super][idx][::self.ratio_nt][None, None, ...]
-            u_super = F.conv2d(torch.tensor(u_super), weights, stride=(1, self.ratio_nx)).squeeze().numpy()
-            
+            raw = self.data[self.dataset_super][idx]
+            arr = raw[::self.ratio_nt][None, None, ...]   # still NumPy array
+            u_t = torch.from_numpy(arr).to(dtype=self.dtype)
+            weights = torch.tensor([[[[1.0/self.ratio_nx]*self.ratio_nx]]], dtype=self.dtype, device=u_t.device)
+            u_super = F.conv2d(u_t, weights, stride=(1, self.ratio_nx)).squeeze().numpy()
             # To match the downprojected trajectories, also coordinates need to be downprojected
             x_super = torch.tensor(self.data[self.dataset_super].attrs['x'][None, None, None, :])
             x = F.conv2d(x_super, weights, stride=(1, self.ratio_nx)).squeeze().numpy()
-
             # Base resolution trajectories (numerical baseline) and equation specific parameters
             u_base = self.data[self.dataset_base][idx]
             variables = {}
@@ -193,13 +189,21 @@ class GraphCreator(nn.Module):
         Returns:
             Tuple[torch.Tensor, torch.Tensor]: input data and label
         """
-        data = torch.Tensor()
-        labels = torch.Tensor()
+        B_dummy, tw_dummy, nx_dummy = datapoints.shape[0], self.tw, datapoints.shape[-1]
+        data   = torch.empty((0, tw_dummy, nx_dummy),
+                        dtype=datapoints.dtype,
+                        device=datapoints.device)
+        device = datapoints.device
+        data   = torch.empty(0, self.tw, self.x_res, device=device)
+        labels = torch.empty((0, tw_dummy, nx_dummy),
+                        dtype=datapoints.dtype,
+                        device=datapoints.device)
+        
         for (dp, step) in zip(datapoints, steps):
             d = dp[step - self.tw:step]
             l = dp[step:self.tw + step]
-            data = torch.cat((data, d[None, :]), 0)
-            labels = torch.cat((labels, l[None, :]), 0)
+            data = torch.cat((data,   d.unsqueeze(0)), 0)
+            labels = torch.cat((labels, l.unsqueeze(0)), 0)
 
         return data, labels
     
@@ -247,11 +251,18 @@ class GraphCreator(nn.Module):
         # batch index  [B*nx]  → 0,0,…,1,1,…,B-1
         
         batch_vec = torch.arange(B, device=data.device).repeat_interleave(nx)
-
         edge_index = torch.cat([
              self.edge_index + i*nx for i in range(B)
-        ], dim=1)                                     # [2,  B*(nx-1)*2]
+        ], dim=1) # [2,  B*(nx-1)*2]
         
+        # radius_graph / knn_graph already built → keep one orientation i<j
+        src, dst   = edge_index
+        mask       = src < dst
+        edge_index = torch.stack([src[mask], dst[mask]], 0)
+        # sanity: spatial grid must be identical across batch
+        if not torch.allclose(x, x[0].expand_as(x)):
+            raise ValueError("GraphCreator expects identical `x` grid in batch")
+
         if f'{self.pde}' == 'CE':
             dx = x[0, 1] - x[0, 0]
             from math import exp
@@ -271,14 +282,12 @@ class GraphCreator(nn.Module):
         graph = enrich_pyg_data_with_simplicial(graph, max_order=2)
 
         # ------ (optional) PDE‑specific scalars per node ------------------
-        if f'{self.pde}' == 'WE':
-            if 'bc_left' in variables:           # normal training path
-                bc_left  = torch.tensor(variables['bc_left' ][batch_vec])
-                bc_right = torch.tensor(variables['bc_right'][batch_vec])
-                c_speed  = torch.tensor(variables['c'       ][batch_vec])
-                graph.bc_left, graph.bc_right, graph.c = bc_left, bc_right, c_speed
-                # else:  quick unit-test with {} — just skip per-node scalars
-    
+        if f'{self.pde}' == 'WE' and 'bc_left' in variables:
+            
+            graph.bc_left  = variables['bc_left'][batch_vec.long()].clone().detach().unsqueeze(-1)
+            graph.bc_right = variables['bc_right'][batch_vec.long()].clone().detach().unsqueeze(-1)
+            graph.c        = variables['c'][batch_vec.long()].clone().detach().unsqueeze(-1)
+
         # --------------------------------------------------------------
         #  SCN needs a feature tensor for every edge / triangle
         #
