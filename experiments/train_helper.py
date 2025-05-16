@@ -6,6 +6,7 @@ from common.utils import GraphCreator
 from equations.PDEs import *
 from experiments.models_gnn_snn import SCNPDEModel  
 from common.simplicial_utils import compute_hodge_laplacian, normalize
+from common.derivatives import HessianOperator
 
 def training_loop(model: nn.Module,
                   unrolling: list,
@@ -52,6 +53,8 @@ def training_loop(model: nn.Module,
             graph.L1 = normalize(L1, half_interval=True).to(device)        # Node Laplacian
 
         # Add Hodge Laplacian computation
+        hessian_op = HessianOperator(graph_creator.pde, device)
+        
         if hasattr(graph, 'B1'):
             # Compute normalized Hodge Laplacians
             L0, L1, L2 = compute_hodge_laplacian(
@@ -59,26 +62,41 @@ def training_loop(model: nn.Module,
                 graph.B2.to(torch.float32) if hasattr(graph, 'B2') else None
             )
             
-            # Normalize and store on device
-            graph.L0 = normalize(L0, half_interval=True).to(device)
-            if L1 is not None:
-                graph.L1 = normalize(L1, half_interval=True).to(device)
-            if L2 is not None:
-                graph.L2 = normalize(L2, half_interval=True).to(device)
+            # Add Hessian computation
+            hessian = hessian_op.compute_hessian(
+                graph.x.to(torch.float32),
+                graph.B1.to(torch.float32),
+                graph.B2.to(torch.float32) if hasattr(graph, 'B2') else None
+            )
+            
+            # Store geometric information
+            graph.hessian = hessian
+            
+            # Modify loss to include geometric information
+            def geometric_loss(pred, target, hessian):
+                mse_loss = criterion(pred, target)
+                # Add geometric regularization using Hessian
+                geo_reg = torch.norm(
+                    torch.matmul(hessian, pred.view(-1, 1)).squeeze()
+                )
+                return mse_loss + 0.01 * geo_reg
+                
+            # Use modified loss
+            loss = geometric_loss(pred, graph.y, graph.hessian)
+        else:
+            with torch.no_grad():
+                for _ in range(n_unroll):
+                    random_steps = [s + graph_creator.tw for s in random_steps]
+                    _, labels = graph_creator.create_data(u_super, random_steps)
 
-        with torch.no_grad():
-            for _ in range(n_unroll):
-                random_steps = [s + graph_creator.tw for s in random_steps]
-                _, labels = graph_creator.create_data(u_super, random_steps)
-
-                if is_graph:
-                    pred = model(graph)
-                    graph = graph_creator.create_next_graph(
-                        graph, pred, labels, random_steps
-                    ).to(device)
-                else:
-                    data = model(data)    
-                    labels = labels.to(device)
+                    if is_graph:
+                        pred = model(graph)
+                        graph = graph_creator.create_next_graph(
+                            graph, pred, labels, random_steps
+                        ).to(device)
+                    else:
+                        data = model(data)    
+                        labels = labels.to(device)
         pred = model(graph)
         loss = criterion(pred, graph.y)  # MSE used explicitly
         # loss = torch.sqrt(criterion(pred, graph.y))
@@ -195,4 +213,5 @@ def test_unrolled_losses(model: nn.Module,
 
     print(f"Unrolled forward loss      : {torch.mean(torch.stack(losses)):.4e}")
     print(f"Unrolled numerical baseline: {torch.mean(torch.stack(losses_base)):.4e}")
+    
     return torch.stack(losses)

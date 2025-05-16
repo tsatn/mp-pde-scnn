@@ -205,3 +205,40 @@ class SpectralSimplicialOperator(nn.Module):
         # Solve Lh = 0 where h is harmonic component
         return x - torch.sparse.mm(L, x)
 
+class HessianOperator(nn.Module):
+    """
+    Computes the Hessian matrix using simplicial structure and Hodge theory.
+    Combines discrete exterior calculus with traditional PDE numerics.
+    """
+    
+    def __init__(self, pde, device="cpu"):
+        super().__init__()
+        self.device = device
+        self.pde = pde
+        
+        
+    def compute_hessian(self, x: torch.Tensor, B1: torch.Tensor, B2: torch.Tensor = None):
+        """
+        Computes Hessian matrix H where H_ij = ∂²f/∂x_i∂x_j
+        Uses simplicial structure to maintain geometric properties
+        """
+        # Get dimensions
+        batch_size = x.size(0)
+        n_nodes = B1.size(0)
+        
+        # First compute gradients using boundary operator B1
+        grad_x = torch.sparse.mm(B1, x)  # First derivatives
+        
+        # Compute second derivatives using Hodge decomposition
+        L0 = torch.sparse.mm(B1, B1.t())  # 0-form Laplacian
+        hessian = torch.zeros(batch_size, n_nodes, n_nodes, device=self.device)
+        
+        # Build Hessian entries using mixed derivatives
+        for i in range(n_nodes):
+            ei = torch.zeros(n_nodes, 1, device=self.device)
+            ei[i] = 1.0
+            # Compute ∂²f/∂x_i∂x_j for all j
+            hessian[:, i] = torch.sparse.mm(L0, x * ei.squeeze())
+            
+        return hessian
+
