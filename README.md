@@ -267,42 +267,6 @@ python -m experiments.train \
   --base_resolution 250,40 --neighbors 6 --time_window 25 \
   --batch_size 16 --device cpu
 
-#### step-by-step breakdown
-1. Data Loading & Processing
-  class HDF5Dataset:
-    def __getitem__(self):
-        # Loads WE1 data from data/WE_train_WE1.h5
-        # Returns:
-        # - u_base: [250, 100] (time, space) ground truth
-        # - u_super: downsampled solution
-        # - x: spatial coordinates
-        # - variables: PDE parameters
-
-2. Graph Creation
-    def training_loop():
-    # Creates graph structure:
-    # 1. Builds radius graph (neighbors=6)
-    # 2. Creates boundary matrices B1, B2
-    L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # Laplacian warning
-
-3. Model Forward Pass
-  okclass SCNPDEModel:
-    def forward(self, data):
-        # 1. Node Processing
-        X0h = self.enc0(X0)        # Encode nodes
-        
-        # 2. Edge Features
-        X1 = self.edge_coboundary() # Create edge features
-        
-        # 3. Triangle Features
-        X2 = self.tri_coboundary()  # Create triangle features if any
-        
-        # 4. Message Passing
-        X0h_next, X1h_next, X2h_next = self.processor()
-
-4. Evaluation, Final Metrics...
-
-
 ### OLD MODEL:
 ### Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 `python generate/generate_data.py --experiment={E1, E2, E3, WE1, WE2, WE3} --train_samples=2048 --valid_samples=128 --test_samples=128 --log=True --device=cuda:0`
