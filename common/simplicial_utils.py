@@ -122,16 +122,16 @@ def enrich_pyg_data_with_simplicial(data: Data,
     comp = build_complex_from_edge_index(data.edge_index, max_order)
 
     data.triangles = comp['triangles']     # [n_tri,3]
-    data.A01       = comp['A01']           # |V| × |E|
+    data.A01       = comp['A01']           # |V|×|E|
     data.Z10       = comp['Z10']           # |E|
     if max_order >= 2:
-        data.A02       = comp['A02']       # |V| × |T|
-        data.A12       = comp['A12']       # |E| × |T|
+        data.A02       = comp['A02']       # |V|×|T|
+        data.A12       = comp['A12']       # |E|×|T|
         data.Z20       = comp['Z20']       # |T|
         data.triangles = comp['triangles'] # [n_tri,3]
         
-    data.B1 = data.A01            # edge -> node  (1‑boundary)
-    data.B2 = data.A12            # tri  -> edge  (2‑boundary)
+    data.B1 = data.A01                     # edge -> node (1‑boundary)
+    data.B2 = data.A12                     # tri  -> edge (2‑boundary)
     
     return data
 

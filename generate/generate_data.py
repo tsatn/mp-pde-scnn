@@ -120,7 +120,7 @@ def generate_data_wave_equation(experiment: str,
                                 num_samples: int=1,
                                 batch_size: int=1,
                                 wave_speed: float=2.,
-                                device: torch.cuda.device="cpu") -> None:
+                                device: torch.device="cpu") -> None:
     """
     Generate data for wave equation using different boundary conditions
     Args:
@@ -499,7 +499,7 @@ def wave_equation(experiment: str,
     for nt_, nx_ in zip(nt, nx):
         pde[f'pde_{nt_}-{nx_}'] = WE(tmin=starting_time, tmax=end_time, grid_size=(nt_, nx_), device=device)
 
-    # Check if train, valid and test files already exist and replace if wanted
+    # Check if train, valid and test files already exist. Replace if wanted
     files = {("train", replace, num_samples_train),
              ("valid", replace, num_samples_valid),
              ("test", replace, num_samples_test)}
@@ -516,12 +516,24 @@ def wave_equation(experiment: str,
                                     device=device)
 
 
+def cleanup_existing_data(experiment: str, mode: str):
+    """Remove existing data file if present"""
+    save_name = f"data/{experiment}_{mode}.h5"
+    if os.path.exists(save_name):
+        os.remove(save_name)
+        print(f"Removed existing data file: {save_name}")
+
 def main(args):
     """
         Main method for data generation.
     """
     check_directory()
 
+    # cleanup data before generation
+    cleanup_existing_data(args.experiment, "train")
+    cleanup_existing_data(args.experiment, "valid")
+    cleanup_existing_data(args.experiment, "test")
+    
     if args.experiment == 'E1':
         combined_equation(experiment=args.experiment,
                           starting_time=0.0,

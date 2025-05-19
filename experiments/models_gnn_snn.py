@@ -329,7 +329,7 @@ class PhysicsInformedProcessor(SimplicialProcessor):
     def forward(self, X0, X1, X2):
         X0_next, X1_next, X2_next = super().forward(X0, X1, X2)
         
-        # Enforce conservation laws
+        # Enforce conservation laws through projection
         mass = self.conservation_proj(X0_next.transpose(1, 2)).sum(dim=1)
         X0_next = X0_next * (mass.unsqueeze(1) / mass.sum())
         return X0_next, X1_next, X2_next

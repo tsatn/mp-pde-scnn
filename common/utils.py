@@ -279,7 +279,7 @@ class GraphCreator(nn.Module):
 
         # build PyG Data ---------------------------------------------------
         graph = Data(x=u, edge_index=edge_index, y=y, pos=pos, batch=batch_vec)
-        graph = enrich_pyg_data_with_simplicial(graph, max_order=2)
+        graph = enrich_pyg_data_with_simplicial(graph, max_order=2) 
 
         # ------ (optional) PDE‑specific scalars per node ------------------
         if f'{self.pde}' == 'WE' and 'bc_left' in variables:
