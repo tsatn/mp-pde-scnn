@@ -1,10 +1,13 @@
 # Message‑Passing & Simplicial Neural PDE Solvers  
 ---
-## 0. Short Introduction
-This GitHub repository implements a framework for solving partial differential equations (PDEs) using neural networks, specifically integrating message-passing and simplicial convolutional neural networks (SCNNs). 
-This approach builds upon the work presented in the paper "Message Passing Neural PDE Solvers" by Brandstetter et al., which introduces neural message-passing techniques for PDE solutions. 
+## Introduction
 
-## 1. High‑level pipeline
+Simplicial Physics-Informed Neural PDE Solver is a novel framework designed to solve partial differential equations (PDEs) on complex domains, particularly targeting fluid dynamics and physical systems. By leveraging the mathematical foundations of graph Hodge Laplacians, discrete exterior calculus, and simplicial complexes, this model captures geometric and topological features beyond traditional graph neural networks. The model enforces key physics laws—such as conservation of mass, momentum, and energy—directly within its architecture, making it ideal for applications that demand both high accuracy and physical plausibility. Its innovative use of multi-order interactions including nodes, edges, faces, and higher-order simplices allows for development of superior models of complex flows, vorticity, and conservation laws, surpassing conventional GNN and physics-informed neural network (PINN) approaches.
+
+---
+
+## High‑level Pipeline
+
 #### Modular design: numerical solver ↔ HDF5 dataset ↔ graph/simplicial creator ↔ models ↔ training scripts.
 
 ```text
@@ -22,46 +25,17 @@ Numerical solver (WENO/FDM)  ─>  *.h5  ─>  HDF5Dataset (HDF5)  ─>  Simplic
                             rollout / evaluation (PDE prediction)
 ```
 
-### structure: 
+
+### Architecture Overview
 - Input: A simplicial complex (mesh) with features on nodes/edges/triangles.
 - Encoding: Node/edge/triangle features are projected into a latent space via enc0, enc1, enc2.
 - Processing: Simplicial convolutions propagate information across simplices using boundary operators (B1, B2). Combines features from adjacent simplices (e.g., node features are updated using edges and triangles).
 - Temporal Bundling: Aggregates features across multiple timesteps to model dynamics.
 - Decoding: Maps processed features back to physical space (e.g. PDE solution).
 
-### `HDF5Dataset`
-This component loads partial differential equation (PDE) solution tensors from `.h5` files and prepares them for training.
-**Returns:**
-* `u_base`: Low-resolution ground truth solution tensor of shape `[nt, nx]`.
-* `u_super`: Downsampled high-resolution input tensor.
-* `x`: Spatial coordinates of shape `[nx]`.
-* `variables`: PDE-specific parameters (e.g., wave speed `c`, diffusion coefficient `alpha`, damping `gamma`).
 
-### `GraphCreator`
-* This module constructs graph-based input data and labels from the downsampled tensors.
+## Core Components
 
-**Functionality:**
-* Builds sliding window sequences from `u_super` for both input and target labels:
-  * `data.shape` = `[B, time_window, nx]`
-  * `labels.shape` = `[B, time_window, nx]`
-* Constructs PyTorch Geometric `Data` objects with:
-  * `x`: Node features reshaped to `[B * nx, time_window]`
-  * `y`: Target outputs reshaped similarly
-  * `pos`: Positional encodings `[B * nx, 2]` for time and space
-  * `edge_index`: Computed via `radius_graph` or `knn_graph`
-* Optionally includes:
-  * PDE-specific node scalars (e.g., `bc_left`, `c`)
-  * Placeholder attributes: `edge_attr`, `triangles`, and `tri_attr` for downstream use
-  * 
-## Model Core: SCNPDEModel
-* Receives a PyG Data object.
-* Passes node features and optionally edge/triangle features through:
-** Input MLP: enc0, enc1, enc2 depending on simplex level
-** Simplicial convolution layers (like SimplicialConvolution)
-** Output MLP to return prediction ŷ with shape [B*nx, tw]
-
-
-## Files
 ### 0. Numerical PDE Data Generation 
 #### generate_data.py
 - Only generates raw PDE solutions in grid format
@@ -100,7 +74,6 @@ This component loads partial differential equation (PDE) solution tensors from `
 
 
 ### 2. Simplicial Complexes, Data loading and graph construction: 
-
 #### environment.sh
 - shell script setting up a Conda environment named mp-pde-solvers. Installs dependencies such as Python 3.8, PyTorch, PyTorch Geometric, CUDA toolkit, numpy, scipy, h5py, etc.
   
@@ -141,7 +114,6 @@ Graph Creation (NN)
     L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # Laplacian warning
 ```
 
-
 ### 3. Machine Learning Model Architecture Implementations (CNN/GNN/SCN):
 #### models_cnn.py:
 - Implements a baseline ResCNN model with convolutional layers and skip connections.
@@ -153,7 +125,14 @@ Graph Creation (NN)
 - Implements Simplicial Convolutional Neural Networks (SCNN), leveraging simplicial complexes.
 - Builds on SCNN: learns on node/edge/triangle features via custom SimplicialConvolution and Coboundary modules, aggregates via a SimplicialProcessor, bundles temporally, and decodes back to physical space.
 
-* Temporal Bundling is implemented in SCNPDEModel 
+##### Model Core: SCNPDEModel
+* Receives a PyG Data object.
+* Passes node features and optionally edge/triangle features through:
+** Input MLP: enc0, enc1, enc2 depending on simplex level
+** Simplicial convolution layers (like SimplicialConvolution)
+** Output MLP to return prediction ŷ with shape [B*nx, tw]
+
+Temporal Bundling is implemented in SCNPDEModel 
 - Aggregates multiple timesteps into a single forward pass
 - Uses concatenation of feature vectors across time
 - Implemented via the bundled list and temporal_concat operation
@@ -173,7 +152,6 @@ Temporal Processing: [batch, hidden, num_nodes]
 ↓
 Output: [batch, time_window, nx]
 ```
-
 
 ##### Simplicial Convolution:
 ```python
@@ -226,28 +204,28 @@ Standalone JAX scripts such as burgers_E1_E2.py, wave_WE1.py reproduce Table 1 r
 - burgers_E1_E2.py: Numerical benchmarks for the 1D Burgers' PDE equation.
 - wave_WE1.py: Numerical benchmarks for the 1D Wave PDE.
 
-### Key strengths & innovations
+## Key strengths & innovations
 - Topological enrichment: Leveraging simplicial complexes injects higher-order interactions (edges→nodes, triangles→edges).
 - Temporal bundling: Both GNN and SCN architectures incorporate multiple past timesteps in a single forward pass, capturing dynamics without full recurrence.
-- Modular numerics → ML pipeline: Clear separation between high-fidelity data generation and learned surrogates, making it extensible to other PDEs or dimensions.
+- Modular numerics --> ML pipeline: Clear separation between high-fidelity data generation and learned surrogates, making it extensible to other PDEs or dimensions.
 
 ## Git: large files
 Keep mp_pde_env/ and any libtorch*.dylib in .gitignore.
 With >100 MB assets, install Git‑LFS: git lfs install && git lfs track '*.dylib'.
 
-## Running Commands
-### Set up conda environment
+
+## Usage
+0. **Set up conda environment**
 source environment.sh
 - environment.sh: Conda environment setup script for reproducibility.
 - setup.py: Python package setup script.
 
-### NEW MODEL: RUN: Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
-## Generate data
+1. **Data Generation**
 PYTHONPATH=. python generate/generate_data.py --experiment WE1 \
        --train_samples 2048 --valid_samples 128 --test_samples 128 \
        --device cpu
 
-## Train
+1. **Training**
 #### nx = 100
 cd ../mp-pde-scnn
 PYTHONPATH=. python -m experiments.train \
@@ -266,7 +244,7 @@ python -m experiments.train \
   --model SCN --experiment WE1 \
   --base_resolution 250,40 --neighbors 6 --time_window 25 \
   --batch_size 16 --device cpu
-
+<!-- 
 ### OLD MODEL:
 ### Produce datasets for tasks E1, E2, E3, WE1, WE2, WE3
 `python generate/generate_data.py --experiment={E1, E2, E3, WE1, WE2, WE3} --train_samples=2048 --valid_samples=128 --test_samples=128 --log=True --device=cuda:0`
@@ -285,15 +263,49 @@ python -m experiments.train \
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=10 --time_window=25 --log=True`
 
 `python experiments/train.py --device=cuda:0 --experiment=WE3 --base_resolution=250,40 --neighbors=6 --time_window=25 --log=True`
+ -->
 
-### Paper references
+
+## Technical Specifications
+
+1. **Input Processing**
+- Supports various PDE types (Wave, Burgers, KdV)
+- Handles multiple resolutions
+- Automatic simplicial complex construction
+
+2. **Model Architecture**
+- Modular design for easy extension
+- Built-in stability measures
+- Physics-informed constraints
+
+3. **Output Generation**
+- Multi-step prediction capability
+- Conservation law preservation
+- Adaptive temporal processing
+
+4. Features
+- Simplicial Complex Neural Networks: Models interactions at multiple topological orders (nodes, edges, faces).
+- Hodge Laplacian Operators: Uses discrete analogues of gradient, curl, and divergence for PDE modeling.
+- Physics-Informed Constraints: Enforces conservation laws and boundary conditions within the architecture or loss function.
+- Flexible Domain Support: Easily adapts to 1D, 2D, and 3D domains with arbitrary geometry.
+- Green’s Function Approximation: Learns fundamental solution propagation for physical systems.
+- PyTorch Implementation: Modular, extensible codebase for research and real-world applications.
+
+
+## Supported PDEs
+
+- **Wave Equation**: Second-order PDE with variable wave speeds
+- **Burgers Equation**: Nonlinear advection-diffusion
+- **KdV Equation**: Dispersive nonlinear wave equation
+- **Combined Equation**: Unified framework encompassing above cases
+
+
+## Paper references
+
 - Neural Operator: Graph Kernel Network (arXiv:2202.03376)
 - Simplicial Complex Neural Networks (Wu et al., IEEE TPAMI, 2024)
 
-
-
-
-
+<!-- 
 ###
 Simplicial Data Generation vs Training-time Construction
 * Benefits of Generating Simplicial Data During Data Generation: 
@@ -364,4 +376,4 @@ benefits:
 - Computational efficiency from pre-computed structures
 - Flexibility from dynamic feature computation
 - Better memory usage
-- Maintains ability to adapt during training
+- Maintains ability to adapt during training -->

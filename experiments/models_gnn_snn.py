@@ -76,7 +76,7 @@ class SimplicialProcessor(nn.Module):
         hidden = X0.size(1)
 
         # Node update (dim=0)
-        X0_flat = X0.transpose(1, 2).reshape(-1, hidden)  # [B*N, hidden]
+        X0_flat = X0.transpose(1, 2).reshape(-1, hidden)         # [B*N, hidden]
         X0_lower = self.conv0(X0_flat)  # [B*N, hidden]
         X0_lower = X0_lower.view(B, -1, hidden).transpose(1, 2)  # [B, hidden, N]
 
@@ -170,7 +170,7 @@ class SCNPDEModel(nn.Module):
         self.edge_conv = StableSimplicialConvolution(hidden)
         
         # Add physics-informed component
-        self.physics_processor = PhysicsInformedProcessor(hidden, self.boundary_maps)
+        # self.physics_processor = PhysicsInformedProcessor(hidden, self.boundary_maps)
         
     def forward(self, data: Data):
         # Ensure input tensors are float32
@@ -320,19 +320,20 @@ class StableSimplicialConvolution(nn.Module):
         x = self.norm(x)
         x = self.dropout(x)
         return x + identity
-
-class PhysicsInformedProcessor(SimplicialProcessor):
-    def __init__(self, hidden_dim, boundary_maps):
-        super().__init__(hidden_dim, boundary_maps)
-        self.conservation_proj = nn.Linear(hidden_dim, 1)
     
-    def forward(self, X0, X1, X2):
-        X0_next, X1_next, X2_next = super().forward(X0, X1, X2)
+# remove the dropout layer if not needed
+# class PhysicsInformedProcessor(SimplicialProcessor):
+#     def __init__(self, hidden_dim, boundary_maps):
+#         super().__init__(hidden_dim, boundary_maps)
+#         self.conservation_proj = nn.Linear(hidden_dim, 1)
+    
+#     def forward(self, X0, X1, X2):
+#         X0_next, X1_next, X2_next = super().forward(X0, X1, X2)
         
-        # Enforce conservation laws through projection
-        mass = self.conservation_proj(X0_next.transpose(1, 2)).sum(dim=1)
-        X0_next = X0_next * (mass.unsqueeze(1) / mass.sum())
-        return X0_next, X1_next, X2_next
+#         # Enforce conservation laws through projection
+#         mass = self.conservation_proj(X0_next.transpose(1, 2)).sum(dim=1)
+#         X0_next = X0_next * (mass.unsqueeze(1) / mass.sum())
+#         return X0_next, X1_next, X2_next
 
 class MultiScaleSCN(nn.Module):
     def __init__(self, hidden_dims=[32, 64, 128]):
