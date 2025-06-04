@@ -22,3 +22,5 @@ Training Loss (progress: 0.64): 75.035400390625
 Training Accuracy (progress: 0.64): 0.04943783953785896
 Training Loss (progress: 0.72): 74.37879180908203
 Training Accuracy (progress: 0.72): 0.049658726900815964
+Training Loss (progress: 0.80): 73.63731384277344
+Training Accuracy (progress: 0.80): 0.04965411126613617

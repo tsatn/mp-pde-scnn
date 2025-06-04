@@ -1,5 +1,54 @@
-# Message‑Passing & Simplicial Neural PDE Solvers  
+# Message‑Passing & Simplicial Neural PDE Solvers  
+
+## Recent Updates
+
+- **3-Simplices Support**: Added tetrahedra processing capabilities to extend beyond triangular faces
+- **Enhanced Boundary Operators**: Implemented B₃ operator for tetrahedra-triangle relationships
+- **Improved Feature Processing**: Extended neural architecture to handle 3-simplex features
+
+## Architecture Overview
+- Input: A simplicial complex (mesh) with features on nodes/edges/triangles/tetrahedra.
+- Encoding: Node/edge/triangle/tetrahedra features are projected into latent space via enc0, enc1, enc2, enc3.
+- Processing: Simplicial convolutions propagate information across simplices using boundary operators (B1, B2, B3).
+- Temporal Bundling: Aggregates features across multiple timesteps.
+- Decoding: Maps processed features back to physical space.
+
+### Boundary Operators (B₁, B₂, B₃):
+```python
+def build_complex_from_edge_index(edge_index, max_order=3):
+    # Creates boundary operators:
+    # B₁: C₁ → C₀ (edges → nodes)
+    # B₂: C₂ → C₁ (triangles → edges)
+    # B₃: C₃ → C₂ (tetrahedra → triangles)
+```
+
+### Feature Dimensions:
+```text
+Nodes (0-simplices): [B, hidden, N]
+Edges (1-simplices): [B, hidden, E]
+Triangles (2-simplices): [B, hidden, T]
+Tetrahedra (3-simplices): [B, hidden, H]
+```
+
+### Model Processing Pipeline:
+```text
+Input Features
+↓
+Encode (enc0, enc1, enc2, enc3)
+↓
+Simplicial Convolutions + Boundary Operations
+↓
+Feature Aggregation across all simplicial orders
+↓
+Temporal Processing
+↓
+Output Prediction
+```
+
+The implementation supports fallback to lower-order simplices when higher-order structures are not available, maintaining backward compatibility with existing models.
+
 ---
+
 ## Introduction
 
 Simplicial Physics-Informed Neural PDE Solver is a novel framework designed to solve partial differential equations (PDEs) on complex domains, particularly targeting fluid dynamics and physical systems. By leveraging the mathematical foundations of graph Hodge Laplacians, discrete exterior calculus, and simplicial complexes, this model captures geometric and topological features beyond traditional graph neural networks. The model enforces key physics laws—such as conservation of mass, momentum, and energy—directly within its architecture, making it ideal for applications that demand both high accuracy and physical plausibility. Its innovative use of multi-order interactions including nodes, edges, faces, and higher-order simplices allows for development of superior models of complex flows, vorticity, and conservation laws, surpassing conventional GNN and physics-informed neural network (PINN) approaches.
@@ -300,10 +349,112 @@ python -m experiments.train \
 - **Combined Equation**: Unified framework encompassing above cases
 
 
-## Paper references
 
+---
+
+
+# Mathematical Foundations
+
+## 1. Simplicial Structure
+
+### Boundary Operators
+```text
+B₁: C₁ → C₀ (edges → nodes)
+B₂: C₂ → C₁ (triangles → edges)
+B₃: C₃ → C₂ (tetrahedra → triangles)
+
+Dimensions:
+B₁ ∈ ℝ^{N×E}  (N: nodes, E: edges)
+B₂ ∈ ℝ^{E×T}  (T: triangles)
+B₃ ∈ ℝ^{T×H}  (H: tetrahedra)
+```
+
+### Hodge Laplacians
+```text
+Δ₀ = B₁B₁ᵀ         (node Laplacian)
+Δ₁ = B₁ᵀB₁ + B₂B₂ᵀ (edge Laplacian)
+Δ₂ = B₂ᵀB₂ + B₃B₃ᵀ (triangle Laplacian)
+Δ₃ = B₃ᵀB₃         (tetrahedra Laplacian)
+```
+
+## 2. Feature Processing
+
+### Simplicial Convolution
+For a k-simplex with features x:
+```text
+SCᵏ(x) = σ(θᵏx + Bₖ₊₁y)
+
+where:
+θᵏ: learnable parameters
+Bₖ₊₁: boundary operator
+y: features from (k+1)-simplices
+σ: activation function (Swish)
+```
+
+### Feature Dimensions
+```text
+X₀ ∈ ℝ^{B×C×N}  (node features)
+X₁ ∈ ℝ^{B×C×E}  (edge features)
+X₂ ∈ ℝ^{B×C×T}  (triangle features)
+X₃ ∈ ℝ^{B×C×H}  (tetrahedra features)
+
+where:
+B: batch size
+C: channel dimension
+```
+
+## 3. Temporal Evolution
+
+### Bundling Operation
+```text
+X̂ᵗ = concat([X⁽ᵗ⁻ᵏ⁾, ..., X⁽ᵗ⁾])
+X̃ᵗ = Proj(X̂ᵗ)
+
+where:
+k: temporal window size
+Proj: temporal projection layer
+```
+
+### Physics-Informed Constraints
+Conservation law enforcement:
+```text
+M(t) = ∫ u(x,t)dx ≈ Σᵢ u(xᵢ,t)Δx
+∂M/∂t = 0
+```
+
+## 4. Model Architecture
+
+### Forward Pass
+```text
+Input: u(x,t) → {X₀, X₁, X₂, X₃}
+↓
+Encode: enc_k(Xₖ) → X̃ₖ
+↓
+Process: SC(X̃₀, X̃₁, X̃₂, X̃₃) → {Ŷ₀, Ŷ₁, Ŷ₂, Ŷ₃}
+↓
+Bundle: temporal_concat([Ŷ₀ᵗ]ₜ) → Z
+↓
+Output: dec(Z) → u(x,t+Δt)
+```
+
+### Green's Function Approximation
+The model learns the integral kernel:
+```text
+u(x,t+Δt) = ∫ G(x,y)u(y,t)dy
+
+where G is approximated by:
+G(x,y) ≈ Σᵢ κ(x,y)v(y)
+κ: learned kernel
+v: basis functions
+```
+
+---
+
+## Paper references
 - Neural Operator: Graph Kernel Network (arXiv:2202.03376)
 - Simplicial Complex Neural Networks (Wu et al., IEEE TPAMI, 2024)
+
+
 
 <!-- 
 ###
