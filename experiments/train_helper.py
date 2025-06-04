@@ -6,6 +6,8 @@ from common.utils import GraphCreator
 from equations.PDEs import *
 from experiments.models_gnn_snn import SCNPDEModel  
 from common.simplicial_utils import compute_hodge_laplacian, normalize
+import wandb
+
 
 def training_loop(model: nn.Module,
                   unrolling: list,
@@ -15,8 +17,10 @@ def training_loop(model: nn.Module,
                   graph_creator: GraphCreator,
                   criterion: nn.modules.loss._Loss,
                   device: torch.device = "cpu") -> torch.Tensor:
+    
 
     losses = []
+    accuracies = []
     is_graph = getattr(model, "is_graph_model", False)
 
     for (u_base, u_super, x, variables) in loader:
@@ -79,14 +83,17 @@ def training_loop(model: nn.Module,
                 else:
                     data = model(data)    
                     labels = labels.to(device)
-        pred = model(graph)
+        pred = model(graph)        
+        target = graph.y
         loss = criterion(pred, graph.y)  # MSE used explicitly
-        # loss = torch.sqrt(criterion(pred, graph.y))
         loss.backward()
+        accuracy = torch.mean((torch.abs(pred - target) < 0.1).float())
         optimizer.step()
         losses.append(loss.detach() / batch_size)
-
-    return torch.stack(losses)
+        accuracies.append(accuracy.detach() / batch_size)
+        
+        
+    return torch.stack(losses), torch.stack(accuracies)
 
 def test_timestep_losses(model: nn.Module,
                          steps: list,

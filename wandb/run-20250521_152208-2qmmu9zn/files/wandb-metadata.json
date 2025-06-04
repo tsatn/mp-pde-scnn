@@ -1,0 +1,58 @@
+{
+  "os": "macOS-15.0.1-arm64-arm-64bit",
+  "python": "CPython 3.10.12",
+  "startedAt": "2025-05-21T22:22:08.093837Z",
+  "args": [
+    "--model",
+    "SCN",
+    "--experiment",
+    "WE1",
+    "--base_resolution",
+    "250,100",
+    "--neighbors",
+    "6",
+    "--time_window",
+    "25",
+    "--batch_size",
+    "16",
+    "--device",
+    "cpu"
+  ],
+  "program": "-m experiments.train",
+  "git": {
+    "remote": "git@github.com:tsatn/mp-pde-scnn.git",
+    "commit": "c8ad255dcc82b6211b179d48aae097f2ca647f61"
+  },
+  "email": "shtian@ucsd.edu",
+  "root": "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn",
+  "host": "Teresas-MacBook-Pro-2.local",
+  "executable": "/Users/tteresattian/.pyenv/versions/3.10.12/bin/python",
+  "cpu_count": 8,
+  "cpu_count_logical": 8,
+  "disk": {
+    "/": {
+      "total": "494384795648",
+      "used": "377215090688"
+    },
+    "/System/Volumes/Data": {
+      "total": "494384795648",
+      "used": "377215090688"
+    }
+  },
+  "memory": {
+    "total": "17179869184"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 8
+  },
+  "apple": {
+    "name": "Apple M1 Pro",
+    "ecpuCores": 2,
+    "pcpuCores": 6,
+    "gpuCores": 14,
+    "memoryGb": 16,
+    "swapTotalBytes": "6442450944",
+    "ramTotalBytes": "17179869184"
+  }
+}

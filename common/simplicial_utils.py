@@ -4,7 +4,7 @@ import networkx as nx
 import torch
 from torch_geometric.data import Data
 
-# ---------- low‑level helper --------------------------------
+# ---------- low‑level helper -----------------------
 def _normalize_incidence(rows, cols, n_rows, n_cols):
     """Return  D_r^{-1/2} · A · D_c^{-1/2}  as sparse tensor + the two degree vectors."""
     v = torch.ones(len(rows), dtype=torch.float32)
@@ -112,8 +112,7 @@ def build_complex_from_edge_index(edge_index: torch.Tensor, max_order: int = 2):
     return out
 
 # ---------- mesh → Data enrich ------------------------------------------
-def enrich_pyg_data_with_simplicial(data: Data,
-                                    max_order: int = 2) -> Data:
+def enrich_pyg_data_with_simplicial(data: Data, max_order: int = 3) -> Data:
     """
     Take a PyG `Data` object with at least `.edge_index`
     and add triangles + incidence matrices (sparse) as attributes.
@@ -132,6 +131,24 @@ def enrich_pyg_data_with_simplicial(data: Data,
         
     data.B1 = data.A01                     # edge -> node (1‑boundary)
     data.B2 = data.A12                     # tri  -> edge (2‑boundary)
+    
+    
+    # fallback logic for 3-simplices (tetrahedra)
+    if max_order >= 3:
+        # Add tetrahedra
+        data.tetrahedra = build_tetra_from_tri_meshes(
+            data.triangles, 
+            data.pos
+        )
+        if data.tetrahedra.shape[0] > 0:
+            data.B3 = compute_tetrahedra_boundary(
+                data.tetrahedra,
+                data.triangles
+            ).coalesce()
+            data.tetra_attr = torch.zeros(data.tetrahedra.shape[0], 1)
+            data.num_tetrahedra = data.tetrahedra.shape[0]
+        else:
+            print("Warning: No valid tetrahedra found in structure")
     
     return data
 
@@ -363,3 +380,71 @@ def compute_hodge_laplacian(B1, B2=None):
         return L0, L1, L2
     
     return L0
+
+
+def build_tetra_from_tri_meshes(triangles: torch.Tensor, pos: torch.Tensor, max_distance: float = 0.1):
+    """Creates tetrahedra from existing triangles based on proximity"""
+    n_triangles = triangles.shape[0]
+    tetrahedra = []
+    
+    for i in range(n_triangles):
+        for j in range(i + 1, n_triangles):
+            tri1 = triangles[i]
+            tri2 = triangles[j]
+            
+            # Find common vertices
+            common = set(tri1.tolist()) & set(tri2.tolist())
+            if len(common) == 2:  # Share an edge
+                # Get unique vertices
+                v1 = set(tri1.tolist()) - common
+                v2 = set(tri2.tolist()) - common
+                
+                # Check distance between unique vertices
+                p1 = pos[list(v1)[0]]
+                p2 = pos[list(v2)[0]]
+                if torch.norm(p1 - p2) < max_distance:
+                    # Create tetrahedron
+                    tetra = torch.tensor(list(common) + list(v1) + list(v2))
+                    tetrahedra.append(tetra)
+    
+    return torch.stack(tetrahedra) if tetrahedra else torch.empty(0, 4)
+
+def compute_tetrahedra_boundary(tetrahedra: torch.Tensor, triangles: torch.Tensor) -> torch.sparse.FloatTensor:
+    """Calculate boundary operator B3: C3 → C2 mapping tetrahedra to triangles"""
+    
+    num_tetra = tetrahedra.shape[0], num_tri = triangles.shape[0]
+    
+    indices = [], values = []
+    
+    # triangles to set for faster lookup
+    tri_lookup = {tuple(sorted(t.tolist())): i for i, t in enumerate(triangles)}
+    
+    for t_idx, tetra in enumerate(tetrahedra):
+        # faces of tetrahedron
+        faces = [
+            tuple(sorted([tetra[i].item(), tetra[j].item(), tetra[k].item()]))
+            for i, j, k in [(0,1,2), (0,1,3), (0,2,3), (1,2,3)]
+        ]
+        
+        # Add entries to boundary matrix
+        for face in faces:
+            if face in tri_lookup:
+                f_idx = tri_lookup[face]
+                indices.append([f_idx, t_idx])
+                values.append(1.0)  # Sign depends on orientation
+    
+    if not indices:
+        return torch.sparse.FloatTensor(
+            torch.empty(2, 0),
+            torch.empty(0),
+            torch.Size([num_tri, num_tetra])
+        )
+    
+    indices = torch.tensor(indices).t()
+    values = torch.tensor(values)
+    
+    # Create sparse tensor for boundary operator B3
+    return torch.sparse_coo_tensor(
+        indices, values, 
+        size=(num_tri, num_tetra)
+    )

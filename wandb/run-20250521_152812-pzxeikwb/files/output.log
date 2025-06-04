@@ -1,0 +1,26 @@
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:51: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Traceback (most recent call last):
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 413, in <module>
+    help='pip the output to log file')
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 340, in main
+    "base_resolution": args.base_resolution if hasattr(args, "base_resolution") else [250, 100],
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 75, in train
+    ave_accuracy = 0
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py", line 46, in training_loop
+    graph = graph_creator.create_graph(data, labels, x, variables, random_steps).to(device)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/common/utils.py", line 282, in create_graph
+    graph = enrich_pyg_data_with_simplicial(graph, max_order=2)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/common/simplicial_utils.py", line 122, in enrich_pyg_data_with_simplicial
+    comp = build_complex_from_edge_index(data.edge_index, max_order)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/common/simplicial_utils.py", line 56, in build_complex_from_edge_index
+    cols_e = torch.tensor(list(range(len(edges))) * 2, dtype=torch.long)
+KeyboardInterrupt
+Epoch 0
+Starting epoch 0...
+Training Loss (progress: 0.00): 209.18955993652344
+Training Accuracy (progress: 0.00): 0.042208753526210785

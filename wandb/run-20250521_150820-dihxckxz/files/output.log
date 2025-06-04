@@ -1,0 +1,38 @@
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:52: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Traceback (most recent call last):
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 411, in <module>
+    nt_base, nx_base = map(int, args.base_resolution.split(','))
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 338, in main
+    )
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 93, in train
+    and compared against low resolution solvers
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py", line 26, in training_loop
+    optimizer.zero_grad()
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 764, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/common/utils.py", line 113, in __getitem__
+    variables['c'] = self.data['c'][idx]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/h5py/_hl/group.py", line 366, in __getitem__
+    return dataset.Dataset(oid, readonly=(self.file.mode == 'r'))
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/h5py/_hl/dataset.py", line 636, in __init__
+    @with_phil
+KeyboardInterrupt
+Training Loss (progress: 0.00): 181.31072998046875
+Training Accuracy (progress: 0.00): 0.04301317408680916
+Training Loss (progress: 0.08): 87.84980773925781
+Training Accuracy (progress: 0.08): 0.04995523765683174

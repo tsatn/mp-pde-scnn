@@ -1,0 +1,15 @@
+{"time":"2025-06-04T11:51:14.355785-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/wandb/run-20250604_115114-pys73phj/logs/debug-core.log"}
+{"time":"2025-06-04T11:51:14.677627-07:00","level":"INFO","msg":"created new stream","id":"pys73phj"}
+{"time":"2025-06-04T11:51:14.677694-07:00","level":"INFO","msg":"stream: started","id":"pys73phj"}
+{"time":"2025-06-04T11:51:14.677777-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:14.677738-07:00","level":"INFO","msg":"handler: started","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:14.677838-07:00","level":"INFO","msg":"sender: started","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:14.861056-07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-06-04T11:51:15.164694-07:00","level":"INFO","msg":"stream: closing","id":"pys73phj"}
+{"time":"2025-06-04T11:51:15.164732-07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-06-04T11:51:15.164749-07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-06-04T11:51:15.742586-07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-06-04T11:51:15.915411-07:00","level":"INFO","msg":"handler: closed","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:15.915544-07:00","level":"INFO","msg":"sender: closed","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:15.915529-07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"pys73phj"}
+{"time":"2025-06-04T11:51:15.920957-07:00","level":"INFO","msg":"stream: closed","id":"pys73phj"}

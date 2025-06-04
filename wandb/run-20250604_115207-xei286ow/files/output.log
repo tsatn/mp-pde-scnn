@@ -1,0 +1,24 @@
+Epoch 0
+Starting epoch 0...
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:52: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Training Loss (progress: 0.00): 168.45608520507812
+Training Accuracy (progress: 0.00): 0.04488823190331459
+Training Loss (progress: 0.08): 93.77188873291016
+Training Accuracy (progress: 0.08): 0.04774858430027962
+Training Loss (progress: 0.16): 90.87596130371094
+Training Accuracy (progress: 0.16): 0.04818166419863701
+Training Loss (progress: 0.24): 89.46739959716797
+Training Accuracy (progress: 0.24): 0.048580922186374664
+Training Loss (progress: 0.32): 86.22743225097656
+Training Accuracy (progress: 0.32): 0.048789169639348984
+Training Loss (progress: 0.40): 84.01837921142578
+Training Accuracy (progress: 0.40): 0.048881664872169495
+Training Loss (progress: 0.48): 80.05281829833984
+Training Accuracy (progress: 0.48): 0.04892437532544136
+Training Loss (progress: 0.56): 76.21536254882812
+Training Accuracy (progress: 0.56): 0.04932403564453125
+Training Loss (progress: 0.64): 75.035400390625
+Training Accuracy (progress: 0.64): 0.04943783953785896
+Training Loss (progress: 0.72): 74.37879180908203
+Training Accuracy (progress: 0.72): 0.049658726900815964

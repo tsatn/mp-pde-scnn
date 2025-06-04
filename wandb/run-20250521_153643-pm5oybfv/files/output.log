@@ -1,0 +1,56 @@
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:51: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Epoch 0
+Starting epoch 0...
+Training Loss (progress: 0.00): 209.5303955078125
+Training Accuracy (progress: 0.00): 0.039300527423620224
+Training Loss (progress: 0.08): 95.71614074707031
+Training Accuracy (progress: 0.08): 0.0490415059030056
+Training Loss (progress: 0.16): 93.19186401367188
+Training Accuracy (progress: 0.16): 0.04953790083527565
+Training Loss (progress: 0.24): 89.26299285888672
+Training Accuracy (progress: 0.24): 0.04964032769203186
+Training Loss (progress: 0.32): 86.54649353027344
+Training Accuracy (progress: 0.32): 0.04949382692575455
+Training Loss (progress: 0.40): 83.67357635498047
+Training Accuracy (progress: 0.40): 0.04940812662243843
+Training Loss (progress: 0.48): 79.7441177368164
+Training Accuracy (progress: 0.48): 0.049688488245010376
+Training Loss (progress: 0.56): 77.49369812011719
+Training Accuracy (progress: 0.56): 0.05017793923616409
+Training Loss (progress: 0.64): 75.44759368896484
+Training Accuracy (progress: 0.64): 0.0503159798681736
+Training Loss (progress: 0.72): 75.1587905883789
+Training Accuracy (progress: 0.72): 0.05041877552866936
+Training Loss (progress: 0.80): 74.35831451416016
+Training Accuracy (progress: 0.80): 0.0504896454513073
+Training Loss (progress: 0.88): 74.59201049804688
+Training Accuracy (progress: 0.88): 0.05058527737855911
+Training Loss (progress: 0.96): 74.01161193847656
+Training Accuracy (progress: 0.96): 0.050749048590660095
+Evaluation on validation dataset:
+Step   25 | mean loss 6.6705e+01
+Step   50 | mean loss 8.3316e+01
+Step   75 | mean loss 7.0219e+01
+Step  100 | mean loss 7.8462e+01
+Step  125 | mean loss 6.9410e+01
+Step  150 | mean loss 7.0470e+01
+Step  175 | mean loss 8.7174e+01
+Step  200 | mean loss 6.2455e+01
+Step  225 | mean loss 6.7091e+01
+Unrolled forward loss      : 9.5501e+05
+Unrolled numerical baseline: 4.0068e-03
+Evaluation on test dataset:
+Step   25 | mean loss 6.5236e+01
+Step   50 | mean loss 8.4826e+01
+Step   75 | mean loss 7.0278e+01
+Step  100 | mean loss 7.6418e+01
+Step  125 | mean loss 7.0674e+01
+Step  150 | mean loss 7.1858e+01
+Step  175 | mean loss 8.7225e+01
+Step  200 | mean loss 6.1960e+01
+Step  225 | mean loss 6.6952e+01
+Unrolled forward loss      : 9.4573e+05
+Unrolled numerical baseline: 4.0068e-03
+Saved model at models/GNN_WE_WE1_xresolution100-200_n6_tw25_unrolling1_time5211536.pt
+Test loss: 945729.0979781515

@@ -1,0 +1,18 @@
+Epoch 0
+Starting epoch 0...
+Training Loss (progress: 0.00): 187.63922119140625
+Training Accuracy (progress: 0.00): 0.04395720362663269
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:51: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Traceback (most recent call last):
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 423, in <module>
+    main(args)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 350, in main
+    train(args, pde, epoch, model, optimizer, train_loader, graph_creator, criterion, device=device)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 85, in train
+    total_loss += torch.mean(losses)
+UnboundLocalError: local variable 'total_loss' referenced before assignment

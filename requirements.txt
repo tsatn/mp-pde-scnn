@@ -17,3 +17,5 @@ scipy==1.11.4
 torch-geometric==2.5.0
 matplotlib>=3.8
 h5py>=3.11
+
+wandb>=0.19.11

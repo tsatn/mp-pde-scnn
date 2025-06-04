@@ -1,0 +1,41 @@
+Epoch 0
+Starting epoch 0...
+Training Loss (progress: 0.00): 182.11846923828125
+Training Accuracy (progress: 0.00): 0.04172784462571144
+/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py:51: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/SparseCsrTensorImpl.cpp:55.)
+  L0 = torch.sparse.mm(graph.B1, graph.B1.transpose(0, 1)).coalesce()  # make Laplacian
+Traceback (most recent call last):
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 414, in <module>
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 341, in main
+    print("Evaluation on validation dataset:")
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 76, in train
+    if(i % args.print_interval == 0):
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train_helper.py", line 70, in training_loop
+    graph.L2 = normalize(L2, half_interval=True).to(device)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/common/simplicial_utils.py", line 186, in normalize
+    topeig = spl.eigsh(L_scipy, k=1, which="LM", return_eigenvectors=False)[0]
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 1700, in eigsh
+    params.iterate()
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 549, in iterate
+    self.workd[yslice] = self.OP(self.workd[xslice])
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 236, in matvec
+    y = self._matvec(x)
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 203, in _matvec
+    return self.matmat(x.reshape(-1, 1))
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 340, in matmat
+    Y = self._matmat(X)
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 800, in _matmat
+    return self.A.dot(X)
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/_base.py", line 474, in dot
+    return self @ other
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/_base.py", line 695, in __matmul__
+    return self._matmul_dispatch(other)
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/_base.py", line 590, in _matmul_dispatch
+    result = self._matmul_vector(other.ravel())
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/site-packages/scipy/sparse/_coo.py", line 555, in _matmul_vector
+    coo_matvec(self.nnz, row, col, self.data, other, result)
+KeyboardInterrupt

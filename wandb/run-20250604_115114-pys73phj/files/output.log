@@ -1,0 +1,11 @@
+Epoch 0
+Traceback (most recent call last):
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/tteresattian/.pyenv/versions/3.10.12/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 427, in <module>
+    main(args)
+  File "/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/experiments/train.py", line 353, in main
+    train(args, pde, epoch, model, optimizer, train_loader, graph_creator, criterion, device=device)
+TypeError: train() missing 1 required positional argument: 'run'

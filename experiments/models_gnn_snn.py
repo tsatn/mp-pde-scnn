@@ -47,23 +47,26 @@ class SimplicialProcessor(nn.Module):
         super().__init__()
         self.boundary_maps = {
             'B1': boundary_maps['B1'].to(torch.float32),
-            'B2': boundary_maps['B2'].to(torch.float32) if boundary_maps['B2'] is not None else None
+            'B2': boundary_maps['B2'].to(torch.float32) if boundary_maps['B2'] is not None else None,
+            'B3': boundary_maps['B3'].to(torch.float32) if 'B3' in boundary_maps else None
         }
         
-        # Initialize convolutions
+        # Initialize convolutions for all simplices
         self.conv0 = SimplicialConvolution(hidden_dim, hidden_dim, dim=0)
         self.conv1 = SimplicialConvolution(hidden_dim, hidden_dim, dim=1)
         self.conv2 = SimplicialConvolution(hidden_dim, hidden_dim, dim=2)
+        self.conv3 = SimplicialConvolution(hidden_dim, hidden_dim, dim=3)  # New for tetrahedra
 
         self.alpha = nn.Parameter(torch.tensor(alpha, dtype=torch.float32))
         self.swish = Swish()
 
-    def forward(self, X0, X1, X2):
+    def forward(self, X0, X1, X2, X3=None):
         """
         Input shapes:
         X0: [B, hidden, N] - node features
-        X1: [B, hidden, E] - edge features (or None)
-        X2: [B, hidden, T] - triangle features (or None)
+        X1: [B, hidden, E] - edge features
+        X2: [B, hidden, T] - triangle features
+        X3: [B, hidden, H] - tetrahedra features (new)
         """
         # Ensure inputs are float32
         X0 = X0.to(torch.float32)
@@ -112,7 +115,21 @@ class SimplicialProcessor(nn.Module):
             X2_out = X2_out.view(B, num_triangles, hidden).transpose(1, 2)  # [B, hidden, T]
             X2_out = self.swish(X2_out)
 
-        return X0_out, X1_out, X2_out
+        # Tetrahedra update (dim=3)
+        X3_out = None
+        if X3 is not None and self.boundary_maps['B3'] is not None:
+            X3_flat = X3.transpose(1, 2).reshape(-1, hidden)  # [B*H, hidden]
+            X3_out = self.conv3(X3_flat)  # [B*H, hidden]
+            num_tetra = X3.size(2)
+            X3_out = X3_out.view(B, num_tetra, hidden).transpose(1, 2)  # [B, hidden, H]
+            X3_out = self.swish(X3_out)
+            
+            # Update triangle features with tetrahedra influence
+            if X2_out is not None:
+                X2_upper = torch.matmul(X3_out, self.boundary_maps['B3'].to_dense())
+                X2_out = self.swish(0.5 * (X2_out + X2_upper))
+
+        return X0_out, X1_out, X2_out, X3_out
 
 class SCNPDEModel(nn.Module):
     def __init__(self, mesh, time_steps, feat_dims, hidden=128):
@@ -218,6 +235,24 @@ class SCNPDEModel(nn.Module):
                     X2h = self.enc2(X2.reshape(-1, self.hidden))  # [B*T, hidden]
                     X2h = X2h.view(B, num_triangles, -1).transpose(1, 2)  # [B, hidden, T]
 
+        # Tetrahedra features
+        X3 = None
+        X3h = None
+        tetrahedra = getattr(data, 'tetrahedra', None)
+        
+        if (tetrahedra is not None and 
+            tetrahedra.ndim == 2 and 
+            tetrahedra.shape[1] == 4 and 
+            tetrahedra.shape[0] > 0):
+            
+            X3 = self.tetra_coboundary(self.mesh.B3.t(), X2)  # [B, hidden, H]
+            
+            if self.enc3:
+                X3 = X3.transpose(1, 2)  # [B, H, hidden]
+                num_tetra = X3.size(1)
+                X3h = self.enc3(X3.reshape(-1, self.hidden))  # [B*H, hidden]
+                X3h = X3h.view(B, num_tetra, -1).transpose(1, 2)  # [B, hidden, H]
+
         # Encode higher-order features - reshape for Linear layers
         if self.enc1 and X1 is not None:
             X1 = X1.transpose(1, 2)                           # [B, E, hidden]
@@ -230,9 +265,8 @@ class SCNPDEModel(nn.Module):
         # Process through simplicial layers
         bundled = [X0h]
         for _ in range(self.temporal_steps-1):
-            # Process features, handling None case for X2h
-            X0h_next, X1h_next, X2h_next = self.processor(X0h, X1h, X2h)
-            X0h, X1h, X2h = X0h_next, X1h_next, X2h_next
+            X0h_next, X1h_next, X2h_next, X3h_next = self.processor(X0h, X1h, X2h, X3h)
+            X0h, X1h, X2h, X3h = X0h_next, X1h_next, X2h_next, X3h_next
             bundled.append(X0h)
         
         # Temporal projection
