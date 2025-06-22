@@ -24,3 +24,34 @@ Training Loss (progress: 0.72): 74.37879180908203
 Training Accuracy (progress: 0.72): 0.049658726900815964
 Training Loss (progress: 0.80): 73.63731384277344
 Training Accuracy (progress: 0.80): 0.04965411126613617
+Training Loss (progress: 0.88): 73.28517150878906
+Training Accuracy (progress: 0.88): 0.04977359622716904
+Training Loss (progress: 0.96): 72.59201049804688
+Training Accuracy (progress: 0.96): 0.04997639358043671
+Evaluation on validation dataset:
+Step   25 | mean loss 6.3578e+01
+Step   50 | mean loss 8.0638e+01
+Step   75 | mean loss 6.7800e+01
+Step  100 | mean loss 7.8502e+01
+Step  125 | mean loss 6.9607e+01
+Step  150 | mean loss 7.0355e+01
+Step  175 | mean loss 8.6076e+01
+Step  200 | mean loss 6.3329e+01
+Step  225 | mean loss 6.8416e+01
+Unrolled forward loss      : 2.4663e+01
+Unrolled numerical baseline: 4.0068e-03
+Evaluation on test dataset:
+Step   25 | mean loss 6.2558e+01
+Step   50 | mean loss 8.2296e+01
+Step   75 | mean loss 6.7746e+01
+Step  100 | mean loss 7.6203e+01
+Step  125 | mean loss 7.0290e+01
+Step  150 | mean loss 7.1447e+01
+Step  175 | mean loss 8.6288e+01
+Step  200 | mean loss 6.2699e+01
+Step  225 | mean loss 6.8353e+01
+Unrolled forward loss      : 2.3234e+01
+Unrolled numerical baseline: 4.0068e-03
+Saved model at models/GNN_WE_WE1_xresolution100-200_n6_tw25_unrolling1_time641152.pt
+
+Test loss: 23.234453997039612

@@ -146,8 +146,8 @@ class CE(PDE):
 class WE(PDE):
     """
     utt = c2uxx
-    Dirichlet BCs:  u(−1,t)=0  and  u(+1,t)=0  for all  t>0
-    Neumann BCs:  ux(−1,t)=0 and  ux(+1,t)=0  for all  t>0
+    Dirichlet BCs:  u(−1,t)=0  and  u(+1,t)=0  for all t>0
+    Neumann BCs:  ux(−1,t)=0 and  ux(+1,t)=0  for all t>0
     We implement the 2nd-order in time PDE as a 1st-order augmented state-space equation.
     We introduce a new variable  v, such that  ut=vut=v , so  ut=v, so utt=vt.
     For discretization, it is better to just use v as a storage variable for ut and compute utt directly from u.

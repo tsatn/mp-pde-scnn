@@ -423,13 +423,6 @@ def parse_args():
     parser.add_argument('--log', type=eval, default=False,
             help='pip the output to log file')
 
-    # Add wandb arguments
-    parser.add_argument('--wandb', type=bool, default=True,
-                      help='Enable wandb logging')
-    parser.add_argument('--wandb_project', type=str, default='mp-pde-scnn',
-                      help='WandB project name')
-    parser.add_argument('--wandb_entity', type=str, default='shtian-uc-san-diego',
-                      help='WandB entity/username')
 
     args = parser.parse_args()
     
@@ -438,5 +431,14 @@ def parse_args():
     nt_base, nx_base = map(int, args.base_resolution.split(','))
     args.base_resolution = [nt_base, nx_base]  
     args.nt_base, args.nx_base = nt_base, nx_base
+    
+    return args  # Add this line to return the parsed args
 
-    main(args)
+if __name__ == "__main__":
+    args = parse_args()
+    try:
+        main(args)
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        import traceback
+        traceback.print_exc()

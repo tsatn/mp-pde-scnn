@@ -277,10 +277,15 @@ PYTHONPATH=. python generate/generate_data.py --experiment WE1 \
 1. **Training**
 #### nx = 100
 cd ../mp-pde-scnn
-PYTHONPATH=. python -m experiments.train \
-  --model SCN --experiment WE1 \
-  --base_resolution 250,100 --neighbors 6 --time_window 25 \
-  --batch_size 16 --device cpu
+PYTHONPATH="${PWD}:${PYTHONPATH}" python -m experiments.train \
+  --model SCN \
+  --experiment WE1 \
+  --base_resolution 250,100 \
+  --neighbors 6 \
+  --time_window 25 \
+  --batch_size 16 \
+  --device cpu \
+  --num_epochs 100
 
 #### nx = 50
 python -m experiments.train \
@@ -347,7 +352,6 @@ python -m experiments.train \
 - **Burgers Equation**: Nonlinear advection-diffusion
 - **KdV Equation**: Dispersive nonlinear wave equation
 - **Combined Equation**: Unified framework encompassing above cases
-
 
 
 ---

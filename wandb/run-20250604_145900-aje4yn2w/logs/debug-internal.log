@@ -1,0 +1,71 @@
+{"time":"2025-06-04T14:59:00.475869-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/tteresattian/Desktop/yizhou/mp-pde-scnn/wandb/run-20250604_145900-aje4yn2w/logs/debug-core.log"}
+{"time":"2025-06-04T14:59:00.850917-07:00","level":"INFO","msg":"created new stream","id":"aje4yn2w"}
+{"time":"2025-06-04T14:59:00.850983-07:00","level":"INFO","msg":"stream: started","id":"aje4yn2w"}
+{"time":"2025-06-04T14:59:00.85119-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"aje4yn2w"}
+{"time":"2025-06-04T14:59:00.851255-07:00","level":"INFO","msg":"handler: started","stream_id":"aje4yn2w"}
+{"time":"2025-06-04T14:59:00.851374-07:00","level":"INFO","msg":"sender: started","stream_id":"aje4yn2w"}
+{"time":"2025-06-04T14:59:01.09654-07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-06-04T15:17:25.958856-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:17:28.25488-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:17:32.467726-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:17:41.290294-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:17:55.996442-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-06-04T15:32:48.765546-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 100.64.24.98:58558->35.186.228.49:443: read: can't assign requested address"}
+{"time":"2025-06-04T15:32:50.030893-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:32:52.933988-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:33:01.626926-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:41:20.765505-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:42:10.783586-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T15:45:11.523689-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-04T19:04:08.517408-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59194->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T19:17:14.49884-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59319->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T19:34:33.238399-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59401->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T20:18:21.97233-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59530->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T21:19:19.357911-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59662->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T22:20:17.191709-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59803->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T22:33:07.735507-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59943->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-04T23:21:18.814448-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:59966->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T00:22:16.488092-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60101->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T01:23:14.027535-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60243->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T02:24:11.993313-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60385->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T03:25:24.331451-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60489->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T04:26:21.856962-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60698->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T05:27:19.344813-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:60858->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T06:28:17.024155-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61008->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T06:46:05.431573-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61157->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T07:29:18.690845-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61298->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T08:30:16.134792-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61447->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T09:31:13.537826-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61601->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T10:32:26.065577-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61760->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T10:39:45.653457-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T10:39:48.087219-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T10:39:52.700298-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T10:40:02.437368-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:11:32.406477-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.68.109:61929->35.186.228.49:443: read: can't assign requested address"}
+{"time":"2025-06-05T11:11:34.799454-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:11:39.446873-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:11:44.478976-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:11:48.888605-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:05.454367-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:07.772484-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:12.352648-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:20.61402-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:28.973483-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp [2607:fb90:73b7:40e2:3091:5cfc:2b8:2927]:62036->[2607:7700:0:39:0:1:23ba:e431]:443: read: no route to host"}
+{"time":"2025-06-05T11:43:31.080365-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T11:43:35.781558-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T12:01:08.552502-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T12:08:11.300502-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T12:43:52.036995-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T12:44:01.397913-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T12:50:01.368629-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 100.64.79.252:62880->35.186.228.49:443: read: operation timed out"}
+{"time":"2025-06-05T12:52:18.616199-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": read tcp 100.64.79.252:63203->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T12:56:18.617117-07:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/shtian-uc-san-diego/mp-pde-scnn/aje4yn2w/file_stream\": read tcp 100.64.79.252:63364->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2025-06-05T13:05:57.154894-07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-06-05T13:05:57.15535-07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-06-05T13:05:57.722143-07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-06-05T13:05:57.871222-07:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-06-05T13:05:57.882086-07:00","level":"INFO","msg":"stream: closing","id":"aje4yn2w"}
+{"time":"2025-06-05T13:05:57.882411-07:00","level":"INFO","msg":"handler: closed","stream_id":"aje4yn2w"}
+{"time":"2025-06-05T13:05:57.882469-07:00","level":"INFO","msg":"sender: closed","stream_id":"aje4yn2w"}
+{"time":"2025-06-05T13:05:57.882474-07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"aje4yn2w"}
+{"time":"2025-06-05T13:05:57.882647-07:00","level":"INFO","msg":"stream: closed","id":"aje4yn2w"}
