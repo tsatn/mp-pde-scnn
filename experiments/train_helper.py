@@ -18,9 +18,8 @@ def training_loop(model: nn.Module,
                   criterion: nn.modules.loss._Loss,
                   device: torch.device = "cpu") -> torch.Tensor:
     
-
     losses = []
-    accuracies = []
+    nrmse_list = []
     is_graph = getattr(model, "is_graph_model", False)
 
     for (u_base, u_super, x, variables) in loader:
@@ -87,13 +86,16 @@ def training_loop(model: nn.Module,
         target = graph.y
         loss = criterion(pred, graph.y)  # MSE used explicitly
         loss.backward()
-        accuracy = torch.mean((torch.abs(pred - target) < 0.1).float())
         optimizer.step()
         losses.append(loss.detach() / batch_size)
-        accuracies.append(accuracy.detach() / batch_size)
         
+        mse = torch.mean((pred - target) ** 2)
+        rmse = torch.sqrt(mse)
+        norm = torch.mean(torch.abs(target))
+        nrmse = rmse / (norm + 1e-8)
+        nrmse_list.append(nrmse.detach().cpu())
         
-    return torch.stack(losses), torch.stack(accuracies)
+    return torch.stack(losses), torch.tensor(nrmse_list)
 
 def test_timestep_losses(model: nn.Module,
                          steps: list,

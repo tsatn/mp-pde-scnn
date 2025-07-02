@@ -4,7 +4,7 @@ import copy
 import sys
 import time
 from datetime import datetime
-import torch
+# import torch
 import argparse
 # import random
 import numpy as np
@@ -20,11 +20,15 @@ from torch_geometric.data import Data
 from experiments.models_gnn_snn  import normalize_boundary
 from common.simplicial_utils import Coboundary, normalize
 from experiments.models_gnn_snn import SCNPDEModel
-from common.simplicial_utils import enrich_pyg_data_with_simplicial, Coboundary, normalize
+from common.simplicial_utils import enrich_pyg_data_with_simplicial
 from common.utils import HDF5Dataset, GraphCreator
 from experiments.models_cnn import BaseCNN
 from experiments.train_helper import *
 import wandb
+
+import torch
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 def check_directory() -> None:
     """
@@ -74,21 +78,25 @@ def train(args: argparse,
     # Since the starting point is randomly drawn, this in expectation has every possible starting point/sample combination of the training data.
     # Therefore in expectation the whole available training information is covered.
     ave_loss, total_loss, loss_size = 0, 0, 0
-    ave_accuracy, total_accuracy, accuracy_size = 0, 0, 0
+    ave_nrmse, total_nrmse, nrmse_size = 0, 0, 0
 
     for i in range(graph_creator.t_res): 
-        losses, accuracies = training_loop(model, unrolling, args.batch_size, optimizer, loader, graph_creator, criterion, device)
+        losses, nrmse_list = training_loop(model, unrolling, args.batch_size, optimizer, loader, graph_creator, criterion, device)
         if(i % args.print_interval == 0):
             print(f'Training Loss (progress: {i / graph_creator.t_res:.2f}): {torch.mean(losses)}')
-            print(f'Training Accuracy (progress: {i / graph_creator.t_res:.2f}): {torch.mean(accuracies)}')
+            print(f'Training NRMSE (progress: {i / graph_creator.t_res:.2f}): {torch.mean(nrmse_list)}')
             loss_size += 1
-            accuracy_size += 1
+            nrmse_size += 1
         total_loss += torch.mean(losses)  
-        total_accuracy += torch.mean(accuracies)
-    ave_loss = total_loss/loss_size
-    ave_accuracy = total_accuracy/accuracy_size
-    run.log({"train_loss": float(torch.mean(ave_loss)), "epoch": epoch})
-    run.log({"train_accuracy": float(torch.mean(ave_accuracy)), "epoch": epoch})
+        total_nrmse += torch.mean(nrmse_list)
+    ave_loss = total_loss / loss_size
+    ave_nrmse = total_nrmse / nrmse_size
+
+    run.log({
+        "train_loss": float(ave_loss),
+        "train_nrmse": float(ave_nrmse),
+        "epoch": epoch
+    })
     
     
 def test(args: argparse,
